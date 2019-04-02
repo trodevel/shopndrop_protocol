@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10709 $ $Date:: 2019-04-01 #$ $Author: serge $
+// $Revision: 10718 $ $Date:: 2019-04-02 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -71,12 +71,6 @@ struct Ride
     double          max_weight;
 };
 
-struct RideWithId
-{
-    id_t            id;
-    Ride            ride;
-};
-
 enum class order_status_e
 {
     CANCELLED                   = 0,
@@ -103,6 +97,14 @@ struct Address
     std::string country;
 };
 
+struct Order
+{
+    basic_objects::LocalTime delivery_time;
+    id_t            shopping_list_id;
+    double          sum;
+    order_status_e  status;
+};
+
 /**************************************************
  * WEB OBJECTS
  **************************************************/
@@ -110,15 +112,15 @@ struct Address
 namespace web
 {
 
-struct ShoppingItem
+struct ShoppingItemWithProduct
 {
-    ::shopndrop_protocol::ShoppingItem shopping_item;
+    ShoppingItem    shopping_item;
     ProductItem     product_item;
 };
 
 struct ShoppingList
 {
-    std::vector<ShoppingItem>   items;
+    std::vector<ShoppingItemWithProduct>   items;
 };
 
 struct ShoppingListWithTotals
@@ -128,13 +130,21 @@ struct ShoppingListWithTotals
     double          weight;
 };
 
+struct RideWithShopper
+{
+    id_t            ride_id;
+    Ride            ride;
+    std::string     shopper_name;
+};
+
 struct RideWithRequests
 {
-    RideWithId      ride;
+    id_t            ride_id;
+    Ride            ride;
     uint32_t        num_requests;
 };
 
-struct RideOrderInfo
+struct OrderRequestInfo
 {
     id_t            order_id;
     double          sum;
@@ -144,17 +154,29 @@ struct RideOrderInfo
     std::string     address;
 };
 
-struct AcceptedOrder
+struct AcceptedOrderUser
 {
     id_t            order_id;
-    basic_objects::LocalTime delivery_time;
+    Order           order;
+    std::string     shopper_name;
+};
+
+struct AcceptedOrderShopper
+{
+    id_t            order_id;
+    Order           order;
     std::string     address;
     uint32_t        plz;
-    id_t            shopping_list_id;
-    double          sum;
     double          earning;
     double          weight;
-    order_status_e  status;
+};
+
+struct DashScreenUser
+{
+    basic_objects::LocalTime        current_time;
+
+    std::vector<RideWithShopper>        rides;
+    std::vector<AcceptedOrderUser>      orders;
 };
 
 struct DashScreenShopper
@@ -162,7 +184,7 @@ struct DashScreenShopper
     basic_objects::LocalTime        current_time;
 
     std::vector<RideWithRequests>   rides;
-    std::vector<AcceptedOrder>      orders;
+    std::vector<AcceptedOrderShopper>      orders;
 };
 
 }   // namespace web
@@ -201,7 +223,7 @@ struct GetRideOrderInfoRequest: public Request
 
 struct GetRideOrderInfoResponse: public generic_protocol::BackwardMessage
 {
-    std::vector<RideOrderInfo>    rides;
+    std::vector<OrderRequestInfo>    rides;
 };
 }
 
