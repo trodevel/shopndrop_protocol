@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10724 $ $Date:: 2019-04-02 #$ $Author: serge $
+// $Revision: 10732 $ $Date:: 2019-04-04 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -207,6 +207,45 @@ struct AddRideRequest: public Request
 struct AddRideResponse: public generic_protocol::BackwardMessage
 {
     id_t            ride_id;
+};
+
+struct CancelRideRequest: public Request
+{
+    id_t            ride_id;
+};
+
+struct CancelRideResponse: public generic_protocol::BackwardMessage
+{
+};
+
+struct GetRideRequest: public Request
+{
+    id_t            ride_id;
+};
+
+struct GetRideResponse: public generic_protocol::BackwardMessage
+{
+    Ride            ride;
+};
+
+struct AddOrderRequest: public Request
+{
+    id_t            ride_id;
+    ShoppingList    shopping_list;
+};
+
+struct AddOrderResponse: public generic_protocol::BackwardMessage
+{
+    id_t            order_id;
+};
+
+struct CancelOrderRequest: public Request
+{
+    id_t            order_id;
+};
+
+struct CancelOrderResponse: public generic_protocol::BackwardMessage
+{
 };
 
 struct GetPersonalUserInfoRequest: public Request
