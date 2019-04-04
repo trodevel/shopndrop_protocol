@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10718 $ $Date:: 2019-04-02 #$ $Author: serge $
+// $Revision: 10724 $ $Date:: 2019-04-02 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -112,6 +112,12 @@ struct Order
 namespace web
 {
 
+struct ProductItemWithId
+{
+    id_t            product_item_id;
+    ProductItem     product_item;
+};
+
 struct ShoppingItemWithProduct
 {
     ShoppingItem    shopping_item;
@@ -183,8 +189,8 @@ struct DashScreenShopper
 {
     basic_objects::LocalTime        current_time;
 
-    std::vector<RideWithRequests>   rides;
-    std::vector<AcceptedOrderShopper>      orders;
+    std::vector<RideWithRequests>       rides;
+    std::vector<AcceptedOrderShopper>   orders;
 };
 
 }   // namespace web
@@ -192,6 +198,16 @@ struct DashScreenShopper
 /**************************************************
  * REQUESTS
  **************************************************/
+
+struct AddRideRequest: public Request
+{
+    Ride            ride;
+};
+
+struct AddRideResponse: public generic_protocol::BackwardMessage
+{
+    id_t            ride_id;
+};
 
 struct GetPersonalUserInfoRequest: public Request
 {
@@ -216,6 +232,16 @@ struct GetPersonalUserInfoResponse: public generic_protocol::BackwardMessage
 
 namespace web
 {
+
+struct GetProductItemListRequest: public Request
+{
+};
+
+struct GetProductItemListResponse: public generic_protocol::BackwardMessage
+{
+    std::vector<ProductItemWithId>  product_items;
+};
+
 struct GetRideOrderInfoRequest: public Request
 {
     id_t            ride_id;
@@ -225,6 +251,27 @@ struct GetRideOrderInfoResponse: public generic_protocol::BackwardMessage
 {
     std::vector<OrderRequestInfo>    rides;
 };
+
+struct GetDashScreenUserRequest: public Request
+{
+    id_t            user_id;
+};
+
+struct GetDashScreenUserResponse: public generic_protocol::BackwardMessage
+{
+    DashScreenUser  dash_screen;
+};
+
+struct GetDashScreenShopperRequest: public Request
+{
+    id_t            user_id;
+};
+
+struct GetDashScreenShopperResponse: public generic_protocol::BackwardMessage
+{
+    DashScreenShopper   dash_screen;
+};
+
 }
 
 } // namespace shopndrop_protocol
