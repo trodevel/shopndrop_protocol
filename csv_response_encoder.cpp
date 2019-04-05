@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10766 $ $Date:: 2019-04-05 #$ $Author: serge $
+// $Revision: 10771 $ $Date:: 2019-04-05 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -228,6 +228,72 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const Ride & r )
     return os;
 }
 
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const ShoppingItem & r )
+{
+    utils::CsvHelper::write(
+            os,
+            r.product_item_id,
+            r.amount );
+
+    return os;
+}
+
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const Address & r )
+{
+    utils::CsvHelper::write(
+            os,
+            r.plz,
+            utils::nonascii_hex_codec::encode( r.city ),
+            utils::nonascii_hex_codec::encode( r.street ),
+            utils::nonascii_hex_codec::encode( r.house_number ),
+            utils::nonascii_hex_codec::encode( r.extra_address_line ),
+            utils::nonascii_hex_codec::encode( r.country ) );
+
+    return os;
+}
+
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::RideWithShopper & r )
+{
+    utils::CsvHelper::write( os, r.ride_id );
+
+    write( os, r.ride );
+
+    utils::CsvHelper::write( os, utils::nonascii_hex_codec::encode( r.shopper_name ) );
+
+    return os;
+}
+
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::ShoppingItemWithProduct & e )
+{
+    write( os, e.shopping_item );
+    write( os, e.product_item );
+
+    return os;
+}
+
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::RideWithRequests & r )
+{
+    utils::CsvHelper::write( os, r.ride_id );
+
+    write( os, r.ride );
+
+    utils::CsvHelper::write( os, r.num_requests );
+
+    return os;
+}
+
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::ShoppingListWithTotals & r )
+{
+    write( os, r.shopping_list );
+
+    utils::CsvHelper::write(
+            os,
+            r.price,
+            r.weight );
+
+    return os;
+}
+
 std::string CsvResponseEncoder::to_csv( const AddRideResponse & r )
 {
     return utils::CsvHelper::to_csv( "AddRideResponse", r.ride_id );
@@ -268,30 +334,6 @@ std::string CsvResponseEncoder::to_csv( const GetPersonalUserInfoResponse & r )
             static_cast<uint32_t>( r.gender ),
             r.first_name, r.last_name, r.company_name,
             r.email, r.phone, r.timezone );
-}
-
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const ShoppingItem & r )
-{
-    utils::CsvHelper::write(
-            os,
-            r.product_item_id,
-            r.amount );
-
-    return os;
-}
-
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const Address & r )
-{
-    utils::CsvHelper::write(
-            os,
-            r.plz,
-            utils::nonascii_hex_codec::encode( r.city ),
-            utils::nonascii_hex_codec::encode( r.street ),
-            utils::nonascii_hex_codec::encode( r.house_number ),
-            utils::nonascii_hex_codec::encode( r.extra_address_line ),
-            utils::nonascii_hex_codec::encode( r.country ) );
-
-    return os;
 }
 
 std::string CsvResponseEncoder::to_csv( const web::GetProductItemListResponse & r )
@@ -335,48 +377,6 @@ std::string CsvResponseEncoder::to_csv( const web::GetDashScreenShopperResponse 
     write( os, r.dash_screen );
 
     return os.str();
-}
-
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::RideWithShopper & r )
-{
-    utils::CsvHelper::write( os, r.ride_id );
-
-    write( os, r.ride );
-
-    utils::CsvHelper::write( os, utils::nonascii_hex_codec::encode( r.shopper_name ) );
-
-    return os;
-}
-
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::ShoppingItemWithProduct & e )
-{
-    write( os, e.shopping_item );
-    write( os, e.product_item );
-
-    return os;
-}
-
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::RideWithRequests & r )
-{
-    utils::CsvHelper::write( os, r.ride_id );
-
-    write( os, r.ride );
-
-    utils::CsvHelper::write( os, r.num_requests );
-
-    return os;
-}
-
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::ShoppingListWithTotals & r )
-{
-    write( os, r.shopping_list );
-
-    utils::CsvHelper::write(
-            os,
-            r.price,
-            r.weight );
-
-    return os;
 }
 
 } // namespace shopndrop_protocol
