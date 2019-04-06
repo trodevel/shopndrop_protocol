@@ -61,7 +61,7 @@ bool RequestValidator::validate( const ShoppingList & r )
 
 bool RequestValidator::validate( const Ride & r )
 {
-    basic_objects::Validator::validate( & r.delivery_time );
+    basic_objects::Validator::validate( r.delivery_time );
 
     return true;
 }
@@ -75,32 +75,32 @@ bool RequestValidator::validate( const AddRideRequest & r )
 {
     validate( r.ride );
 
-    return generic_protocol::RequestValidator::validate( & r );
+    return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const CancelRideRequest & r )
 {
-    return generic_protocol::RequestValidator::validate( & r );
+    return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const GetRideRequest & r )
 {
-    return generic_protocol::RequestValidator::validate( & r );
+    return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const AddOrderRequest & r )
 {
-    return generic_protocol::RequestValidator::validate( & r );
+    return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const CancelOrderRequest & r )
 {
-    return generic_protocol::RequestValidator::validate( & r );
+    return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const GetPersonalUserInfoRequest & r )
 {
-    return generic_protocol::RequestValidator::validate( & r );
+    return generic_protocol::RequestValidator::validate( r );
 }
 
 } // namespace shopndrop_protocol
