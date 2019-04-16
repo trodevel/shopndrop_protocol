@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10805 $ $Date:: 2019-04-07 #$ $Author: serge $
+// $Revision: 10811 $ $Date:: 2019-04-17 #$ $Author: serge $
 
 #include "str_helper.h"             // self
 
@@ -36,7 +36,7 @@ namespace shopndrop_protocol {
 #define TUPLE_VAL_STR(_x_)  _x_,#_x_
 #define TUPLE_STR_VAL(_x_)  #_x_,_x_
 
-std::string StrHelper::to_string( const request_type_e s )
+const std::string & StrHelper::to_string( const request_type_e s )
 {
     typedef request_type_e Type;
     static const std::map< Type, std::string > m =
@@ -139,3 +139,58 @@ std::ostream & StrHelper::write( std::ostream & os, const GetPersonalUserInfoReq
 
 } // namespace shopndrop_protocol
 
+
+namespace shopndrop_protocol {
+
+namespace web {
+
+const std::string & StrHelper::to_string( const request_type_e s )
+{
+    typedef request_type_e Type;
+    static const std::map< Type, std::string > m =
+    {
+        { Type:: TUPLE_VAL_STR( UNDEF ) },
+        { Type:: TUPLE_VAL_STR( GetProductItemListRequest ) },
+        { Type:: TUPLE_VAL_STR( GetRideOrderInfoRequest ) },
+        { Type:: TUPLE_VAL_STR( GetDashScreenUserRequest ) },
+        { Type:: TUPLE_VAL_STR( GetDashScreenShopperRequest ) },
+    };
+
+    auto it = m.find( s );
+
+    static const std::string undef( "undef" );
+
+    if( it == m.end() )
+        return ::shopndrop_protocol::StrHelper::to_string( s );
+
+    return it->second;
+}
+
+std::ostream & StrHelper::write( std::ostream & os, const GetProductItemListRequest & l )
+{
+    return os;
+}
+
+std::ostream & StrHelper::write( std::ostream & os, const GetRideOrderInfoRequest & l )
+{
+    os << "ride_id " << l.ride_id;
+
+    return os;
+}
+
+std::ostream & StrHelper::write( std::ostream & os, const GetDashScreenUserRequest & l )
+{
+    os << "user_id " << l.user_id;
+
+    return os;
+}
+std::ostream & StrHelper::write( std::ostream & os, const GetDashScreenShopperRequest & l )
+{
+    os << "user_id " << l.user_id;
+
+    return os;
+}
+
+} // namespace web
+
+} // namespace shopndrop_protocol

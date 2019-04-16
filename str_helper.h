@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10805 $ $Date:: 2019-04-07 #$ $Author: serge $
+// $Revision: 10811 $ $Date:: 2019-04-17 #$ $Author: serge $
 
 #include <string>
 #include <sstream>
@@ -32,7 +32,7 @@ namespace shopndrop_protocol {
 class StrHelper
 {
 public:
-    static std::string to_string( const request_type_e l );
+    static const std::string & to_string( const request_type_e l );
     static const std::string & to_string( const order_status_e l );
     static std::ostream & write( std::ostream & os, const Ride & l );
     static std::ostream & write( std::ostream & os, const AddRideRequest & l );
@@ -52,5 +52,33 @@ public:
         return os.str();
     }
 };
+
+} // namespace shopndrop_protocol
+
+namespace shopndrop_protocol {
+
+namespace web {
+
+class StrHelper
+{
+public:
+    static const std::string & to_string( const request_type_e l );
+    static std::ostream & write( std::ostream & os, const GetProductItemListRequest & l );
+    static std::ostream & write( std::ostream & os, const GetRideOrderInfoRequest & l );
+    static std::ostream & write( std::ostream & os, const GetDashScreenUserRequest & l );
+    static std::ostream & write( std::ostream & os, const GetDashScreenShopperRequest & l );
+
+    template<class T>
+    static std::string to_string( const T & l )
+    {
+        std::ostringstream os;
+
+        write( os, l );
+
+        return os.str();
+    }
+};
+
+} // namespace web
 
 } // namespace shopndrop_protocol
