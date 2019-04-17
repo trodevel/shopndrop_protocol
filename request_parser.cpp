@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10785 $ $Date:: 2019-04-06 #$ $Author: serge $
+// $Revision: 10807 $ $Date:: 2019-04-17 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -44,7 +44,7 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
 
     typedef ForwardMessage* (*PPMF)( const generic_request::Request & r );
 
-    static const std::map<request_type_e, PPMF> funcs =
+    static const std::map<KeyType, PPMF> funcs =
     {
         { KeyType::AddRideRequest,              & Type::to_AddRideRequest },
         { KeyType::AddOrderRequest,             & Type::to_AddOrderRequest },
@@ -230,7 +230,7 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
 
     typedef ForwardMessage* (*PPMF)( const generic_request::Request & r );
 
-    static const std::map<request_type_e, PPMF> funcs =
+    static const std::map<KeyType, PPMF> funcs =
     {
         { KeyType::GetProductItemListRequest,   & Type::to_GetProductItemListRequest },
         { KeyType::GetRideOrderInfoRequest,     & Type::to_GetRideOrderInfoRequest },
