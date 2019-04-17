@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10825 $ $Date:: 2019-04-17 #$ $Author: serge $
+// $Revision: 10850 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -170,7 +170,7 @@ inline DashScreenUser * init_DashScreenUser(
 inline DashScreenShopper * init_DashScreenShopper(
         DashScreenShopper  * res,
         const basic_objects::LocalTime          & current_time,
-        const std::vector<RideWithShopper>      & rides,
+        const std::vector<RideWithRequests>     & rides,
         const std::vector<AcceptedOrderShopper> & orders )
 {
     res->current_time   = current_time;

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10787 $ $Date:: 2019-04-06 #$ $Author: serge $
+// $Revision: 10802 $ $Date:: 2019-04-07 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -46,28 +46,49 @@ bool RequestValidator::validate( const order_status_e & r )
 
 bool RequestValidator::validate( const ProductItem & r )
 {
+    THROW_IF_STRING_EMPTY( r.name, "NAME");
+    THROW_IF_STRING_EMPTY( r.unit, "UNIT");
+    THROW_IF_FLOAT_NEG_ZERO( r.price, "PRICE");
+    THROW_IF_FLOAT_NEG_ZERO( r.weight, "WEIGHT");
+
     return true;
 }
 
 bool RequestValidator::validate( const ShoppingItem & r )
 {
+    validate( r.product_item_id, "PRODUCT_ITEM_ID" );
+    THROW_IF_INT_NEG_ZERO( r.amount, "AMOUNT");
+
     return true;
 }
 
 bool RequestValidator::validate( const ShoppingList & r )
 {
+    for( auto & e: r.items )
+    {
+        validate( e );
+    }
+
     return true;
 }
 
 bool RequestValidator::validate( const Ride & r )
 {
+    THROW_IF_INT_NEG_ZERO( r.plz, "PLZ");
     basic_objects::Validator::validate( r.delivery_time );
+    THROW_IF_FLOAT_NEG_ZERO( r.max_weight, "MAX_WEIGHT");
 
     return true;
 }
 
 bool RequestValidator::validate( const Address & r )
 {
+    THROW_IF_INT_NEG_ZERO( r.plz, "PLZ");
+    THROW_IF_STRING_EMPTY( r.city,      "CITY");
+    THROW_IF_STRING_EMPTY( r.street,    "STREET");
+    THROW_IF_STRING_EMPTY( r.house_number, "HOUSE_NUMBER");
+    THROW_IF_STRING_EMPTY( r.country,   "COUNTRY");
+
     return true;
 }
 
@@ -80,27 +101,69 @@ bool RequestValidator::validate( const AddRideRequest & r )
 
 bool RequestValidator::validate( const CancelRideRequest & r )
 {
+    validate( r.ride_id, "RIDE_ID" );
+
     return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const GetRideRequest & r )
 {
+    validate( r.ride_id, "RIDE_ID" );
+
     return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const AddOrderRequest & r )
 {
+    validate( r.ride_id, "RIDE_ID" );
+    validate( r.shopping_list );
+
     return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const CancelOrderRequest & r )
 {
+    validate( r.order_id, "ORDER_ID" );
+
     return generic_protocol::RequestValidator::validate( r );
 }
 
 bool RequestValidator::validate( const GetPersonalUserInfoRequest & r )
 {
+    validate( r.user_id, "USER_ID" );
+
     return generic_protocol::RequestValidator::validate( r );
 }
+
+namespace web {
+
+bool RequestValidator::validate( const GetProductItemListRequest & r )
+{
+    return true;
+}
+
+bool RequestValidator::validate( const GetRideOrderInfoRequest & r )
+{
+    ::shopndrop_protocol::RequestValidator::validate( r.ride_id, "RIDE_ID" );
+
+    return generic_protocol::RequestValidator::validate( r );
+}
+
+bool RequestValidator::validate( const GetDashScreenUserRequest & r )
+{
+    ::shopndrop_protocol::RequestValidator::validate( r.user_id, "USER_ID" );
+
+    return generic_protocol::RequestValidator::validate( r );
+}
+
+bool RequestValidator::validate( const GetDashScreenShopperRequest & r )
+{
+    ::shopndrop_protocol::RequestValidator::validate( r.user_id, "USER_ID" );
+
+    return generic_protocol::RequestValidator::validate( r );
+}
+
+} // namespace web
+
 
 } // namespace shopndrop_protocol

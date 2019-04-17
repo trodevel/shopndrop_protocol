@@ -155,12 +155,12 @@ void test_GetDashScreenUserResponse()
 
 void test_GetDashScreenShopperResponse()
 {
-    std::vector<shopndrop_protocol::web::RideWithShopper>      rides    =
+    std::vector<shopndrop_protocol::web::RideWithRequests>      rides    =
     {
-            { 121212, { 50668, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, "Matthias Mayer" },
-            { 232323, { 50667, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, "Lukas Himmelfarb" },
-            { 343434, { 50672, { 2019, 5, 22, 23, 10, 0 }, 2.5 }, "Jonas Peschka" },
-            { 454545, { 50667, { 2019, 5, 23, 9, 0, 0 },   1.5 }, "Anke Rittermeyer" },
+            { 121212, { 50668, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, 2 },
+            { 232323, { 50667, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, 1 },
+            { 343434, { 50672, { 2019, 5, 22, 23, 10, 0 }, 2.5 }, 1 },
+            { 454545, { 50667, { 2019, 5, 23, 9, 0, 0 },   1.5 }, 1 },
     };
 
     std::vector<shopndrop_protocol::web::AcceptedOrderShopper>    orders   =
@@ -168,7 +168,7 @@ void test_GetDashScreenShopperResponse()
             { 565656, { { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, shopndrop_protocol::order_status_e::CLOSED_FEEDBACK_RECEIVED }, 50668, "Eigelstein 1", 1.12, 2.0 },
             { 676767, { { 2019, 5, 22, 17, 30, 0 }, 252525, 23.39, shopndrop_protocol::order_status_e::CANCELLED }, 50667, "Hohe Strasse 17", 2.5, 1.5 },
             { 787878, { { 2019, 5, 27, 20, 20, 0 }, 363636, 11.87, shopndrop_protocol::order_status_e::DELIVERED_WAITING_FEEDBACK }, 50672, "Antwerpener Strasse 25", 1.12, .5 },
-            { 898989, { { 2019, 5, 29, 18, 45, 0 }, 474747, 20.15, shopndrop_protocol::order_status_e::ACCEPTED_WAITING_DELIVERY }, 50674, "Lindenstrasse 56", 2,02, 1.2 },
+            { 898989, { { 2019, 5, 29, 18, 45, 0 }, 474747, 20.15, shopndrop_protocol::order_status_e::ACCEPTED_WAITING_DELIVERY }, 50674, "Lindenstrasse 56", 2.02, 1.2 },
             { 909090, { { 2019, 5, 30, 19, 30, 0 }, 585858, 23.20, shopndrop_protocol::order_status_e::WAITING_ACCEPTANCE }, 50674, "Roonnstrasse 29", 2.3, 1.7 },
     };
 

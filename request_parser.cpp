@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10807 $ $Date:: 2019-04-17 #$ $Author: serge $
+// $Revision: 10853 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -34,6 +34,7 @@ namespace shopndrop_protocol {
 
 using basic_parser::get_value_or_throw;
 using basic_parser::get_value_or_throw_uint32;
+using basic_parser::get_value_or_throw_double;
 
 generic_protocol::ForwardMessage* RequestParser::to_forward_message( const generic_request::Request & r )
 {
@@ -83,7 +84,7 @@ void RequestParser::to_order_status( order_status_e * res, const std::string & k
 
     get_value_or_throw_uint32( status, key, r );
 
-    * res = status;
+    * res = static_cast<order_status_e>( status );
 }
 
 void RequestParser::to_ProductItem( ProductItem * res, const generic_request::Request & r )
@@ -179,19 +180,6 @@ void RequestParser::to_ShoppingList( ShoppingList * res, const generic_request::
 {
 }
 
-RequestParser::ForwardMessage * RequestParser::to_GetPersonalUserInfoRequest( const generic_request::Request & r )
-{
-    auto * res = new GetPersonalUserInfoRequest;
-
-    get_value_or_throw_uint32( res->user_id,       "USER_ID", r );
-
-    generic_protocol::RequestParser::to_request( res, r );
-
-    RequestValidator::validate( * res );
-
-    return res;
-}
-
 void RequestParser::to_Ride( Ride * res, const generic_request::Request & r )
 {
     get_value_or_throw_uint32( res->plz,       "PLZ", r );
@@ -244,6 +232,16 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
         return it->second( r );
 
     return ::shopndrop_protocol::RequestParser::to_forward_message( r );
+}
+
+request_type_e  RequestParser::detect_request_type( const generic_request::Request & r )
+{
+    std::string cmd;
+
+    if( r.get_value( "CMD", cmd ) == false )
+        throw MalformedRequest( "CMD is not defined" );
+
+    return Parser::to_request_type( cmd );
 }
 
 RequestParser::ForwardMessage * RequestParser::to_GetProductItemListRequest( const generic_request::Request & r )

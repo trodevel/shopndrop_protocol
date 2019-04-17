@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10771 $ $Date:: 2019-04-05 #$ $Author: serge $
+// $Revision: 10843 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -92,7 +92,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const Order & r )
     return os;
 }
 
-static std::ostream & CsvResponseEncoder::write( std::ostream & os, order_status_e r )
+std::ostream & CsvResponseEncoder::write( std::ostream & os, order_status_e r )
 {
     utils::CsvHelper::write( os, static_cast<unsigned>( r ) );
 

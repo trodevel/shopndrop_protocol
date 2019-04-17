@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10804 $ $Date:: 2019-04-07 #$ $Author: serge $
+// $Revision: 10844 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #include "parser.h"                 // self
 
@@ -85,7 +85,7 @@ request_type_e Parser::to_request_type( const std::string & s )
     auto it = m.find( s );
 
     if( it == m.end() )
-        return ::shopndrop_protocol::Parser::to_request_type( s );
+        return request_type_e::UNDEF;
 
     return it->second;
 }

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10811 $ $Date:: 2019-04-17 #$ $Author: serge $
+// $Revision: 10849 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #include "str_helper.h"             // self
 
@@ -161,7 +161,7 @@ const std::string & StrHelper::to_string( const request_type_e s )
     static const std::string undef( "undef" );
 
     if( it == m.end() )
-        return ::shopndrop_protocol::StrHelper::to_string( s );
+        return undef;
 
     return it->second;
 }
