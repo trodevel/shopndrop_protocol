@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10732 $ $Date:: 2019-04-04 #$ $Author: serge $
+// $Revision: 10839 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -171,8 +171,8 @@ struct AcceptedOrderShopper
 {
     id_t            order_id;
     Order           order;
-    std::string     address;
     uint32_t        plz;
+    std::string     address;
     double          earning;
     double          weight;
 };
