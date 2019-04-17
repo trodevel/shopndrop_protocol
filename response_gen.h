@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10824 $ $Date:: 2019-04-17 #$ $Author: serge $
+// $Revision: 10825 $ $Date:: 2019-04-17 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -28,7 +28,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace shopndrop_protocol {
 
-inline AddRideResponse create_AddRideResponse(
+inline AddRideResponse * create_AddRideResponse(
         id_t                            ride_id )
 {
     auto * res = new AddRideResponse;
