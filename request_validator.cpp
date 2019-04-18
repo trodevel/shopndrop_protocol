@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10859 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 10869 $ $Date:: 2019-04-19 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -64,6 +64,8 @@ bool RequestValidator::validate( const ShoppingItem & r )
 
 bool RequestValidator::validate( const ShoppingList & r )
 {
+    THROW_IF_ARRAY_EMPTY( r.items, "SHOPPING_LIST");
+
     for( auto & e: r.items )
     {
         validate( e );
