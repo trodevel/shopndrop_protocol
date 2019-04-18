@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10787 $ $Date:: 2019-04-06 #$ $Author: serge $
+// $Revision: 10859 $ $Date:: 2019-04-19 #$ $Author: serge $
 
 #include "shopndrop_protocol.h"    // Request...
 
@@ -33,6 +33,7 @@ public:
     static bool validate( const ProductItem & r );
     static bool validate( const ShoppingItem & r );
     static bool validate( const ShoppingList & r );
+    static bool validate( const GeoPosition & r );
     static bool validate( const Ride & r );
     static bool validate( const Address & r );
     static bool validate( const AddRideRequest & r );

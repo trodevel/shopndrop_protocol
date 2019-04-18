@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10839 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10857 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -63,10 +63,16 @@ struct ShoppingList
     std::vector<ShoppingItem>   items;
 };
 
+struct GeoPosition
+{
+    uint32_t        plz;
+    double          latitude;
+    double          longitude;
+};
 
 struct Ride
 {
-    uint32_t        plz;
+    GeoPosition     position;
     basic_objects::LocalTime delivery_time;
     double          max_weight;
 };
@@ -156,7 +162,7 @@ struct OrderRequestInfo
     double          sum;
     double          earning;
     double          weight;
-    uint32_t        plz;
+    GeoPosition     position;
     std::string     address;
 };
 
@@ -171,7 +177,7 @@ struct AcceptedOrderShopper
 {
     id_t            order_id;
     Order           order;
-    uint32_t        plz;
+    GeoPosition     position;
     std::string     address;
     double          earning;
     double          weight;

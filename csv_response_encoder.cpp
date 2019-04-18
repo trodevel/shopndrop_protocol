@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10855 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10858 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -158,8 +158,12 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::Accepted
 
     utils::CsvHelper::write(
             os,
-            utils::nonascii_hex_codec::encode( r.address ),
-            r.plz,
+            utils::nonascii_hex_codec::encode( r.address ) );
+
+    write( os, r.position );
+
+    utils::CsvHelper::write(
+            os,
             r.earning,
             r.weight );
 
@@ -206,14 +210,20 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::DashScre
 
 std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::OrderRequestInfo & r )
 {
-    return utils::CsvHelper::write(
+    utils::CsvHelper::write(
             os,
             r.order_id,
             r.sum,
             r.earning,
-            r.weight,
-            r.plz,
+            r.weight );
+
+    write( os, r.position );
+
+    utils::CsvHelper::write(
+            os,
             utils::nonascii_hex_codec::encode( r.address ) );
+
+    return os;
 }
 
 std::ostream & CsvResponseEncoder::write( std::ostream & os, const ShoppingList & r )
@@ -227,9 +237,16 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const ShoppingList 
     return os;
 }
 
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const GeoPosition & r )
+{
+    utils::CsvHelper::write( os, r.plz, r.latitude, r.longitude );
+
+    return os;
+}
+
 std::ostream & CsvResponseEncoder::write( std::ostream & os, const Ride & r )
 {
-    utils::CsvHelper::write( os, r.plz );
+    write( os, r.position );
     basic_objects::CsvHelper::write( os, r.delivery_time );
     utils::CsvHelper::write( os, r.max_weight );
 

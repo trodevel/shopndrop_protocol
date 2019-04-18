@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10853 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10860 $ $Date:: 2019-04-19 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -180,9 +180,17 @@ void RequestParser::to_ShoppingList( ShoppingList * res, const generic_request::
 {
 }
 
-void RequestParser::to_Ride( Ride * res, const generic_request::Request & r )
+void RequestParser::to_GeoPosition( GeoPosition * res, const generic_request::Request & r )
 {
     get_value_or_throw_uint32( res->plz,       "PLZ", r );
+
+    res->latitude   = 0;    // currently not supported
+    res->longitude  = 0;    // currently not supported
+}
+
+void RequestParser::to_Ride( Ride * res, const generic_request::Request & r )
+{
+    to_GeoPosition( & res->position, r );
 
     basic_objects::Parser::to_LocalTime( & res->delivery_time, "DELIVERY_TIME", r );
 

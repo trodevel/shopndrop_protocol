@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10811 $ $Date:: 2019-04-17 #$ $Author: serge $
+// $Revision: 10861 $ $Date:: 2019-04-19 #$ $Author: serge $
 
 #include <string>
 #include <sstream>
@@ -34,6 +34,7 @@ class StrHelper
 public:
     static const std::string & to_string( const request_type_e l );
     static const std::string & to_string( const order_status_e l );
+    static std::ostream & write( std::ostream & os, const GeoPosition & l );
     static std::ostream & write( std::ostream & os, const Ride & l );
     static std::ostream & write( std::ostream & os, const AddRideRequest & l );
     static std::ostream & write( std::ostream & os, const CancelRideRequest & l );

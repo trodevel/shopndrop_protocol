@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10850 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10862 $ $Date:: 2019-04-19 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -45,13 +45,26 @@ inline CancelRideResponse * create_CancelRideResponse()
     return res;
 }
 
-inline Ride * init_Ride(
-        Ride           * res,
+inline GeoPosition * init_GeoPosition(
+        GeoPosition     * res,
         uint32_t        plz,
-        const basic_objects::LocalTime & delivery_time,
-        double          max_weight )
+        double          latitude,
+        double          longitude )
 {
     res->plz            = plz;
+    res->latitude       = latitude;
+    res->longitude      = longitude;
+
+    return res;
+}
+
+inline Ride * init_Ride(
+        Ride           * res,
+        const GeoPosition               & position,
+        const basic_objects::LocalTime  & delivery_time,
+        double                          max_weight )
+{
+    res->position       = position;
     res->delivery_time  = delivery_time;
     res->max_weight     = max_weight;
 

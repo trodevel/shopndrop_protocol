@@ -51,7 +51,7 @@ void test_GetRideResponse()
 {
     shopndrop_protocol::Ride ride;
 
-    shopndrop_protocol::init_Ride( & ride, 50668, { 2019, 05, 22, 18, 0, 0 }, 2.0 );
+    shopndrop_protocol::init_Ride( & ride, { 50668, 0, 0 }, { 2019, 05, 22, 18, 0, 0 }, 2.0 );
 
     auto s = shopndrop_protocol::create_GetRideResponse( ride );
 
@@ -110,10 +110,10 @@ void test_GetRideOrderInfoResponse()
 {
     std::vector<shopndrop_protocol::web::OrderRequestInfo> pids  =
     {
-            { 121212, 10.35,    ( 10.35 / 1.3 ) * .15,  2.0, 50668, "Eigelstein 1" },
-            { 232323, 7.62,     ( 7.62 / 1.3 ) * .15,   2.7, 50667, "Hohe Strasse 17" },
-            { 121212, 12.67,    ( 12.67 / 1.3 ) * .15,  1.5, 50672, "Antwerpener Strasse 25" },
-            { 121212, 20.39,    ( 20.39 / 1.3 ) * .15,  1.0, 50674, "Lindenstrasse 56" },
+            { 121212, 10.35,    ( 10.35 / 1.3 ) * .15,  2.0, { 50668, 0, 0 }, "Eigelstein 1" },
+            { 232323, 7.62,     ( 7.62 / 1.3 ) * .15,   2.7, { 50667, 0, 0 }, "Hohe Strasse 17" },
+            { 121212, 12.67,    ( 12.67 / 1.3 ) * .15,  1.5, { 50672, 0, 0 }, "Antwerpener Strasse 25" },
+            { 121212, 20.39,    ( 20.39 / 1.3 ) * .15,  1.0, { 50674, 0, 0 }, "Lindenstrasse 56" },
     };
 
     auto s = shopndrop_protocol::web::create_GetRideOrderInfoResponse( pids );
@@ -127,10 +127,10 @@ void test_GetDashScreenUserResponse()
 {
     std::vector<shopndrop_protocol::web::RideWithShopper>      rides    =
     {
-            { 121212, { 50668, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, "Matthias Mayer" },
-            { 232323, { 50667, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, "Lukas Himmelfarb" },
-            { 343434, { 50672, { 2019, 5, 22, 23, 10, 0 }, 2.5 }, "Jonas Peschka" },
-            { 454545, { 50667, { 2019, 5, 23, 9, 0, 0 },   1.5 }, "Anke Rittermeyer" },
+            { 121212, { { 50668, 0, 0 }, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, "Matthias Mayer" },
+            { 232323, { { 50667, 0, 0 }, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, "Lukas Himmelfarb" },
+            { 343434, { { 50672, 0, 0 }, { 2019, 5, 22, 23, 10, 0 }, 2.5 }, "Jonas Peschka" },
+            { 454545, { { 50667, 0, 0 }, { 2019, 5, 23, 9, 0, 0 },   1.5 }, "Anke Rittermeyer" },
     };
 
     std::vector<shopndrop_protocol::web::AcceptedOrderUser>    orders   =
@@ -157,19 +157,19 @@ void test_GetDashScreenShopperResponse()
 {
     std::vector<shopndrop_protocol::web::RideWithRequests>      rides    =
     {
-            { 121212, { 50668, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, 2 },
-            { 232323, { 50667, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, 1 },
-            { 343434, { 50672, { 2019, 5, 22, 23, 10, 0 }, 2.5 }, 1 },
-            { 454545, { 50667, { 2019, 5, 23, 9, 0, 0 },   1.5 }, 1 },
+            { 121212, { { 50668, 0, 0 }, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, 2 },
+            { 232323, { { 50667, 0, 0 }, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, 1 },
+            { 343434, { { 50672, 0, 0 }, { 2019, 5, 22, 23, 10, 0 }, 2.5 }, 1 },
+            { 454545, { { 50667, 0, 0 }, { 2019, 5, 23, 9, 0, 0 },   1.5 }, 1 },
     };
 
     std::vector<shopndrop_protocol::web::AcceptedOrderShopper>    orders   =
     {
-            { 565656, { { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, shopndrop_protocol::order_status_e::CLOSED_FEEDBACK_RECEIVED }, 50668, "Eigelstein 1", 1.12, 2.0 },
-            { 676767, { { 2019, 5, 22, 17, 30, 0 }, 252525, 23.39, shopndrop_protocol::order_status_e::CANCELLED }, 50667, "Hohe Strasse 17", 2.5, 1.5 },
-            { 787878, { { 2019, 5, 27, 20, 20, 0 }, 363636, 11.87, shopndrop_protocol::order_status_e::DELIVERED_WAITING_FEEDBACK }, 50672, "Antwerpener Strasse 25", 1.12, .5 },
-            { 898989, { { 2019, 5, 29, 18, 45, 0 }, 474747, 20.15, shopndrop_protocol::order_status_e::ACCEPTED_WAITING_DELIVERY }, 50674, "Lindenstrasse 56", 2.02, 1.2 },
-            { 909090, { { 2019, 5, 30, 19, 30, 0 }, 585858, 23.20, shopndrop_protocol::order_status_e::WAITING_ACCEPTANCE }, 50674, "Roonnstrasse 29", 2.3, 1.7 },
+            { 565656, { { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, shopndrop_protocol::order_status_e::CLOSED_FEEDBACK_RECEIVED }, { 50668, 0, 0 }, "Eigelstein 1", 1.12, 2.0 },
+            { 676767, { { 2019, 5, 22, 17, 30, 0 }, 252525, 23.39, shopndrop_protocol::order_status_e::CANCELLED }, { 50667, 0, 0 }, "Hohe Strasse 17", 2.5, 1.5 },
+            { 787878, { { 2019, 5, 27, 20, 20, 0 }, 363636, 11.87, shopndrop_protocol::order_status_e::DELIVERED_WAITING_FEEDBACK }, { 50672, 0, 0 }, "Antwerpener Strasse 25", 1.12, .5 },
+            { 898989, { { 2019, 5, 29, 18, 45, 0 }, 474747, 20.15, shopndrop_protocol::order_status_e::ACCEPTED_WAITING_DELIVERY }, { 50674, 0, 0 }, "Lindenstrasse 56", 2.02, 1.2 },
+            { 909090, { { 2019, 5, 30, 19, 30, 0 }, 585858, 23.20, shopndrop_protocol::order_status_e::WAITING_ACCEPTANCE }, { 50674, 0, 0 }, "Roonnstrasse 29", 2.3, 1.7 },
     };
 
     shopndrop_protocol::web::DashScreenShopper c;

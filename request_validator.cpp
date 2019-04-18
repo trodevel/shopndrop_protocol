@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10802 $ $Date:: 2019-04-07 #$ $Author: serge $
+// $Revision: 10859 $ $Date:: 2019-04-19 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -72,9 +72,22 @@ bool RequestValidator::validate( const ShoppingList & r )
     return true;
 }
 
-bool RequestValidator::validate( const Ride & r )
+bool RequestValidator::validate( const GeoPosition & r )
 {
     THROW_IF_INT_NEG_ZERO( r.plz, "PLZ");
+
+    if( r.latitude != 0.0 )
+        throw RequestParser::MalformedRequest( "non-zero latitude is not supported yet" );
+
+    if( r.longitude != 0.0 )
+        throw RequestParser::MalformedRequest( "non-zero longitude is not supported yet" );
+
+    return true;
+}
+
+bool RequestValidator::validate( const Ride & r )
+{
+    validate( r.position );
     basic_objects::Validator::validate( r.delivery_time );
     THROW_IF_FLOAT_NEG_ZERO( r.max_weight, "MAX_WEIGHT");
 

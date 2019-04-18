@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10855 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10858 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_CSV_RESPONSE_ENCODER_H
 #define LIB_SHOPNDROP_PROTOCOL_CSV_RESPONSE_ENCODER_H
@@ -35,6 +35,7 @@ public:
     static std::ostream & write( std::ostream & os, const ProductItem & r );
     static std::ostream & write( std::ostream & os, const ShoppingItem & r );
     static std::ostream & write( std::ostream & os, const ShoppingList & r );
+    static std::ostream & write( std::ostream & os, const GeoPosition & r );
     static std::ostream & write( std::ostream & os, const Ride & r );
     static std::ostream & write( std::ostream & os, const Address & r );
     static std::ostream & write( std::ostream & os, const Order & r );
