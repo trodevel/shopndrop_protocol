@@ -201,6 +201,35 @@ int main()
 
     std::cout << "\n*********************************\n" << std::endl;
 
+    test( "CMD=AddOrderRequest&RIDE_ID=&SHOPPING_LIST=1,1&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=0&SHOPPING_LIST=1,1&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=1,1&SESSION_ID=afafaf" );
+
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=1&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=0,0&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=0,1&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=1,0&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=1,1,0&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=1,1,1&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=1,1,1,0&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=1,1,0,1&SESSION_ID=afafaf" );
+    test( "CMD=AddOrderRequest&RIDE_ID=1&SHOPPING_LIST=1,1,1,1&SESSION_ID=afafaf" );
+
+    test( "CMD=AddRideRequest&PLZ=&DELIVERY_TIME=20190522173000&MAX_WEIGHT=1.5&SESSION_ID=afafaf" );
+    test( "CMD=AddRideRequest&PLZ=0&DELIVERY_TIME=20190522173000&MAX_WEIGHT=1.5&SESSION_ID=afafaf" );
+    test( "CMD=AddRideRequest&PLZ=1&DELIVERY_TIME=20190522173000&MAX_WEIGHT=1.5&SESSION_ID=afafaf" );
+    test( "CMD=AddRideRequest&PLZ=1&DELIVERY_TIME=&MAX_WEIGHT=1.5&SESSION_ID=afafaf" );
+    test( "CMD=AddRideRequest&PLZ=1&DELIVERY_TIME=0&MAX_WEIGHT=1.5&SESSION_ID=afafaf" );
+    test( "CMD=AddRideRequest&PLZ=1&DELIVERY_TIME=20190522173000&MAX_WEIGHT=1.5&SESSION_ID=afafaf" );
+    test( "CMD=AddRideRequest&PLZ=1&DELIVERY_TIME=20190522173000&MAX_WEIGHT=&SESSION_ID=afafaf" );
+    test( "CMD=AddRideRequest&PLZ=1&DELIVERY_TIME=20190522173000&MAX_WEIGHT=0&SESSION_ID=afafaf" );
+    test( "CMD=AddRideRequest&PLZ=1&DELIVERY_TIME=20190522173000&MAX_WEIGHT=1.5&SESSION_ID=afafaf" );
+
+    test( "CMD=CancelOrderRequest&ORDER_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=CancelOrderRequest&ORDER_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=CancelOrderRequest&ORDER_ID=1&&SESSION_ID=afafaf" );
+
     test( "CMD=CancelRideRequest&RIDE_ID=&&SESSION_ID=afafaf" );
     test( "CMD=CancelRideRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
     test( "CMD=CancelRideRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
