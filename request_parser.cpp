@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10860 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 10867 $ $Date:: 2019-04-19 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -50,6 +50,7 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
         { KeyType::AddRideRequest,              & Type::to_AddRideRequest },
         { KeyType::AddOrderRequest,             & Type::to_AddOrderRequest },
         { KeyType::CancelOrderRequest,          & Type::to_CancelOrderRequest },
+        { KeyType::CancelRideRequest,           & Type::to_CancelRideRequest },
         { KeyType::GetPersonalUserInfoRequest,  & Type::to_GetPersonalUserInfoRequest },
         { KeyType::GetRideRequest,              & Type::to_GetRideRequest },
         { KeyType::GetPersonalUserInfoRequest,  & Type::to_GetPersonalUserInfoRequest },
@@ -175,9 +176,23 @@ RequestParser::ForwardMessage * RequestParser::to_GetPersonalUserInfoRequest( co
     return res;
 }
 
-
 void RequestParser::to_ShoppingList( ShoppingList * res, const generic_request::Request & r )
 {
+    std::vector<uint32_t> shopping_items;
+
+    r.get_vector_uint32( "SHOPPING_LIST", shopping_items );
+
+    auto size = shopping_items.size() / 2;
+
+    for( size_t i = 0; i < size; ++i )
+    {
+        ShoppingItem si;
+
+        si.product_item_id  = shopping_items[ 0 + i * 2 ];
+        si.amount           = shopping_items[ 1 + i * 2 ];
+
+        res->items.push_back( si );
+    }
 }
 
 void RequestParser::to_GeoPosition( GeoPosition * res, const generic_request::Request & r )
