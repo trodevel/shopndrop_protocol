@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10843 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10855 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -44,6 +44,10 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     {
         return to_csv( static_cast<const CancelRideResponse&>( r ) );
     }
+    else if( typeid( r ) == typeid( AddOrderResponse ) )
+    {
+        return to_csv( static_cast<const AddOrderResponse&>( r ) );
+    }
     else if( typeid( r ) == typeid( CancelOrderResponse ) )
     {
         return to_csv( static_cast<const CancelOrderResponse&>( r ) );
@@ -51,6 +55,10 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     else if( typeid( r ) == typeid( AddRideResponse ) )
     {
         return to_csv( static_cast<const AddRideResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( GetRideResponse ) )
+    {
+        return to_csv( static_cast<const GetRideResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( web::GetRideOrderInfoResponse ) )
     {
@@ -302,6 +310,22 @@ std::string CsvResponseEncoder::to_csv( const AddRideResponse & r )
 std::string CsvResponseEncoder::to_csv( const CancelRideResponse & r )
 {
     return utils::CsvHelper::to_csv( "CancelRideResponse" );
+}
+
+std::string CsvResponseEncoder::to_csv( const GetRideResponse & r )
+{
+    std::ostringstream os;
+
+    utils::CsvHelper::write( os, "GetRideResponse" ) ;
+
+    write( os, r.ride );
+
+    return os.str();
+}
+
+std::string CsvResponseEncoder::to_csv( const AddOrderResponse & r )
+{
+    return utils::CsvHelper::to_csv( "AddOrderResponse", r.order_id );
 }
 
 std::string CsvResponseEncoder::to_csv( const CancelOrderResponse & r )

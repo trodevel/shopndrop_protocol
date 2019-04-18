@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10767 $ $Date:: 2019-04-05 #$ $Author: serge $
+// $Revision: 10855 $ $Date:: 2019-04-18 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_CSV_RESPONSE_ENCODER_H
 #define LIB_SHOPNDROP_PROTOCOL_CSV_RESPONSE_ENCODER_H
@@ -52,6 +52,8 @@ public:
     static std::ostream & write( std::ostream & os, const web::DashScreenShopper & r );
     static std::string to_csv( const AddRideResponse & r );
     static std::string to_csv( const CancelRideResponse & r );
+    static std::string to_csv( const GetRideResponse & r );
+    static std::string to_csv( const AddOrderResponse & r );
     static std::string to_csv( const CancelOrderResponse & r );
     static std::string to_csv( const GetPersonalUserInfoResponse & r );
     static std::string to_csv( const generic_protocol::BackwardMessage & r );
