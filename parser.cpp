@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10844 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10873 $ $Date:: 2019-04-19 #$ $Author: serge $
 
 #include "parser.h"                 // self
 
@@ -29,6 +29,7 @@ namespace shopndrop_protocol {
 
 #define TUPLE_VAL_STR(_x_)  _x_,#_x_
 #define TUPLE_STR_VAL(_x_)  #_x_,_x_
+#define TUPLE_VAL_STR_PREF(_x_,_p_)  _x_,_p_+std::string(#_x_)
 
 template< typename _M, typename _U, typename _V >
 void insert_inverse_pair( _M & map, _U first, _V second )
@@ -76,10 +77,10 @@ request_type_e Parser::to_request_type( const std::string & s )
     typedef std::map< KeyType, Type > Map;
     static const Map m =
     {
-        make_inverse_pair( Type:: TUPLE_VAL_STR( GetProductItemListRequest ) ),
-        make_inverse_pair( Type:: TUPLE_VAL_STR( GetRideOrderInfoRequest ) ),
-        make_inverse_pair( Type:: TUPLE_VAL_STR( GetDashScreenUserRequest ) ),
-        make_inverse_pair( Type:: TUPLE_VAL_STR( GetDashScreenShopperRequest ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetProductItemListRequest, "web/" ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetRideOrderInfoRequest, "web/" ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetDashScreenUserRequest, "web/" ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetDashScreenShopperRequest, "web/" ) ),
     };
 
     auto it = m.find( s );
