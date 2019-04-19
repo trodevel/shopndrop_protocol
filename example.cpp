@@ -16,7 +16,7 @@ void test( const std::string & str )
     {
         auto gr = generic_request::RequestParser::to_request( str );
 
-        auto * r = shopndrop_protocol::RequestParser::to_forward_message( gr );
+        auto * r = shopndrop_protocol::web::RequestParser::to_forward_message( gr );
 
         delete r;
 
@@ -233,6 +233,28 @@ int main()
     test( "CMD=CancelRideRequest&RIDE_ID=&&SESSION_ID=afafaf" );
     test( "CMD=CancelRideRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
     test( "CMD=CancelRideRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
+
+    test( "CMD=GetRideRequest&RIDE_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=GetRideRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=GetRideRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
+
+    test( "CMD=GetPersonalUserInfoRequest&USER_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=GetPersonalUserInfoRequest&USER_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=GetPersonalUserInfoRequest&USER_ID=1&&SESSION_ID=afafaf" );
+
+    test( "CMD=web/GetProductItemListRequest&SESSION_ID=afafaf" );
+
+    test( "CMD=web/GetRideOrderInfoRequest&RIDE_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetRideOrderInfoRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetRideOrderInfoRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
+
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=1&&SESSION_ID=afafaf" );
+
+    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=1&&SESSION_ID=afafaf" );
 
     return 0;
 }
