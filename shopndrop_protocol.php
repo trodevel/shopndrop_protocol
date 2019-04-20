@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10887 $ $Date:: 2019-04-20 #$ $Author: serge $
+// $Revision: 10890 $ $Date:: 2019-04-21 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -199,6 +199,88 @@ class AddRideRequest extends Request
 class AddRideResponse extends \generic_protocol\BackwardMessage
 {
     public        $ride_id;     // id_t
+}
+
+class CancelRideRequest extends Request
+{
+    public $ride_id;   // id_t
+
+    function __construct( $session_id, $ride_id )
+    {
+        parent::__construct( $session_id );
+
+        $this->ride_id          = $ride_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "CancelRideRequest",
+            "RIDE_ID"   => $this->ride_id
+            );
+
+        return \generic_protocol\assemble_request( $res ) .
+            parent::to_generic_request();
+    }
+}
+
+class CancelRideResponse extends \generic_protocol\BackwardMessage
+{
+}
+
+class GetRideRequest extends Request
+{
+    public $ride_id;   // id_t
+
+    function __construct( $session_id, $ride_id )
+    {
+        parent::__construct( $session_id );
+
+        $this->ride_id          = $ride_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "GetRideRequest",
+            "RIDE_ID"   => $this->ride_id
+            );
+
+        return \generic_protocol\assemble_request( $res ) .
+            parent::to_generic_request();
+    }
+}
+
+class GetRideResponse extends \generic_protocol\BackwardMessage
+{
+    public $ride;   // Ride
+}
+
+class CancelOrderRequest extends Request
+{
+    public $order_id;   // id_t
+
+    function __construct( $session_id, $order_id )
+    {
+        parent::__construct( $session_id );
+
+        $this->order_id     = $order_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "CancelOrderRequest",
+            "ORDER_ID"  => $this->order_id
+            );
+
+        return \generic_protocol\assemble_request( $res ) .
+            parent::to_generic_request();
+    }
+}
+
+class CancelOrderResponse extends \generic_protocol\BackwardMessage
+{
 }
 
 ?>
