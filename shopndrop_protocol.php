@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10890 $ $Date:: 2019-04-21 #$ $Author: serge $
+// $Revision: 10891 $ $Date:: 2019-04-22 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -254,6 +254,37 @@ class GetRideRequest extends Request
 class GetRideResponse extends \generic_protocol\BackwardMessage
 {
     public $ride;   // Ride
+}
+
+class AddOrderRequest extends Request
+{
+    public $ride_id;        // id_t
+    public $shopping_list;  // ShoppingList
+
+    function __construct( $session_id, $ride_id, $shopping_list )
+    {
+        parent::__construct( $session_id );
+
+        $this->ride_id          = $ride_id;
+        $this->shopping_list    = $shopping_list;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "AddOrderRequest",
+            "RIDE_ID"   => $this->ride_id
+            );
+
+        return \generic_protocol\assemble_request( $res ) .
+            $this->shopping_list->to_generic_request() .
+            parent::to_generic_request();
+    }
+}
+
+class AddOrderResponse extends \generic_protocol\BackwardMessage
+{
+    public $order_id;   // id_t
 }
 
 class CancelOrderRequest extends Request
