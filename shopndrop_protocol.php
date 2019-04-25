@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10894 $ $Date:: 2019-04-24 #$ $Author: serge $
+// $Revision: 10899 $ $Date:: 2019-04-25 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -89,18 +89,25 @@ class GeoPosition
     public          $latitude;  // double
     public          $longitude; // double
 
-    function __construct( $plz )
+    function __construct( $plz, $latitude, $longitude )
     {
         $this->plz                  = $plz;
-        $this->latitude             = 0;
-        $this->longitude            = 0;
-    }
-
-    function __construct( $latitude, $longitude )
-    {
-        $this->plz                  = 0;
         $this->latitude             = $latitude;
         $this->longitude            = $longitude;
+    }
+
+    public static function withPlz( $plz )
+    {
+        $instance = new self( $plz, 0, 0 );
+
+        return $instance;
+    }
+
+    public static function withPos( $latitude, $longitude )
+    {
+        $instance = new self( 0, $latitude, $longitude);
+
+        return $instance;
     }
 
     public function to_generic_request()
@@ -131,12 +138,12 @@ class Ride
     public function to_generic_request()
     {
         $res = array(
-            "PLZ"           => $this->plz,
-            "LATITUDE"      => $this->latitude,
-            "LONGITUDE"     => $this->longitude
+            "MAX_WEIGHT"    => $this->max_weight
             );
 
-        return \generic_protocol\assemble_request( $res );
+        return \generic_protocol\assemble_request( $res ) .
+            $this->position->to_generic_request() .
+            $this->delivery_time->to_generic_request( "DELIVERY_TIME" );
     }
 }
 
@@ -240,7 +247,7 @@ class AcceptedOrderShopper
 class DashScreenUser
 {
     public  $current_time;      // basic_objects::LocalTime
-    
+
     public  $rides;             // array<RideWithShopper>
     public  $orders;            // array<AcceptedOrderUser>
 }
@@ -248,7 +255,7 @@ class DashScreenUser
 class DashScreenShopper
 {
     public  $current_time;      // basic_objects::LocalTime
-    
+
     public  $rides;             // array<RideWithRequests>
     public  $orders;            // array<AcceptedOrderShopper>
 }
@@ -414,7 +421,7 @@ class GetProductItemListRequest extends Request
         $res = array(
             "CMD"       => "web\GetProductItemListRequest",
         );
-        
+
         return \generic_protocol\assemble_request( $res ) .
             parent::to_generic_request();
     }
@@ -432,7 +439,7 @@ class GetRideOrderInfoRequest extends Request
     function __construct( $session_id, $ride_id )
     {
         parent::__construct( $session_id );
-        
+
         $this->ride_id      = $ride_id;
     }
 
@@ -460,7 +467,7 @@ class GetDashScreenUserRequest extends Request
     function __construct( $session_id, $user_id )
     {
         parent::__construct( $session_id );
-        
+
         $this->user_id      = $user_id;
     }
 
@@ -488,7 +495,7 @@ class GetDashScreenShopperRequest extends Request
     function __construct( $session_id, $user_id )
     {
         parent::__construct( $session_id );
-        
+
         $this->user_id      = $user_id;
     }
 
