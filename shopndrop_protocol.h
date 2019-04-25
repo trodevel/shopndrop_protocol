@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10857 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10900 $ $Date:: 2019-04-25 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -112,11 +112,81 @@ struct Order
 };
 
 /**************************************************
- * WEB OBJECTS
+ * REQUESTS
  **************************************************/
+
+struct AddRideRequest: public Request
+{
+    Ride            ride;
+};
+
+struct AddRideResponse: public generic_protocol::BackwardMessage
+{
+    id_t            ride_id;
+};
+
+struct CancelRideRequest: public Request
+{
+    id_t            ride_id;
+};
+
+struct CancelRideResponse: public generic_protocol::BackwardMessage
+{
+};
+
+struct GetRideRequest: public Request
+{
+    id_t            ride_id;
+};
+
+struct GetRideResponse: public generic_protocol::BackwardMessage
+{
+    Ride            ride;
+};
+
+struct AddOrderRequest: public Request
+{
+    id_t            ride_id;
+    ShoppingList    shopping_list;
+};
+
+struct AddOrderResponse: public generic_protocol::BackwardMessage
+{
+    id_t            order_id;
+};
+
+struct CancelOrderRequest: public Request
+{
+    id_t            order_id;
+};
+
+struct CancelOrderResponse: public generic_protocol::BackwardMessage
+{
+};
+
+struct GetPersonalUserInfoRequest: public Request
+{
+    id_t            user_id;
+};
+
+struct GetPersonalUserInfoResponse: public generic_protocol::BackwardMessage
+{
+    id_t            user_id;
+    gender_e        gender;
+    std::string     first_name;
+    std::string     last_name;
+    std::string     company_name;
+    std::string     email;
+    std::string     phone;
+    std::string     timezone;
+};
 
 namespace web
 {
+
+/**************************************************
+ * WEB OBJECTS
+ **************************************************/
 
 struct ProductItemWithId
 {
@@ -199,84 +269,9 @@ struct DashScreenShopper
     std::vector<AcceptedOrderShopper>   orders;
 };
 
-}   // namespace web
-
-/**************************************************
- * REQUESTS
- **************************************************/
-
-struct AddRideRequest: public Request
-{
-    Ride            ride;
-};
-
-struct AddRideResponse: public generic_protocol::BackwardMessage
-{
-    id_t            ride_id;
-};
-
-struct CancelRideRequest: public Request
-{
-    id_t            ride_id;
-};
-
-struct CancelRideResponse: public generic_protocol::BackwardMessage
-{
-};
-
-struct GetRideRequest: public Request
-{
-    id_t            ride_id;
-};
-
-struct GetRideResponse: public generic_protocol::BackwardMessage
-{
-    Ride            ride;
-};
-
-struct AddOrderRequest: public Request
-{
-    id_t            ride_id;
-    ShoppingList    shopping_list;
-};
-
-struct AddOrderResponse: public generic_protocol::BackwardMessage
-{
-    id_t            order_id;
-};
-
-struct CancelOrderRequest: public Request
-{
-    id_t            order_id;
-};
-
-struct CancelOrderResponse: public generic_protocol::BackwardMessage
-{
-};
-
-struct GetPersonalUserInfoRequest: public Request
-{
-    id_t            user_id;
-};
-
-struct GetPersonalUserInfoResponse: public generic_protocol::BackwardMessage
-{
-    id_t            user_id;
-    gender_e        gender;
-    std::string     first_name;
-    std::string     last_name;
-    std::string     company_name;
-    std::string     email;
-    std::string     phone;
-    std::string     timezone;
-};
-
 /**************************************************
  * WEB REQUESTS
  **************************************************/
-
-namespace web
-{
 
 struct GetProductItemListRequest: public Request
 {
@@ -317,7 +312,7 @@ struct GetDashScreenShopperResponse: public generic_protocol::BackwardMessage
     DashScreenShopper   dash_screen;
 };
 
-}
+} // namespace web
 
 } // namespace shopndrop_protocol
 

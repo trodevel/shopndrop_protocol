@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10899 $ $Date:: 2019-04-25 #$ $Author: serge $
+// $Revision: 10900 $ $Date:: 2019-04-25 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -176,91 +176,6 @@ class Order
 }
 
 /**************************************************
- * WEB OBJECTS
- **************************************************/
-
-class ProductItemWithId
-{
-    public  $product_item_id;   // id_t
-    public  $product_item;      // ProductItem
-}
-
-class ShoppingItemWithProduct
-{
-    public  $shopping_item;     // ShoppingItem
-    public  $product_item;      // ProductItem
-}
-
-class ShoppingListExt
-{
-    public  $items;             // array<ShoppingItemWithProduct>
-}
-
-class ShoppingListWithTotals
-{
-    public  $shopping_list;     // ShoppingListExt
-    public  $price;             // double
-    public  $weight;            // double
-}
-
-class RideWithShopper
-{
-    public  $ride_id;           // id_t
-    public  $ride;              // Ride
-    public  $shopper_name;      // string
-}
-
-class RideWithRequests
-{
-    public  $ride_id;           // id_t
-    public  $ride;              // Ride
-    public  $num_requests;      // int
-}
-
-class OrderRequestInfo
-{
-    public  $order_id;          // id_t
-    public  $sum;               // double
-    public  $earning;           // double
-    public  $weight;            // double
-    public  $position;          // GeoPosition
-    public  $address;           // string
-}
-
-class AcceptedOrderUser
-{
-    public  $order_id;          // id_t
-    public  $order;             // Order
-    public  $shopper_name;      // string
-}
-
-class AcceptedOrderShopper
-{
-    public  $order_id;          // id_t
-    public  $order;             // Order
-    public  $position;          // GeoPosition
-    public  $address;           // string
-    public  $earning;           // double
-    public  $weight;            // double
-}
-
-class DashScreenUser
-{
-    public  $current_time;      // basic_objects::LocalTime
-
-    public  $rides;             // array<RideWithShopper>
-    public  $orders;            // array<AcceptedOrderUser>
-}
-
-class DashScreenShopper
-{
-    public  $current_time;      // basic_objects::LocalTime
-
-    public  $rides;             // array<RideWithRequests>
-    public  $orders;            // array<AcceptedOrderShopper>
-}
-
-/**************************************************
  * REQUESTS
  **************************************************/
 
@@ -403,6 +318,91 @@ class CancelOrderRequest extends Request
 
 class CancelOrderResponse extends \generic_protocol\BackwardMessage
 {
+}
+
+/**************************************************
+ * WEB OBJECTS
+ **************************************************/
+
+class ProductItemWithId
+{
+    public  $product_item_id;   // id_t
+    public  $product_item;      // ProductItem
+}
+
+class ShoppingItemWithProduct
+{
+    public  $shopping_item;     // ShoppingItem
+    public  $product_item;      // ProductItem
+}
+
+class ShoppingListExt
+{
+    public  $items;             // array<ShoppingItemWithProduct>
+}
+
+class ShoppingListWithTotals
+{
+    public  $shopping_list;     // ShoppingListExt
+    public  $price;             // double
+    public  $weight;            // double
+}
+
+class RideWithShopper
+{
+    public  $ride_id;           // id_t
+    public  $ride;              // Ride
+    public  $shopper_name;      // string
+}
+
+class RideWithRequests
+{
+    public  $ride_id;           // id_t
+    public  $ride;              // Ride
+    public  $num_requests;      // int
+}
+
+class OrderRequestInfo
+{
+    public  $order_id;          // id_t
+    public  $sum;               // double
+    public  $earning;           // double
+    public  $weight;            // double
+    public  $position;          // GeoPosition
+    public  $address;           // string
+}
+
+class AcceptedOrderUser
+{
+    public  $order_id;          // id_t
+    public  $order;             // Order
+    public  $shopper_name;      // string
+}
+
+class AcceptedOrderShopper
+{
+    public  $order_id;          // id_t
+    public  $order;             // Order
+    public  $position;          // GeoPosition
+    public  $address;           // string
+    public  $earning;           // double
+    public  $weight;            // double
+}
+
+class DashScreenUser
+{
+    public  $current_time;      // basic_objects::LocalTime
+
+    public  $rides;             // array<RideWithShopper>
+    public  $orders;            // array<AcceptedOrderUser>
+}
+
+class DashScreenShopper
+{
+    public  $current_time;      // basic_objects::LocalTime
+
+    public  $rides;             // array<RideWithRequests>
+    public  $orders;            // array<AcceptedOrderShopper>
 }
 
 /**************************************************
