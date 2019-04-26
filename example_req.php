@@ -1,8 +1,8 @@
 <?php
 
-// $Revision: 10919 $ $Date:: 2019-04-26 #$ $Author: serge $
+// $Revision: 10926 $ $Date:: 2019-04-26 #$ $Author: serge $
 
-require_once 'shopndrop_protocol.php';
+require_once 'shopndrop_protocol_web.php';
 
 echo "OK\n";
 
@@ -69,7 +69,7 @@ $session_id = "afafaf";
  **************************************************/
 
 {
-    $req = new \shopndrop_protocol\GetProductItemListRequest( $session_id );
+    $req = new \shopndrop_protocol\web\GetProductItemListRequest( $session_id );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }
@@ -77,7 +77,7 @@ $session_id = "afafaf";
 {
     $ride_id    = 101;
 
-    $req = new \shopndrop_protocol\GetRideOrderInfoRequest( $session_id, $ride_id );
+    $req = new \shopndrop_protocol\web\GetRideOrderInfoRequest( $session_id, $ride_id );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }
@@ -85,7 +85,7 @@ $session_id = "afafaf";
 {
     $user_id    = 115;
 
-    $req = new \shopndrop_protocol\GetDashScreenUserRequest( $session_id, $user_id );
+    $req = new \shopndrop_protocol\web\GetDashScreenUserRequest( $session_id, $user_id );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }
@@ -93,7 +93,7 @@ $session_id = "afafaf";
 {
     $user_id    = 115;
 
-    $req = new \shopndrop_protocol\GetDashScreenShopperRequest( $session_id, $user_id );
+    $req = new \shopndrop_protocol\web\GetDashScreenShopperRequest( $session_id, $user_id );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }

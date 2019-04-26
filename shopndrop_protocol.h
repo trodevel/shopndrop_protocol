@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10900 $ $Date:: 2019-04-25 #$ $Author: serge $
+// $Revision: 10928 $ $Date:: 2019-04-26 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -200,14 +200,14 @@ struct ShoppingItemWithProduct
     ProductItem     product_item;
 };
 
-struct ShoppingList
+struct ShoppingListWithProduct
 {
     std::vector<ShoppingItemWithProduct>   items;
 };
 
 struct ShoppingListWithTotals
 {
-    ShoppingList    shopping_list;
+    ShoppingListWithProduct    shopping_list;
     double          price;
     double          weight;
 };

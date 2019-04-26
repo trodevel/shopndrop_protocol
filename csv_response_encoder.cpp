@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10858 $ $Date:: 2019-04-18 #$ $Author: serge $
+// $Revision: 10932 $ $Date:: 2019-04-26 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -128,7 +128,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const ProductItem &
             r.weight );
 }
 
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::ShoppingList & r )
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::ShoppingListWithProduct & r )
 {
     utils::CsvHelper::write_user_array<false>(
                 os,
@@ -373,8 +373,12 @@ std::string CsvResponseEncoder::to_csv( const GetPersonalUserInfoResponse & r )
             "GetPersonalUserInfoResponse",
             r.user_id,
             static_cast<uint32_t>( r.gender ),
-            r.first_name, r.last_name, r.company_name,
-            r.email, r.phone, r.timezone );
+            utils::nonascii_hex_codec::encode( r.first_name ),
+            utils::nonascii_hex_codec::encode( r.last_name ),
+            utils::nonascii_hex_codec::encode( r.company_name ),
+            utils::nonascii_hex_codec::encode( r.email ),
+            utils::nonascii_hex_codec::encode( r.phone ),
+            utils::nonascii_hex_codec::encode( r.timezone ) );
 }
 
 std::string CsvResponseEncoder::to_csv( const web::GetProductItemListResponse & r )

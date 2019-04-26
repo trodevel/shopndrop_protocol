@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10918 $ $Date:: 2019-04-26 #$ $Author: serge $
+// $Revision: 10924 $ $Date:: 2019-04-26 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -179,7 +179,7 @@ class Address
 
 class Order
 {
-    public $delivery_time;      // basic_objects::LocalTime
+    public  $delivery_time;     // basic_objects::LocalTime
     public  $shopping_list_id;  // id_t
     public  $sum;               // double
     public  $status;            // order_status_e
@@ -364,201 +364,5 @@ class GetPersonalUserInfoResponse extends \generic_protocol\BackwardMessage
     public $phone;          // string
     public $timezone;       // string
 };
-
-/**************************************************
- * WEB OBJECTS
- **************************************************/
-
-class ProductItemWithId
-{
-    public  $product_item_id;   // id_t
-    public  $product_item;      // ProductItem
-}
-
-class ShoppingItemWithProduct
-{
-    public  $shopping_item;     // ShoppingItem
-    public  $product_item;      // ProductItem
-}
-
-class ShoppingListExt
-{
-    public  $items;             // array<ShoppingItemWithProduct>
-}
-
-class ShoppingListWithTotals
-{
-    public  $shopping_list;     // ShoppingListExt
-    public  $price;             // double
-    public  $weight;            // double
-}
-
-class RideWithShopper
-{
-    public  $ride_id;           // id_t
-    public  $ride;              // Ride
-    public  $shopper_name;      // string
-}
-
-class RideWithRequests
-{
-    public  $ride_id;           // id_t
-    public  $ride;              // Ride
-    public  $num_requests;      // int
-}
-
-class OrderRequestInfo
-{
-    public  $order_id;          // id_t
-    public  $sum;               // double
-    public  $earning;           // double
-    public  $weight;            // double
-    public  $position;          // GeoPosition
-    public  $address;           // string
-}
-
-class AcceptedOrderUser
-{
-    public  $order_id;          // id_t
-    public  $order;             // Order
-    public  $shopper_name;      // string
-}
-
-class AcceptedOrderShopper
-{
-    public  $order_id;          // id_t
-    public  $order;             // Order
-    public  $position;          // GeoPosition
-    public  $address;           // string
-    public  $earning;           // double
-    public  $weight;            // double
-}
-
-class DashScreenUser
-{
-    public  $current_time;      // basic_objects::LocalTime
-
-    public  $rides;             // array<RideWithShopper>
-    public  $orders;            // array<AcceptedOrderUser>
-}
-
-class DashScreenShopper
-{
-    public  $current_time;      // basic_objects::LocalTime
-
-    public  $rides;             // array<RideWithRequests>
-    public  $orders;            // array<AcceptedOrderShopper>
-}
-
-/**************************************************
- * WEB REQUESTS
- **************************************************/
-
-class GetProductItemListRequest extends Request
-{
-    function __construct( $session_id )
-    {
-        parent::__construct( $session_id );
-    }
-
-    public function to_generic_request()
-    {
-        $res = array(
-            "CMD"       => "web/GetProductItemListRequest",
-        );
-
-        return \generic_protocol\assemble_request( $res ) .
-            parent::to_generic_request();
-    }
-}
-
-class GetProductItemListResponse extends \generic_protocol\BackwardMessage
-{
-    public  $product_items;     // array<ProductItemWithId>
-}
-
-class GetRideOrderInfoRequest extends Request
-{
-    public  $ride_id;           // id_t
-
-    function __construct( $session_id, $ride_id )
-    {
-        parent::__construct( $session_id );
-
-        $this->ride_id      = $ride_id;
-    }
-
-    public function to_generic_request()
-    {
-        $res = array(
-            "CMD"       => "web/GetRideOrderInfoRequest",
-            "RIDE_ID"   => $this->ride_id
-        );
-
-        return \generic_protocol\assemble_request( $res ) .
-            parent::to_generic_request();
-    }
-}
-
-class GetRideOrderInfoResponse extends \generic_protocol\BackwardMessage
-{
-    public  $rides;             // array<OrderRequestInfo>
-}
-
-class GetDashScreenUserRequest extends Request
-{
-    public  $user_id;           // id_t
-
-    function __construct( $session_id, $user_id )
-    {
-        parent::__construct( $session_id );
-
-        $this->user_id      = $user_id;
-    }
-
-    public function to_generic_request()
-    {
-        $res = array(
-            "CMD"       => "web/GetDashScreenUserRequest",
-            "USER_ID"   => $this->user_id
-        );
-
-        return \generic_protocol\assemble_request( $res ) .
-            parent::to_generic_request();
-    }
-}
-
-class GetDashScreenUserResponse extends \generic_protocol\BackwardMessage
-{
-    public  $dash_screen;       // DashScreenUser
-}
-
-class GetDashScreenShopperRequest extends Request
-{
-    public  $user_id;           // id_t
-
-    function __construct( $session_id, $user_id )
-    {
-        parent::__construct( $session_id );
-
-        $this->user_id      = $user_id;
-    }
-
-    public function to_generic_request()
-    {
-        $res = array(
-            "CMD"       => "web/GetDashScreenShopperRequest",
-            "USER_ID"   => $this->user_id
-        );
-
-        return \generic_protocol\assemble_request( $res ) .
-            parent::to_generic_request();
-    }
-}
-
-class GetDashScreenShopperResponse extends \generic_protocol\BackwardMessage
-{
-    public  $dash_screen;       // DashScreenShopper
-}
 
 ?>

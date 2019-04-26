@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10921 $ $Date:: 2019-04-26 #$ $Author: serge $
+// $Revision: 10937 $ $Date:: 2019-04-26 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -72,9 +72,96 @@ function parse_Ride( & $csv_arr, & $offset )
     return $res;
 }
 
+function parse_Address( & $csv_arr, & $offset )
+{
+    // 50668;Cologne;Breslau Platz;;Germany
+
+    $res = new Address;
+
+    $res->plz           = intval( $csv_arr[ $offset++ ] );
+    $res->city          = $csv_arr[ $offset++ ];
+    $res->street        = $csv_arr[ $offset++ ]
+    $res->house_number  = $csv_arr[ $offset++ ]
+    $res->extra_address_line    = $csv_arr[ $offset++ ]
+    $res->country       = $csv_arr[ $offset++ ]
+
+    return $res;
+}
+
+function parse_Order( & $csv_arr, & $offset )
+{
+    // 20190327202000;141414;17.25;4
+
+    $res = new Order;
+
+    $res->delivery_time     = \basic_objects\parse_LocalTime( $csv_arr, $offset );
+    $res->shopping_list_id  = intval( $csv_arr[ $offset++ ] );
+    $res->sum               = floatval( $csv_arr[ $offset++ ] );
+    $res->status            = intval( $csv_arr[ $offset++ ] );
+
+    return $res;
+}
+
+function parse_AddRideResponse( & $resp )
+{
+    // AddRideResponse;123;
+
+    $offset = 1;
+
+    $res = new AddRideResponse;
+
+    $res->ride_id       = intval( $csv_arr[ $offset++ ] );
+
+    return $res;
+}
+
+function parse_CancelRideResponse( & $resp )
+{
+    // CancelRideResponse;
+
+    $res = new CancelRideResponse;
+
+    return $res;
+}
+
+function parse_GetRideResponse( & $resp )
+{
+    // GetRideResponse;50668;0;0;20190522180000;2;
+
+    $offset = 1;
+
+    $res = new GetRideResponse;
+
+    $res->ride  = parse_Ride( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_AddOrderResponse( & $resp )
+{
+    // AddOrderResponse;123;
+
+    $offset = 1;
+
+    $res = new AddOrderResponse;
+
+    $res->orders_id     = intval( $csv_arr[ $offset++ ] );
+
+    return $res;
+}
+
+function parse_CancelOrderResponse( & $resp )
+{
+    // CancelOrderResponse;
+
+    $res = new CancelOrderResponse;
+
+    return $res;
+}
+
 function parse_GetPersonalUserInfoResponse( & $resp )
 {
-    // GetPersonalUserInfoResponse;123;1;John;Doe;Yoyodine Corp.;john.doe@yoyodine.com;+491234567890;Europe/Berlin;
+    // GetPersonalUserInfoResponse;123;1;John;Doe;Yoyodine=20Corp.;john.doe@yoyodine.com;+491234567890;Europe/Berlin;
 
     $offset = 1;
 
@@ -86,7 +173,7 @@ function parse_GetPersonalUserInfoResponse( & $resp )
     $res->last_name     = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
     $res->company_name  = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
     $res->email         = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
-    $res->phone         = $csv_arr[ $offset++ ];
+    $res->phone         = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
     $res->timezone      = $csv_arr[ $offset++ ];
 
     return $res;
@@ -103,6 +190,11 @@ protected static function parse_csv_array( $csv_arr )
     $type = $csv_arr[0][0];
 
     $func_map = array(
+        'AddRideResponse'               => 'parse_AddRideResponse',
+        'CancelRideResponse'            => 'parse_CancelRideResponse',
+        'GetRideResponse'               => 'parse_GetRideResponse',
+        'AddOrderResponse'              => 'parse_AddOrderResponse',
+        'CancelOrderResponse'           => 'parse_CancelOrderResponse',
         'GetPersonalUserInfoResponse'   => 'parse_GetPersonalUserInfoResponse',
         );
 
