@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 10913 $ $Date:: 2019-04-25 #$ $Author: serge $
+// $Revision: 10919 $ $Date:: 2019-04-26 #$ $Author: serge $
 
 require_once 'shopndrop_protocol.php';
 
@@ -52,6 +52,14 @@ $session_id = "afafaf";
     $ride_id        = 101;
 
     $req = new \shopndrop_protocol\CancelOrderRequest( $session_id, $ride_id );
+
+    echo "req = " . $req->to_generic_request() . "\n";
+}
+
+{
+    $user_id    = 101;
+
+    $req = new \shopndrop_protocol\GetPersonalUserInfoRequest( $session_id, $user_id );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }
