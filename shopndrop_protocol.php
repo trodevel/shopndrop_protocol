@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10900 $ $Date:: 2019-04-25 #$ $Author: serge $
+// $Revision: 10909 $ $Date:: 2019-04-25 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -53,6 +53,12 @@ class ShoppingItem
     public          $product_item_id;  // id_t
     public          $amount;           // int
 
+    function __construct( $product_item_id, $amount )
+    {
+        $this->product_item_id  = $product_item_id;
+        $this->amount           = $amount;
+    }
+
     public function to_generic_request()
     {
         $res = $this->product_item_id . "," . $this->amount;
@@ -65,10 +71,14 @@ class ShoppingList
 {
     public          $items; // array<ShoppingItem>
 
+    function __construct( $items )
+    {
+        $this->items    = $items;
+    }
+
     public function to_generic_request()
     {
-
-        $size   = sizeof( $obj );
+        $size   = sizeof( $this->items );
 
         $body = '';
         for( $i = 0; $i < $size; $i++ )
@@ -419,7 +429,7 @@ class GetProductItemListRequest extends Request
     public function to_generic_request()
     {
         $res = array(
-            "CMD"       => "web\GetProductItemListRequest",
+            "CMD"       => "web/GetProductItemListRequest",
         );
 
         return \generic_protocol\assemble_request( $res ) .
@@ -446,7 +456,7 @@ class GetRideOrderInfoRequest extends Request
     public function to_generic_request()
     {
         $res = array(
-            "CMD"       => "web\GetRideOrderInfoRequest",
+            "CMD"       => "web/GetRideOrderInfoRequest",
             "RIDE_ID"   => $this->ride_id
         );
 
@@ -474,7 +484,7 @@ class GetDashScreenUserRequest extends Request
     public function to_generic_request()
     {
         $res = array(
-            "CMD"       => "web\GetDashScreenUserRequest",
+            "CMD"       => "web/GetDashScreenUserRequest",
             "USER_ID"   => $this->user_id
         );
 
@@ -502,7 +512,7 @@ class GetDashScreenShopperRequest extends Request
     public function to_generic_request()
     {
         $res = array(
-            "CMD"       => "web\GetDashScreenShopperRequest",
+            "CMD"       => "web/GetDashScreenShopperRequest",
             "USER_ID"   => $this->user_id
         );
 
