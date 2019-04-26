@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10909 $ $Date:: 2019-04-25 #$ $Author: serge $
+// $Revision: 10918 $ $Date:: 2019-04-26 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -329,6 +329,41 @@ class CancelOrderRequest extends Request
 class CancelOrderResponse extends \generic_protocol\BackwardMessage
 {
 }
+
+class GetPersonalUserInfoRequest extends Request
+{
+    public $user_id;        // id_t
+
+    function __construct( $session_id, $user_id )
+    {
+        parent::__construct( $session_id );
+
+        $this->user_id      = $user_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "GetPersonalUserInfoRequest",
+            "USER_ID"   => $this->user_id
+        );
+
+        return \generic_protocol\assemble_request( $res ) .
+            parent::to_generic_request();
+    }
+};
+
+class GetPersonalUserInfoResponse extends \generic_protocol\BackwardMessage
+{
+    public $user_id;        // id_t
+    public $gender;         // gender_e
+    public $first_name;     // string
+    public $last_name;      // string
+    public $company_name;   // string
+    public $email;          // string
+    public $phone;          // string
+    public $timezone;       // string
+};
 
 /**************************************************
  * WEB OBJECTS
