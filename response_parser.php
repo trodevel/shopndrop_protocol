@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10937 $ $Date:: 2019-04-26 #$ $Author: serge $
+// $Revision: 10940 $ $Date:: 2019-04-27 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -34,14 +34,14 @@ require_once 'shopndrop_protocol.php';
 
 function parse_ProductItem( & $csv_arr, & $offset )
 {
-    // 121212;Milch;Packung;1.09;1
+    // Milch;Packung;1.09;1
 
     $res = new ProductItem;
 
-    $res->name      = $csv_arr[ $offset++ ];
-    $res->unit      = $csv_arr[ $offset++ ];
-    $res->price     = floatval( $csv_arr[ $offset++ ] );
-    $res->weigth    = floatval( $csv_arr[ $offset++ ] );
+    $res->name      = \basic_parser\parse_string( $csv_arr, $offset );
+    $res->unit      = \basic_parser\parse_string( $csv_arr, $offset );
+    $res->price     = \basic_parser\parse_float( $csv_arr, $offset );
+    $res->weigth    = \basic_parser\parse_float( $csv_arr, $offset );
 
     return $res;
 }
@@ -50,9 +50,9 @@ function parse_GeoPosition( & $csv_arr, & $offset )
 {
     // 50667;0;0;
 
-    $plz        = intval( $csv_arr[ $offset++ ] );
-    $latitude   = floatval( $csv_arr[ $offset++ ] );
-    $longitude  = floatval( $csv_arr[ $offset++ ] );
+    $plz        = \basic_parser\parse_int( $csv_arr, $offset );
+    $latitude   = \basic_parser\parse_float( $csv_arr, $offset );
+    $longitude  = \basic_parser\parse_float( $csv_arr, $offset );
 
     $res = new GeoPosition( $plz, $latitude, $longitude );
 
@@ -65,7 +65,7 @@ function parse_Ride( & $csv_arr, & $offset )
 
     $position       = parse_GeoPosition( $csv_arr, $offset );
     $delivery_time  = \basic_objects\parse_LocalTime( $csv_arr, $offset );
-    $max_weigth     = floatval( $csv_arr[ $offset++ ] );
+    $max_weigth     = \basic_parser\parse_float( $csv_arr, $offset );
 
     $res = new Ride( $position, $delivery_time, $max_weigth );
 
@@ -78,12 +78,12 @@ function parse_Address( & $csv_arr, & $offset )
 
     $res = new Address;
 
-    $res->plz           = intval( $csv_arr[ $offset++ ] );
-    $res->city          = $csv_arr[ $offset++ ];
-    $res->street        = $csv_arr[ $offset++ ]
-    $res->house_number  = $csv_arr[ $offset++ ]
-    $res->extra_address_line    = $csv_arr[ $offset++ ]
-    $res->country       = $csv_arr[ $offset++ ]
+    $res->plz           = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->city          = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->street        = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->house_number  = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->extra_address_line    = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->country       = \basic_parser\parse_enc_string( $csv_arr, $offset );
 
     return $res;
 }
@@ -95,9 +95,9 @@ function parse_Order( & $csv_arr, & $offset )
     $res = new Order;
 
     $res->delivery_time     = \basic_objects\parse_LocalTime( $csv_arr, $offset );
-    $res->shopping_list_id  = intval( $csv_arr[ $offset++ ] );
-    $res->sum               = floatval( $csv_arr[ $offset++ ] );
-    $res->status            = intval( $csv_arr[ $offset++ ] );
+    $res->shopping_list_id  = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->sum               = \basic_parser\parse_float( $csv_arr, $offset );
+    $res->status            = \basic_parser\parse_int( $csv_arr, $offset );
 
     return $res;
 }
@@ -110,7 +110,7 @@ function parse_AddRideResponse( & $resp )
 
     $res = new AddRideResponse;
 
-    $res->ride_id       = intval( $csv_arr[ $offset++ ] );
+    $res->ride_id       = \basic_parser\parse_int( $csv_arr, $offset );
 
     return $res;
 }
@@ -145,7 +145,7 @@ function parse_AddOrderResponse( & $resp )
 
     $res = new AddOrderResponse;
 
-    $res->orders_id     = intval( $csv_arr[ $offset++ ] );
+    $res->orders_id     = \basic_parser\parse_int( $csv_arr, $offset );
 
     return $res;
 }
@@ -167,14 +167,14 @@ function parse_GetPersonalUserInfoResponse( & $resp )
 
     $res = new GetPersonalUserInfoResponse;
 
-    $res->user_id       = intval( $csv_arr[ $offset++ ] );
-    $res->gender        = intval( $csv_arr[ $offset++ ] );
-    $res->first_name    = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
-    $res->last_name     = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
-    $res->company_name  = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
-    $res->email         = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
-    $res->phone         = \utils\nonascii_hex_codec\decode( $csv_arr[ $offset++ ] );
-    $res->timezone      = $csv_arr[ $offset++ ];
+    $res->user_id       = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->gender        = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->first_name    = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->last_name     = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->company_name  = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->email         = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->phone         = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->timezone      = \basic_parser\parse_string( $csv_arr, $offset );
 
     return $res;
 }
