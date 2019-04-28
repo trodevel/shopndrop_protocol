@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10948 $ $Date:: 2019-04-28 #$ $Author: serge $
+// $Revision: 10950 $ $Date:: 2019-04-29 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -149,6 +149,72 @@ function parse_AcceptedOrderShopper( & $csv_arr, & $offset )
     $res->address       = \basic_parser\parse_enc_string( $csv_arr, $offset );
     $res->earning       = \basic_parser\parse_float( $csv_arr, $offset );
     $res->weight        = \basic_parser\parse_float( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_DashScreenUser( & $csv_arr, & $offset )
+{
+    // 20190327202000;...
+
+    $res = new DashScreenUser;
+
+    $res->current_time  = \basic_objects\parse_LocalTime( $csv_arr, $offset );
+
+    {
+        $size    = \basic_parser\parse_int( $csv_arr, $offset );
+
+        //echo "size = $size\n";
+
+        for( $i = 0; $i < $size; $i++ )
+        {
+            array_push( $res->rides, parse_RideWithShopper( $csv_arr, $offset ) );
+        }
+    }
+
+    {
+        $size    = \basic_parser\parse_int( $csv_arr, $offset );
+
+        //echo "size = $size\n";
+
+        for( $i = 0; $i < $size; $i++ )
+        {
+            array_push( $res->orders, parse_AcceptedOrderUser( $csv_arr, $offset ) );
+        }
+    }
+
+    return $res;
+}
+
+function parse_DashScreenShopper( & $csv_arr, & $offset )
+{
+    // 20190327202000;...
+
+    $res = new DashScreenShopper;
+
+    $res->current_time  = \basic_objects\parse_LocalTime( $csv_arr, $offset );
+
+    {
+        $size    = \basic_parser\parse_int( $csv_arr, $offset );
+
+        //echo "size = $size\n";
+
+        for( $i = 0; $i < $size; $i++ )
+        {
+            array_push( $res->rides, parse_RideWithRequests( $csv_arr, $offset ) );
+        }
+    }
+
+    {
+        $size    = \basic_parser\parse_int( $csv_arr, $offset );
+
+        //echo "size = $size\n";
+
+        for( $i = 0; $i < $size; $i++ )
+        {
+            array_push( $res->orders, parse_AcceptedOrderShopper( $csv_arr, $offset ) );
+        }
+    }
 
     return $res;
 }
