@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10941 $ $Date:: 2019-04-27 #$ $Author: serge $
+// $Revision: 10948 $ $Date:: 2019-04-28 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -47,6 +47,108 @@ function parse_ShoppingItemWithProduct( & $csv_arr, & $offset )
 
     $res->shopping_item     = \shopndrop_protocol\parse_ShoppingItem( $csv_arr, $offset );
     $res->product_item      = \shopndrop_protocol\parse_ProductItem( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_ShoppingListWithProduct( & $csv_arr, & $offset )
+{
+    // 1;121212;2;Milch;Packung;1.09;1
+
+    $res = new ShoppingListWithProduct;
+
+    $size    = \basic_parser\parse_int( $csv_arr, $offset );
+
+    //echo "size = $size\n";
+
+    for( $i = 0; $i < $size; $i++ )
+    {
+        array_push( $res->items, parse_ShoppingItemWithProduct( $csv_arr, $offset ) );
+    }
+
+    return $res;
+}
+
+function parse_ShoppingListWithTotals( & $csv_arr, & $offset )
+{
+    // 1;121212;2;Milch;Packung;1.09;2;2.18;2;
+
+    $res = new ShoppingListWithTotals;
+
+    $res->shopping_list = parse_ShoppingListWithProduct( $csv_arr, $offset );
+    $res->price         = \basic_parser\parse_float( $csv_arr, $offset );
+    $res->weight        = \basic_parser\parse_float( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_RideWithShopper( & $csv_arr, & $offset )
+{
+    // 232323;50668;0;0;20190522173000;3.5;Johann=20Meyer;
+
+    $res = new RideWithShopper;
+
+    $res->ride_id       = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->ride          = \shopndrop_protocol\parse_Ride( $csv_arr, $offset );
+    $res->shopper_name  = \basic_parser\parse_enc_string( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_RideWithRequests( & $csv_arr, & $offset )
+{
+    // 232323;50668;0;0;20190522173000;3.5;1;
+
+    $res = new RideWithRequests;
+
+    $res->ride_id       = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->ride          = \shopndrop_protocol\parse_Ride( $csv_arr, $offset );
+    $res->num_requests  = \basic_parser\parse_int( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_OrderRequestInfo( & $csv_arr, & $offset )
+{
+    // 232323;2.18;.3;1.25;50668;0;0;20190522173000;Breslau=20Platz=201;
+
+    $res = new OrderRequestInfo;
+
+    $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->sum           = \basic_parser\parse_float( $csv_arr, $offset );
+    $res->earning       = \basic_parser\parse_float( $csv_arr, $offset );
+    $res->weight        = \basic_parser\parse_float( $csv_arr, $offset );
+    $res->position      = \shopndrop_protocol\parse_GeoPosition( $csv_arr, $offset );
+    $res->address       = \basic_parser\parse_enc_string( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_AcceptedOrderUser( & $csv_arr, & $offset )
+{
+    // 232323;20190327202000;141414;17.25;4;Johann=20Meyer;
+
+    $res = new AcceptedOrderUser;
+
+    $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->order         = \shopndrop_protocol\parse_Order( $csv_arr, $offset );
+    $res->shopper_name  = \basic_parser\parse_enc_string( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_AcceptedOrderShopper( & $csv_arr, & $offset )
+{
+    // 232323;20190327202000;141414;17.25;4;50668;0;0;Breslau=20Platz=201;3.27;1.5;
+
+    $res = new AcceptedOrderShopper;
+
+    $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->order         = \shopndrop_protocol\parse_Order( $csv_arr, $offset );
+    $res->position      = \shopndrop_protocol\parse_GeoPosition( $csv_arr, $offset );
+    $res->address       = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->earning       = \basic_parser\parse_float( $csv_arr, $offset );
+    $res->weight        = \basic_parser\parse_float( $csv_arr, $offset );
 
     return $res;
 }
