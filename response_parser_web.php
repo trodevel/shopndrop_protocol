@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10950 $ $Date:: 2019-04-29 #$ $Author: serge $
+// $Revision: 10955 $ $Date:: 2019-04-29 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -219,6 +219,72 @@ function parse_DashScreenShopper( & $csv_arr, & $offset )
     return $res;
 }
 
+function parse_GetProductItemListResponse( & $csv_arr, & $offset )
+{
+    // GetProductItemListResponse;5;...
+
+    $res = new GetProductItemListResponse;
+
+    $offset = 1;
+
+    $size    = \basic_parser\parse_int( $csv_arr, $offset );
+
+    //echo "size = $size\n";
+
+    for( $i = 0; $i < $size; $i++ )
+    {
+        array_push( $res->product_items, parse_ProductItemWithId( $csv_arr, $offset ) );
+    }
+
+    return $res;
+}
+
+function parse_GetRideOrderInfoResponse( & $csv_arr, & $offset )
+{
+    // GetRideOrderInfoResponse;5;...
+
+    $res = new GetRideOrderInfoResponse;
+
+    $offset = 1;
+
+    $size    = \basic_parser\parse_int( $csv_arr, $offset );
+
+    //echo "size = $size\n";
+
+    for( $i = 0; $i < $size; $i++ )
+    {
+        array_push( $res->rides, parse_OrderRequestInfo( $csv_arr, $offset ) );
+    }
+
+    return $res;
+}
+
+function parse_GetDashScreenUserResponse( & $csv_arr, & $offset )
+{
+    // GetDashScreenUserResponse;...
+
+    $res = new GetDashScreenUserResponse;
+
+    $offset = 1;
+
+    $res->dash_screen   = parse_DashScreenUser( $csv_arr, $offset );
+
+    return $res;
+}
+
+function parse_GetDashScreenShopperResponse( & $csv_arr, & $offset )
+{
+    // GetDashScreenShopperResponse;...
+
+    $res = new GetDashScreenShopperResponse;
+
+    $offset = 1;
+
+    $res->dash_screen   = parse_DashScreenShopper( $csv_arr, $offset );
+
+    return $res;
+}
+
 class ResponseParser extends \shopndrop_protocol\ResponseParser
 {
 
@@ -230,12 +296,10 @@ protected static function parse_csv_array( $csv_arr )
     $type = $csv_arr[0][0];
 
     $func_map = array(
-        'AddRideResponse'               => 'parse_AddRideResponse',
-        'CancelRideResponse'            => 'parse_CancelRideResponse',
-        'GetRideResponse'               => 'parse_GetRideResponse',
-        'AddOrderResponse'              => 'parse_AddOrderResponse',
-        'CancelOrderResponse'           => 'parse_CancelOrderResponse',
-        'GetPersonalUserInfoResponse'   => 'parse_GetPersonalUserInfoResponse',
+        'web/GetProductItemListResponse'    => 'parse_GetProductItemListResponse',
+        'web/GetRideOrderInfoResponse'      => 'parse_GetRideOrderInfoResponse',
+        'web/GetDashScreenUserResponse'     => 'parse_GetDashScreenUserResponse',
+        'web/GetDashScreenShopperResponse'  => 'parse_GetDashScreenShopperResponse',
         );
 
     if( array_key_exists( $type, $func_map ) )
