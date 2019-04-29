@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10967 $ $Date:: 2019-04-29 #$ $Author: serge $
+// $Revision: 10987 $ $Date:: 2019-04-29 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -38,10 +38,10 @@ function parse_ProductItem( & $csv_arr, & $offset )
 
     $res = new ProductItem;
 
-    $res->name      = \basic_parser\parse_string( $csv_arr, $offset );
-    $res->unit      = \basic_parser\parse_string( $csv_arr, $offset );
+    $res->name      = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->unit      = \basic_parser\parse_enc_string( $csv_arr, $offset );
     $res->price     = \basic_parser\parse_float( $csv_arr, $offset );
-    $res->weigth    = \basic_parser\parse_float( $csv_arr, $offset );
+    $res->weight    = \basic_parser\parse_float( $csv_arr, $offset );
 
     return $res;
 }
@@ -145,7 +145,7 @@ function parse_AddOrderResponse( & $csv_arr )
 
     $res = new AddOrderResponse;
 
-    $res->orders_id     = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
 
     return $res;
 }

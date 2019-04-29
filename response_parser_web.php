@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10955 $ $Date:: 2019-04-29 #$ $Author: serge $
+// $Revision: 10983 $ $Date:: 2019-04-29 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -219,7 +219,7 @@ function parse_DashScreenShopper( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_GetProductItemListResponse( & $csv_arr, & $offset )
+function parse_GetProductItemListResponse( & $csv_arr )
 {
     // GetProductItemListResponse;5;...
 
@@ -230,6 +230,8 @@ function parse_GetProductItemListResponse( & $csv_arr, & $offset )
     $size    = \basic_parser\parse_int( $csv_arr, $offset );
 
     //echo "size = $size\n";
+    
+    $res->product_items = array();
 
     for( $i = 0; $i < $size; $i++ )
     {
@@ -239,7 +241,7 @@ function parse_GetProductItemListResponse( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_GetRideOrderInfoResponse( & $csv_arr, & $offset )
+function parse_GetRideOrderInfoResponse( & $csv_arr )
 {
     // GetRideOrderInfoResponse;5;...
 
@@ -259,7 +261,7 @@ function parse_GetRideOrderInfoResponse( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_GetDashScreenUserResponse( & $csv_arr, & $offset )
+function parse_GetDashScreenUserResponse( & $csv_arr )
 {
     // GetDashScreenUserResponse;...
 
@@ -272,7 +274,7 @@ function parse_GetDashScreenUserResponse( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_GetDashScreenShopperResponse( & $csv_arr, & $offset )
+function parse_GetDashScreenShopperResponse( & $csv_arr )
 {
     // GetDashScreenShopperResponse;...
 
