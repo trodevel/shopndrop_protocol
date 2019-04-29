@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10940 $ $Date:: 2019-04-27 #$ $Author: serge $
+// $Revision: 10967 $ $Date:: 2019-04-29 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -102,7 +102,7 @@ function parse_Order( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_AddRideResponse( & $resp )
+function parse_AddRideResponse( & $csv_arr )
 {
     // AddRideResponse;123;
 
@@ -115,7 +115,7 @@ function parse_AddRideResponse( & $resp )
     return $res;
 }
 
-function parse_CancelRideResponse( & $resp )
+function parse_CancelRideResponse( & $csv_arr )
 {
     // CancelRideResponse;
 
@@ -124,7 +124,7 @@ function parse_CancelRideResponse( & $resp )
     return $res;
 }
 
-function parse_GetRideResponse( & $resp )
+function parse_GetRideResponse( & $csv_arr )
 {
     // GetRideResponse;50668;0;0;20190522180000;2;
 
@@ -137,7 +137,7 @@ function parse_GetRideResponse( & $resp )
     return $res;
 }
 
-function parse_AddOrderResponse( & $resp )
+function parse_AddOrderResponse( & $csv_arr )
 {
     // AddOrderResponse;123;
 
@@ -150,7 +150,7 @@ function parse_AddOrderResponse( & $resp )
     return $res;
 }
 
-function parse_CancelOrderResponse( & $resp )
+function parse_CancelOrderResponse( & $csv_arr )
 {
     // CancelOrderResponse;
 
@@ -159,7 +159,7 @@ function parse_CancelOrderResponse( & $resp )
     return $res;
 }
 
-function parse_GetPersonalUserInfoResponse( & $resp )
+function parse_GetPersonalUserInfoResponse( & $csv_arr )
 {
     // GetPersonalUserInfoResponse;123;1;John;Doe;Yoyodine=20Corp.;john.doe@yoyodine.com;+491234567890;Europe/Berlin;
 
