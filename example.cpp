@@ -94,9 +94,9 @@ void test_GetProductItemListResponse()
     std::vector<shopndrop_protocol::web::ProductItemWithId> pids  =
     {
             { 121212, { "Milch",    "Packung",  1.09, 1.0 } },
-            { 121212, { "Brot",     "Stück",    1.49, 0.5 } },
-            { 121212, { "Apfel",    "kg",       2.49, 1.5 } },
-            { 121212, { "Nutella",  "Dose",     1.99, 0.3 } },
+            { 232323, { "Brot",     "Stück",    1.49, 0.5 } },
+            { 343434, { "Apfel",    "kg",       2.49, 1.5 } },
+            { 454545, { "Nutella",  "Dose",     1.99, 0.3 } },
     };
 
     auto s = shopndrop_protocol::web::create_GetProductItemListResponse( pids );
