@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10998 $ $Date:: 2019-04-30 #$ $Author: serge $
+// $Revision: 11014 $ $Date:: 2019-04-30 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -203,6 +203,8 @@ function parse_DashScreenShopper( & $csv_arr, & $offset )
 
         //echo "size = $size\n";
 
+        $res->rides = array();
+
         for( $i = 0; $i < $size; $i++ )
         {
             array_push( $res->rides, parse_RideWithRequests( $csv_arr, $offset ) );
@@ -213,6 +215,8 @@ function parse_DashScreenShopper( & $csv_arr, & $offset )
         $size    = \basic_parser\parse_int( $csv_arr, $offset );
 
         //echo "size = $size\n";
+
+        $res->orders = array();
 
         for( $i = 0; $i < $size; $i++ )
         {

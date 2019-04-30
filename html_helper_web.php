@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11007 $ $Date:: 2019-04-30 #$ $Author: serge $
+// $Revision: 11015 $ $Date:: 2019-04-30 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -118,6 +118,22 @@ function to_html_RideWithShopper_tabledata( & $obj )
             $obj->shopper_name ) );
 }
 
+function get_header_RideWithRequests()
+{
+    return get_html_table_header_elems( array( 'RIDE ID' ) ) .
+    \shopndrop_protocol\get_header_Ride() .
+    get_html_table_header_elems( array( 'NUM REQUESTS' ) );
+}
+
+function to_html_RideWithRequests_tabledata( & $obj )
+{
+    return get_html_table_data_elems( array(
+        $obj->ride_id ) ) .
+        \shopndrop_protocol\to_html_Ride_tabledata( $obj->ride ) .
+        get_html_table_data_elems( array(
+            $obj->num_requests ) );
+}
+
 function get_header_AcceptedOrderUser()
 {
     return get_html_table_header_elems( array( 'ORDER ID' ) ) .
@@ -132,6 +148,26 @@ function to_html_AcceptedOrderUser_tabledata( & $obj )
         \shopndrop_protocol\to_html_Order_tabledata( $obj->order ) .
         get_html_table_data_elems( array(
             $obj->shopper_name ) );
+}
+
+function get_header_AcceptedOrderShopper()
+{
+    return get_html_table_header_elems( array( 'ORDER ID' ) ) .
+        \shopndrop_protocol\get_header_Order() .
+        get_html_table_header_elems( array( 'POSITION', 'ADDRESS', 'EARNING', 'WEIGHT' ) );
+}
+
+function to_html_AcceptedOrderShopper_tabledata( & $obj )
+{
+    return get_html_table_data_elems( array(
+        $obj->order_id ) ) .
+        \shopndrop_protocol\to_html_Order_tabledata( $obj->order ) .
+        get_html_table_data_elems( array(
+            \shopndrop_protocol\to_string_GeoPosition( $obj->position ),
+            $obj->address,
+            $obj->earning,
+            $obj->weight
+            ) );
 }
 
 function to_html_DashScreenUser( & $obj )
@@ -178,6 +214,50 @@ function to_html_GetDashScreenUserResponse( & $obj )
     return $res;
 }
 
+function to_html_DashScreenShopper( & $obj )
+{
+    $res = '<h3>Dash Screen Shopper ( current time ' . \basic_objects\to_string_LocalTime( $obj->current_time ) . ' )</h3>';
+
+    {
+        $num   = sizeof( $obj->rides );
+
+        $res = $res . '<h2>My Offered Rides and Shopping Requests( ' . $num . ' )</h2>';
+
+        $body = '';
+        for( $i = 0; $i < $num; $i++ )
+        {
+            $body = $body . get_html_table_tr( to_html_RideWithRequests_tabledata( $obj->rides[$i] ) );
+        }
+
+        $res = $res . get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
+            get_html_table_tr( get_header_RideWithRequests() ) . $body );
+    }
+
+    {
+        $num   = sizeof( $obj->orders );
+
+        $res = $res . '<h2>My accepted orders ( ' . $num . ' )</h2>';
+
+        $body = '';
+        for( $i = 0; $i < $num; $i++ )
+        {
+            $body = $body . get_html_table_tr( to_html_AcceptedOrderShopper_tabledata( $obj->orders[$i] ) );
+        }
+
+        $res = $res . get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
+            get_html_table_tr( get_header_AcceptedOrderShopper() ) . $body );
+    }
+
+    return $res;
+}
+
+function to_html_GetDashScreenShopperResponse( & $obj )
+{
+    $res = to_html_DashScreenShopper( $obj->dash_screen );
+
+    return $res;
+}
+
 // *********************************************************
 
 function to_html( $obj )
@@ -188,7 +268,9 @@ function to_html( $obj )
         'shopndrop_protocol\web\GetRideOrderInfoRequest'        => 'to_html_not_impl',
         'shopndrop_protocol\web\GetRideOrderInfoResponse'       => 'to_html_GetRideOrderInfoResponse',
         'shopndrop_protocol\web\GetDashScreenUserRequest'       => 'to_html_not_impl',
-        'shopndrop_protocol\web\GetDashScreenUserResponse'      => 'to_html_GetDashScreenUserResponse'
+        'shopndrop_protocol\web\GetDashScreenUserResponse'      => 'to_html_GetDashScreenUserResponse',
+        'shopndrop_protocol\web\GetDashScreenShopperRequest'    => 'to_html_not_impl',
+        'shopndrop_protocol\web\GetDashScreenShopperResponse'   => 'to_html_GetDashScreenShopperResponse'
     );
 
     $type = get_class ( $obj );
