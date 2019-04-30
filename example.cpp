@@ -112,8 +112,8 @@ void test_GetRideOrderInfoResponse()
     {
             { 121212, 10.35,    ( 10.35 / 1.3 ) * .15,  2.0, { 50668, 0, 0 }, "Eigelstein 1" },
             { 232323, 7.62,     ( 7.62 / 1.3 ) * .15,   2.7, { 50667, 0, 0 }, "Hohe Strasse 17" },
-            { 121212, 12.67,    ( 12.67 / 1.3 ) * .15,  1.5, { 50672, 0, 0 }, "Antwerpener Strasse 25" },
-            { 121212, 20.39,    ( 20.39 / 1.3 ) * .15,  1.0, { 50674, 0, 0 }, "Lindenstrasse 56" },
+            { 343434, 12.67,    ( 12.67 / 1.3 ) * .15,  1.5, { 50672, 0, 0 }, "Antwerpener Strasse 25" },
+            { 454545, 20.39,    ( 20.39 / 1.3 ) * .15,  1.0, { 50674, 0, 0 }, "Lindenstrasse 56" },
     };
 
     auto s = shopndrop_protocol::web::create_GetRideOrderInfoResponse( pids );
