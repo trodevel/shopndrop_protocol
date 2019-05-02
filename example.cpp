@@ -123,6 +123,30 @@ void test_GetRideOrderInfoResponse()
     delete s;
 }
 
+void test_GetShoppingListWithTotalsResponse()
+{
+    std::vector<shopndrop_protocol::web::ShoppingItemWithProduct> shop_list_prod_items  =
+    {
+            { { 121212, 3 }, { "Milch",    "Packung",  1.09, 1.0 } },
+            { { 232323, 2 }, { "Brot",     "Stück",    1.49, 0.5 } },
+            { { 343434, 1 }, { "Apfel",    "kg",       2.49, 1.5 } },
+            { { 454545, 1 }, { "Nutella",  "Dose",     1.99, 0.3 } },
+    };
+
+    shopndrop_protocol::web::ShoppingListWithTotals sl =
+    {
+            { shop_list_prod_items },
+            10.73,
+            5.8
+    };
+
+    auto s = shopndrop_protocol::web::create_GetShoppingListWithTotalsResponse( sl );
+
+    std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
+
+    delete s;
+}
+
 void test_GetDashScreenUserResponse()
 {
     std::vector<shopndrop_protocol::web::RideWithShopper>      rides    =
@@ -196,6 +220,7 @@ int main()
     test_CancelOrderResponse();
     test_GetProductItemListResponse();
     test_GetRideOrderInfoResponse();
+    test_GetShoppingListWithTotalsResponse();
     test_GetDashScreenUserResponse();
     test_GetDashScreenShopperResponse();
 

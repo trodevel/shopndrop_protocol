@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11016 $ $Date:: 2019-05-02 #$ $Author: serge $
+// $Revision: 11022 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -63,6 +63,10 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     else if( typeid( r ) == typeid( web::GetRideOrderInfoResponse ) )
     {
         return to_csv( static_cast<const web::GetRideOrderInfoResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( web::GetShoppingListWithTotalsResponse ) )
+    {
+        return to_csv( static_cast<const web::GetShoppingListWithTotalsResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( GetPersonalUserInfoResponse ) )
     {
@@ -363,6 +367,19 @@ std::string CsvResponseEncoder::to_csv( const web::GetRideOrderInfoResponse & r 
             r.rides.begin(),
             r.rides.end(),
             [](std::ostream & os, const web::OrderRequestInfo & r) { CsvResponseEncoder::write( os, r ); } );
+
+    return os.str();
+}
+
+std::string CsvResponseEncoder::to_csv( const web::GetShoppingListWithTotalsResponse & r )
+{
+    std::ostringstream os;
+
+    utils::CsvHelper::write(
+            os,
+            "web/GetShoppingListWithTotalsResponse" ) ;
+
+    write( os, r.shopping_list );
 
     return os.str();
 }

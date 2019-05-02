@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10862 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 11023 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -143,6 +143,16 @@ inline GetRideOrderInfoResponse * create_GetRideOrderInfoResponse(
     auto * res = new GetRideOrderInfoResponse;
 
     res->rides  = rides;
+
+    return res;
+}
+
+inline GetShoppingListWithTotalsResponse * create_GetShoppingListWithTotalsResponse(
+        const ShoppingListWithTotals    & shopping_list )
+{
+    auto * res = new GetShoppingListWithTotalsResponse;
+
+    res->shopping_list  = shopping_list;
 
     return res;
 }
