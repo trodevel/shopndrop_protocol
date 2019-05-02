@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10769 $ $Date:: 2019-04-05 #$ $Author: serge $
+// $Revision: 11019 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 #ifndef SHOPNDROP_PROTOCOL_ENUMS_H
 #define SHOPNDROP_PROTOCOL_ENUMS_H
@@ -44,6 +44,7 @@ enum class request_type_e
     UNDEF,
     GetProductItemListRequest,
     GetRideOrderInfoRequest,
+    GetShoppingListWithTotalsRequest,
     GetDashScreenUserRequest,
     GetDashScreenShopperRequest
 };

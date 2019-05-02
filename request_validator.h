@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10859 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 11019 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 #include "shopndrop_protocol.h"    // Request...
 
@@ -51,6 +51,7 @@ class RequestValidator
 public:
     static bool validate( const GetProductItemListRequest & r );
     static bool validate( const GetRideOrderInfoRequest & r );
+    static bool validate( const GetShoppingListWithTotalsRequest & r );
     static bool validate( const GetDashScreenUserRequest & r );
     static bool validate( const GetDashScreenShopperRequest & r );
 };

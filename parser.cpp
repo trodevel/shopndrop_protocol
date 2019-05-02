@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10873 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 11020 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 #include "parser.h"                 // self
 
@@ -79,6 +79,7 @@ request_type_e Parser::to_request_type( const std::string & s )
     {
         make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetProductItemListRequest, "web/" ) ),
         make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetRideOrderInfoRequest, "web/" ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetShoppingListWithTotalsRequest, "web/" ) ),
         make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetDashScreenUserRequest, "web/" ) ),
         make_inverse_pair( Type:: TUPLE_VAL_STR_PREF( GetDashScreenShopperRequest, "web/" ) ),
     };

@@ -248,6 +248,10 @@ int main()
     test( "CMD=web/GetRideOrderInfoRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
     test( "CMD=web/GetRideOrderInfoRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
 
+    test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=1&&SESSION_ID=afafaf" );
+
     test( "CMD=web/GetDashScreenUserRequest&USER_ID=&&SESSION_ID=afafaf" );
     test( "CMD=web/GetDashScreenUserRequest&USER_ID=0&&SESSION_ID=afafaf" );
     test( "CMD=web/GetDashScreenUserRequest&USER_ID=1&&SESSION_ID=afafaf" );

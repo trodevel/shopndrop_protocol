@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10860 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 11019 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 #include "generic_request/request.h"        // generic_request::Request
 #include "basic_parser/malformed_request.h" // MalformedRequest
@@ -78,6 +78,7 @@ private:
 
     static ForwardMessage *             to_GetProductItemListRequest( const generic_request::Request & r );
     static ForwardMessage *             to_GetRideOrderInfoRequest( const generic_request::Request & r );
+    static ForwardMessage *             to_GetShoppingListWithTotalsRequest( const generic_request::Request & r );
     static ForwardMessage *             to_GetDashScreenUserRequest( const generic_request::Request & r );
     static ForwardMessage *             to_GetDashScreenShopperRequest( const generic_request::Request & r );
 };

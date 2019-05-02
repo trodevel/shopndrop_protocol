@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10867 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 11019 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -245,6 +245,7 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
     {
         { KeyType::GetProductItemListRequest,   & Type::to_GetProductItemListRequest },
         { KeyType::GetRideOrderInfoRequest,     & Type::to_GetRideOrderInfoRequest },
+        { KeyType::GetShoppingListWithTotalsRequest,    & Type::to_GetShoppingListWithTotalsRequest },
         { KeyType::GetDashScreenUserRequest,    & Type::to_GetDashScreenUserRequest },
         { KeyType::GetDashScreenShopperRequest, & Type::to_GetDashScreenShopperRequest },
     };
@@ -285,6 +286,19 @@ RequestParser::ForwardMessage * RequestParser::to_GetRideOrderInfoRequest( const
     generic_protocol::RequestParser::to_request( res, r );
 
     ::shopndrop_protocol::RequestParser::to_Id( & res->ride_id, "RIDE_ID", r );
+
+    RequestValidator::validate( * res );
+
+    return res;
+}
+
+RequestParser::ForwardMessage * RequestParser::to_GetShoppingListWithTotalsRequest( const generic_request::Request & r )
+{
+    auto * res = new GetShoppingListWithTotalsRequest;
+
+    generic_protocol::RequestParser::to_request( res, r );
+
+    ::shopndrop_protocol::RequestParser::to_Id( & res->shopping_list_id, "SHOPPING_LIST_ID", r );
 
     RequestValidator::validate( * res );
 

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10928 $ $Date:: 2019-04-26 #$ $Author: serge $
+// $Revision: 11018 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -290,6 +290,16 @@ struct GetRideOrderInfoRequest: public Request
 struct GetRideOrderInfoResponse: public generic_protocol::BackwardMessage
 {
     std::vector<OrderRequestInfo>    rides;
+};
+
+struct GetShoppingListWithTotalsRequest: public Request
+{
+    id_t            shopping_list_id;
+};
+
+struct GetShoppingListWithTotalsResponse: public generic_protocol::BackwardMessage
+{
+    ShoppingListWithTotals  shopping_list;
 };
 
 struct GetDashScreenUserRequest: public Request
