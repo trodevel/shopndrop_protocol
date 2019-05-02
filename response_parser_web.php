@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11014 $ $Date:: 2019-04-30 #$ $Author: serge $
+// $Revision: 11030 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -60,6 +60,8 @@ function parse_ShoppingListWithProduct( & $csv_arr, & $offset )
     $size    = \basic_parser\parse_int( $csv_arr, $offset );
 
     //echo "size = $size\n";
+
+    $res->items = array();
 
     for( $i = 0; $i < $size; $i++ )
     {
@@ -229,7 +231,7 @@ function parse_DashScreenShopper( & $csv_arr, & $offset )
 
 function parse_GetProductItemListResponse( & $csv_arr )
 {
-    // GetProductItemListResponse;5;...
+    // web/GetProductItemListResponse;5;...
 
     $res = new GetProductItemListResponse;
 
@@ -251,7 +253,7 @@ function parse_GetProductItemListResponse( & $csv_arr )
 
 function parse_GetRideOrderInfoResponse( & $csv_arr )
 {
-    // GetRideOrderInfoResponse;5;...
+    // web/GetRideOrderInfoResponse;5;...
 
     $res = new GetRideOrderInfoResponse;
 
@@ -271,9 +273,22 @@ function parse_GetRideOrderInfoResponse( & $csv_arr )
     return $res;
 }
 
+function parse_GetShoppingListWithTotalsResponse( & $csv_arr )
+{
+    // web/GetShoppingListWithTotalsResponse;...
+
+    $res = new GetShoppingListWithTotalsResponse;
+
+    $offset = 1;
+
+    $res->shopping_list = parse_ShoppingListWithTotals( $csv_arr, $offset );
+
+    return $res;
+}
+
 function parse_GetDashScreenUserResponse( & $csv_arr )
 {
-    // GetDashScreenUserResponse;...
+    // web/GetDashScreenUserResponse;...
 
     $res = new GetDashScreenUserResponse;
 
@@ -286,7 +301,7 @@ function parse_GetDashScreenUserResponse( & $csv_arr )
 
 function parse_GetDashScreenShopperResponse( & $csv_arr )
 {
-    // GetDashScreenShopperResponse;...
+    // web/GetDashScreenShopperResponse;...
 
     $res = new GetDashScreenShopperResponse;
 
@@ -310,6 +325,7 @@ protected static function parse_csv_array( $csv_arr )
     $func_map = array(
         'web/GetProductItemListResponse'    => 'parse_GetProductItemListResponse',
         'web/GetRideOrderInfoResponse'      => 'parse_GetRideOrderInfoResponse',
+        'web/GetShoppingListWithTotalsResponse'     => 'parse_GetShoppingListWithTotalsResponse',
         'web/GetDashScreenUserResponse'     => 'parse_GetDashScreenUserResponse',
         'web/GetDashScreenShopperResponse'  => 'parse_GetDashScreenShopperResponse',
         );

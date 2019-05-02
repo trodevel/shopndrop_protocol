@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10927 $ $Date:: 2019-04-26 #$ $Author: serge $
+// $Revision: 11026 $ $Date:: 2019-05-02 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -165,6 +165,34 @@ class GetRideOrderInfoRequest extends \shopndrop_protocol\Request
 class GetRideOrderInfoResponse extends \generic_protocol\BackwardMessage
 {
     public  $rides;             // array<OrderRequestInfo>
+}
+
+class GetShoppingListWithTotalsRequest extends \shopndrop_protocol\Request
+{
+    public  $shopping_list_id;  // id_t
+
+    function __construct( $session_id, $shopping_list_id )
+    {
+        parent::__construct( $session_id );
+
+        $this->shopping_list_id = $shopping_list_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"               => "web/GetShoppingListWithTotalsRequest",
+            "SHOPPING_LIST_ID"  => $this->shopping_list_id
+        );
+
+        return \generic_protocol\assemble_request( $res ) .
+            parent::to_generic_request();
+    }
+}
+
+class GetShoppingListWithTotalsResponse extends \generic_protocol\BackwardMessage
+{
+    public  $shopping_list;     // ShoppingListWithTotals
 }
 
 class GetDashScreenUserRequest extends \shopndrop_protocol\Request
