@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11006 $ $Date:: 2019-04-30 #$ $Author: serge $
+// $Revision: 11031 $ $Date:: 2019-05-03 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -52,6 +52,18 @@ function to_html_ProductItem_tabledata( & $obj )
         $obj->unit,
         $obj->price,
         $obj->weight ) );
+}
+
+function get_header_ShoppingItem()
+{
+    return get_html_table_header_elems( array( 'PRODUCT ITEM ID', 'AMOUNT' ) );
+}
+
+function to_html_ShoppingItem_tabledata( & $obj )
+{
+    return get_html_table_data_elems( array(
+        $obj->product_item_id,
+        $obj->amount ) );
 }
 
 function get_header_Ride()

@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11015 $ $Date:: 2019-04-30 #$ $Author: serge $
+// $Revision: 11039 $ $Date:: 2019-05-03 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -98,6 +98,56 @@ function to_html_GetRideOrderInfoResponse( & $obj )
 
     $res = $res. get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
         get_html_table_tr( get_header_OrderRequestInfo() ) . $body );
+
+    return $res;
+}
+
+function get_header_ShoppingItemWithProduct()
+{
+    return \shopndrop_protocol\get_header_ShoppingItem() . \shopndrop_protocol\get_header_ProductItem();
+}
+
+function to_html_ShoppingItemWithProduct_tabledata( & $obj )
+{
+    return \shopndrop_protocol\to_html_ShoppingItem_tabledata( $obj->shopping_item ) .
+        \shopndrop_protocol\to_html_ProductItem_tabledata( $obj->product_item );
+}
+
+function to_html_ShoppingListWithProduct( & $obj )
+{
+    //     var_dump( $obj );
+
+    $num   = sizeof( $obj->items );
+
+    $res = '<h3>Shopping List (' . $num . ')</h3>';
+
+    $body = '';
+    for( $i = 0; $i < $num; $i++ )
+    {
+        $body = $body . get_html_table_tr( to_html_ShoppingItemWithProduct_tabledata( $obj->items[$i] ) );
+    }
+
+    $res = $res. get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
+        get_html_table_tr( get_header_ShoppingItemWithProduct() ) . $body );
+
+    return $res;
+}
+
+function to_html_ShoppingListWithTotals( & $obj )
+{
+    $res = to_html_ShoppingListWithProduct( $obj->shopping_list );
+
+    $res = $res . '<h3>Price: ' . $obj->price . '</h3>';
+    $res = $res . '<h3>Weight: ' . $obj->weight . '</h3>';
+
+    return $res;
+}
+
+function to_html_GetShoppingListWithTotalsResponse( & $obj )
+{
+    $res = '<h3>Shopping List with Totals:</h3>';
+
+    $res = $res . to_html_ShoppingListWithTotals( $obj->shopping_list );
 
     return $res;
 }
@@ -221,7 +271,7 @@ function to_html_DashScreenShopper( & $obj )
     {
         $num   = sizeof( $obj->rides );
 
-        $res = $res . '<h2>My Offered Rides and Shopping Requests( ' . $num . ' )</h2>';
+        $res = $res . '<h2>My Offered Rides and Shopping Requests ( ' . $num . ' )</h2>';
 
         $body = '';
         for( $i = 0; $i < $num; $i++ )
@@ -267,6 +317,8 @@ function to_html( $obj )
         'shopndrop_protocol\web\GetProductItemListResponse'     => 'to_html_GetProductItemListResponse',
         'shopndrop_protocol\web\GetRideOrderInfoRequest'        => 'to_html_not_impl',
         'shopndrop_protocol\web\GetRideOrderInfoResponse'       => 'to_html_GetRideOrderInfoResponse',
+        'shopndrop_protocol\web\GetShoppingListWithTotalsRequest'   => 'to_html_not_impl',
+        'shopndrop_protocol\web\GetShoppingListWithTotalsResponse'  => 'to_html_GetShoppingListWithTotalsResponse',
         'shopndrop_protocol\web\GetDashScreenUserRequest'       => 'to_html_not_impl',
         'shopndrop_protocol\web\GetDashScreenUserResponse'      => 'to_html_GetDashScreenUserResponse',
         'shopndrop_protocol\web\GetDashScreenShopperRequest'    => 'to_html_not_impl',
