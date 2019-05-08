@@ -1,0 +1,91 @@
+# Order FSM.
+#
+# Copyright (C) 2019 Sergey Kolevatov
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# SKV 19508
+#
+# $Id: Order.gv 11152 2019-05-08 23:48:18Z serge $
+#
+# execute: FL=Order; dot -l sdl.ps -Tps $FL.gv -o $FL.ps; ps2pdf $FL.ps $FL.pdf
+
+digraph Order
+{
+
+label="$Id: Order.gv 11152 2019-05-08 23:48:18Z serge $";
+
+size="7,7";
+ratio=fill;
+splines=true;
+node [peripheries=0 style=filled fillcolor=white]
+
+######################################################
+# states
+
+START                           [ shape = sdl_start ]
+WAITING_ACCEPTANCE              [ label = "IDLE /\nWAITING_ACCEPTANCE"    shape = sdl_state fillcolor=yellow ]
+ACCEPTED_WAITING_DELIVERY       [ label = "ACCEPTED /\nWAITING_DELIVERY"  shape = sdl_state fillcolor=yellow ]
+DELIVERED_WAITING_FEEDBACK      [ label = "DELIVERED /\nWAITING_FEEDBACK" shape = sdl_state fillcolor=yellow ]
+END                             [ label = ""                              shape = sdl_stop  style=solid ]
+
+######################################################
+# actions
+
+WAITING_ACCEPTANCE__ACCEPT_ORDER            [ label="AcceptOrder"                       shape = sdl_input_from_right fillcolor=cyan ]
+WAITING_ACCEPTANCE__SEND_ACCEPT_ORDER       [ label="AcceptOrderR"                      shape = sdl_output_to_right ]
+WAITING_ACCEPTANCE__DECLINE_ORDER           [ label="DeclineOrder"                      shape = sdl_input_from_right fillcolor=cyan ]
+WAITING_ACCEPTANCE__SEND_DECLINE_ORDER      [ label="DeclineOrderR"                     shape = sdl_output_to_right ]
+WAITING_ACCEPTANCE__CANCEL_ORDER            [ label="CancelOrder"                       shape = sdl_input_from_left  fillcolor=green ]
+WAITING_ACCEPTANCE__SEND_CANCEL_ORDER       [ label="CancelOrderR"                      shape = sdl_output_to_left ]
+WAITING_ACCEPTANCE__CANCEL_RIDE             [ label="CancelRide"                        shape = sdl_input_from_right fillcolor=cyan ]
+WAITING_ACCEPTANCE__SEND_CANCEL_RIDE        [ label="CancelRideR"                       shape = sdl_output_to_right ]
+WAITING_ACCEPTANCE__RESOL_1                 [ label="resolution := CANCELLED_BY_USER"   shape = sdl_task ]
+WAITING_ACCEPTANCE__RESOL_2                 [ label="resolution := DECLINED_BY_SHOPPER" shape = sdl_task ]
+WAITING_ACCEPTANCE__RESOL_3                 [ label="resolution := RIDE_CANCELLED"      shape = sdl_task ]
+
+ACCEPTED_WAITING_DELIVERY__DELIVERED        [ label="Delivered"                         shape = sdl_input_from_right fillcolor=cyan ]
+ACCEPTED_WAITING_DELIVERY__SEND_DELIVERED   [ label="DeliveredR"                        shape = sdl_output_to_right ]
+ACCEPTED_WAITING_DELIVERY__CANCEL_RIDE      [ label="CancelRide"                        shape = sdl_input_from_right fillcolor=cyan ]
+ACCEPTED_WAITING_DELIVERY__SEND_CANCEL_RIDE [ label="CancelRideR"                       shape = sdl_output_to_right ]
+ACCEPTED_WAITING_DELIVERY__CANCEL_ORDER     [ label="CancelOrder"                       shape = sdl_input_from_left  fillcolor=green ]
+ACCEPTED_WAITING_DELIVERY__SEND_CANCEL_ORDER    [ label="CancelOrderR"                  shape = sdl_output_to_left ]
+ACCEPTED_WAITING_DELIVERY__CANCEL_ORDER_2   [ label="CancelOrder"                       shape = sdl_input_from_right fillcolor=cyan ]
+ACCEPTED_WAITING_DELIVERY__SEND_CANCEL_ORDER_2  [ label="CancelOrderR"                  shape = sdl_output_to_right ]
+ACCEPTED_WAITING_DELIVERY__RESOL_1          [ label="resolution := RIDE_CANCELLED"      shape = sdl_task ]
+ACCEPTED_WAITING_DELIVERY__RESOL_2          [ label="resolution := CANCELLED_BY_USER"   shape = sdl_task ]
+ACCEPTED_WAITING_DELIVERY__RESOL_3          [ label="resolution := CANCELLED_BY_SHOPPER" shape = sdl_task ]
+
+DELIVERED_WAITING_FEEDBACK__RATE_SHOPPER    [ label="RateShopper"                       shape = sdl_input_from_left  fillcolor=green ]
+DELIVERED_WAITING_FEEDBACK__SEND_RATE_SHOPPER    [ label="RateShopperR"                 shape = sdl_output_to_left ]
+DELIVERED_WAITING_FEEDBACK__RESOL_1         [ label="resolution := DELIVERED"           shape = sdl_task ]
+
+######################################################
+# transitions
+
+START -> WAITING_ACCEPTANCE
+
+WAITING_ACCEPTANCE -> WAITING_ACCEPTANCE__ACCEPT_ORDER   -> WAITING_ACCEPTANCE__SEND_ACCEPT_ORDER -> ACCEPTED_WAITING_DELIVERY
+WAITING_ACCEPTANCE -> WAITING_ACCEPTANCE__CANCEL_ORDER   -> WAITING_ACCEPTANCE__RESOL_1 -> WAITING_ACCEPTANCE__SEND_CANCEL_ORDER  -> END
+WAITING_ACCEPTANCE -> WAITING_ACCEPTANCE__DECLINE_ORDER  -> WAITING_ACCEPTANCE__RESOL_2 -> WAITING_ACCEPTANCE__SEND_DECLINE_ORDER -> END
+WAITING_ACCEPTANCE -> WAITING_ACCEPTANCE__CANCEL_RIDE    -> WAITING_ACCEPTANCE__RESOL_3 -> WAITING_ACCEPTANCE__SEND_CANCEL_RIDE   -> END
+
+ACCEPTED_WAITING_DELIVERY -> ACCEPTED_WAITING_DELIVERY__DELIVERED      -> ACCEPTED_WAITING_DELIVERY__SEND_DELIVERED -> DELIVERED_WAITING_FEEDBACK
+ACCEPTED_WAITING_DELIVERY -> ACCEPTED_WAITING_DELIVERY__CANCEL_RIDE    -> ACCEPTED_WAITING_DELIVERY__RESOL_1 -> ACCEPTED_WAITING_DELIVERY__SEND_CANCEL_RIDE    -> END
+ACCEPTED_WAITING_DELIVERY -> ACCEPTED_WAITING_DELIVERY__CANCEL_ORDER   -> ACCEPTED_WAITING_DELIVERY__RESOL_2 -> ACCEPTED_WAITING_DELIVERY__SEND_CANCEL_ORDER   -> END
+ACCEPTED_WAITING_DELIVERY -> ACCEPTED_WAITING_DELIVERY__CANCEL_ORDER_2 -> ACCEPTED_WAITING_DELIVERY__RESOL_3 -> ACCEPTED_WAITING_DELIVERY__SEND_CANCEL_ORDER_2 -> END
+
+DELIVERED_WAITING_FEEDBACK -> DELIVERED_WAITING_FEEDBACK__RATE_SHOPPER -> DELIVERED_WAITING_FEEDBACK__RESOL_1 -> DELIVERED_WAITING_FEEDBACK__SEND_RATE_SHOPPER -> END
+
+}
