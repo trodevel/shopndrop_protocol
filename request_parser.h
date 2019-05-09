@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11156 $ $Date:: 2019-05-09 #$ $Author: serge $
+// $Revision: 11177 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 #include "generic_request/request.h"        // generic_request::Request
 #include "basic_parser/malformed_request.h" // MalformedRequest
@@ -39,7 +39,8 @@ public:
     static generic_protocol::ForwardMessage*    to_forward_message( const generic_request::Request & r );
 
     static void                         to_Id( id_t * res, const std::string & key, const generic_request::Request & r );
-    static void                         to_order_status( order_state_e * res, const std::string & key, const generic_request::Request & r );
+    static void                         to_order_state( order_state_e * res, const std::string & key, const generic_request::Request & r );
+    static void                         to_order_resolution( order_resolution_e * res, const std::string & key, const generic_request::Request & r );
     static void                         to_ProductItem( ProductItem * res, const generic_request::Request & r );
     static void                         to_ShoppingItem( ShoppingItem * res, const generic_request::Request & r );
     static void                         to_ShoppingList( ShoppingList * res, const generic_request::Request & r );
