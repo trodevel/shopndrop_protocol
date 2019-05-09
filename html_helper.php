@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11031 $ $Date:: 2019-05-03 #$ $Author: serge $
+// $Revision: 11173 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -81,16 +81,18 @@ function to_html_Ride_tabledata( & $obj )
 
 function get_header_Order()
 {
-    return get_html_table_header_elems( array( 'DELIVERY TIME', 'SHOPPING LIST ID', 'SUM', 'STATUS' ) );
+    return get_html_table_header_elems( array( 'IS OPEN', 'DELIVERY TIME', 'SHOPPING LIST ID', 'SUM', 'STATE', 'RESOLUTION' ) );
 }
 
 function to_html_Order_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
+        $obj->is_open ? "Y" : "N",
         \basic_objects\to_string_LocalTime( $obj->delivery_time ),
         $obj->shopping_list_id,
         $obj->sum,
-        to_string_order_status_e( $obj->status ) . " (" . $obj->status . ")" ) );
+        to_string_order_state_e( $obj->state ) . " (" . $obj->state . ")",
+        to_string_order_resolution_e( $obj->resolution ) . " (" . $obj->resolution . ")",) );
 }
 
 /**************************************************

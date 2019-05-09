@@ -19,13 +19,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10861 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 11163 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 #include <string>
 #include <sstream>
 
 #include "enums.h"                  // request_type_e
-#include "shopndrop_protocol.h"     // order_status_e
+#include "shopndrop_protocol.h"     // order_state_e
 
 namespace shopndrop_protocol {
 
@@ -33,7 +33,8 @@ class StrHelper
 {
 public:
     static const std::string & to_string( const request_type_e l );
-    static const std::string & to_string( const order_status_e l );
+    static const std::string & to_string( const order_state_e l );
+    static const std::string & to_string( const order_resolution_e l );
     static std::ostream & write( std::ostream & os, const GeoPosition & l );
     static std::ostream & write( std::ostream & os, const Ride & l );
     static std::ostream & write( std::ostream & os, const AddRideRequest & l );

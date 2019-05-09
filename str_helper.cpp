@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10861 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 11163 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 #include "str_helper.h"             // self
 
@@ -60,16 +60,38 @@ const std::string & StrHelper::to_string( const request_type_e s )
     return it->second;
 }
 
-const std::string & StrHelper::to_string( const order_status_e s )
+const std::string & StrHelper::to_string( const order_state_e s )
 {
-    typedef order_status_e Type;
+    typedef order_state_e Type;
     static const std::map< Type, std::string > m =
     {
-        { Type:: TUPLE_VAL_STR( CANCELLED ) },
-        { Type:: TUPLE_VAL_STR( WAITING_ACCEPTANCE ) },
+        { Type:: TUPLE_VAL_STR( UNDEF ) },
+        { Type:: TUPLE_VAL_STR( IDLE_WAITING_ACCEPTANCE ) },
         { Type:: TUPLE_VAL_STR( ACCEPTED_WAITING_DELIVERY ) },
         { Type:: TUPLE_VAL_STR( DELIVERED_WAITING_FEEDBACK ) },
-        { Type:: TUPLE_VAL_STR( CLOSED_FEEDBACK_RECEIVED ) },
+    };
+
+    auto it = m.find( s );
+
+    static const std::string undef( "undef" );
+
+    if( it == m.end() )
+        return undef;
+
+    return it->second;
+}
+
+const std::string & StrHelper::to_string( const order_resolution_e s )
+{
+    typedef order_resolution_e Type;
+    static const std::map< Type, std::string > m =
+    {
+        { Type:: TUPLE_VAL_STR( UNDEF ) },
+        { Type:: TUPLE_VAL_STR( DELIVERED ) },
+        { Type:: TUPLE_VAL_STR( DECLINED_BY_SHOPPER ) },
+        { Type:: TUPLE_VAL_STR( RIDE_CANCELLED ) },
+        { Type:: TUPLE_VAL_STR( CANCELLED_BY_SHOPPER ) },
+        { Type:: TUPLE_VAL_STR( CANCELLED_BY_USER ) },
     };
 
     auto it = m.find( s );

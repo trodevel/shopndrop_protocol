@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11022 $ $Date:: 2019-05-02 #$ $Author: serge $
+// $Revision: 11160 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -92,6 +92,7 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
 
 std::ostream & CsvResponseEncoder::write( std::ostream & os, const Order & r )
 {
+    utils::CsvHelper::write( os, static_cast<unsigned>( r.is_open ) );
 
     basic_objects::CsvHelper::write( os, r.delivery_time );
     utils::CsvHelper::write(
@@ -99,12 +100,20 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const Order & r )
             r.shopping_list_id,
             r.sum );
 
-    write( os, r.status );
+    write( os, r.state );
+    write( os, r.resolution );
 
     return os;
 }
 
-std::ostream & CsvResponseEncoder::write( std::ostream & os, order_status_e r )
+std::ostream & CsvResponseEncoder::write( std::ostream & os, order_state_e r )
+{
+    utils::CsvHelper::write( os, static_cast<unsigned>( r ) );
+
+    return os;
+}
+
+std::ostream & CsvResponseEncoder::write( std::ostream & os, order_resolution_e r )
 {
     utils::CsvHelper::write( os, static_cast<unsigned>( r ) );
 

@@ -149,7 +149,9 @@ void test_GetShoppingListWithTotalsResponse()
 
 void test_GetDashScreenUserResponse()
 {
-    std::vector<shopndrop_protocol::web::RideWithShopper>      rides    =
+    using namespace shopndrop_protocol;
+
+    std::vector<web::RideWithShopper>      rides    =
     {
             { 121212, { { 50668, 0, 0 }, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, "Matthias Mayer" },
             { 232323, { { 50667, 0, 0 }, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, "Lukas Himmelfarb" },
@@ -157,29 +159,31 @@ void test_GetDashScreenUserResponse()
             { 454545, { { 50667, 0, 0 }, { 2019, 5, 23, 9, 0, 0 },   1.5 }, "Anke Rittermeyer" },
     };
 
-    std::vector<shopndrop_protocol::web::AcceptedOrderUser>    orders   =
+    std::vector<web::AcceptedOrderUser>    orders   =
     {
-            { 565656, { { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, shopndrop_protocol::order_status_e::CLOSED_FEEDBACK_RECEIVED }, "Liam Hoffman" },
-            { 676767, { { 2019, 5, 22, 17, 30, 0 }, 252525, 17.25, shopndrop_protocol::order_status_e::CANCELLED }, "Julian Koch" },
-            { 787878, { { 2019, 5, 27, 20, 20, 0 }, 363636, 17.25, shopndrop_protocol::order_status_e::DELIVERED_WAITING_FEEDBACK }, "Tim Bauer" },
-            { 898989, { { 2019, 5, 29, 18, 45, 0 }, 474747, 17.25, shopndrop_protocol::order_status_e::ACCEPTED_WAITING_DELIVERY }, "Elias Wolf" },
-            { 909090, { { 2019, 5, 30, 19, 30, 0 }, 585858, 17.25, shopndrop_protocol::order_status_e::WAITING_ACCEPTANCE }, "Michael Schröder" },
+            { 565656, { false,  { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, order_state_e::UNDEF, order_resolution_e::DELIVERED }, "Liam Hoffman" },
+            { 676767, { false,  { 2019, 5, 22, 17, 30, 0 }, 252525, 17.25, order_state_e::UNDEF, order_resolution_e::RIDE_CANCELLED }, "Julian Koch" },
+            { 787878, { true,   { 2019, 5, 27, 20, 20, 0 }, 363636, 17.25, order_state_e::DELIVERED_WAITING_FEEDBACK, order_resolution_e::UNDEF }, "Tim Bauer" },
+            { 898989, { true,   { 2019, 5, 29, 18, 45, 0 }, 474747, 17.25, order_state_e::ACCEPTED_WAITING_DELIVERY, order_resolution_e::UNDEF }, "Elias Wolf" },
+            { 909090, { true,   { 2019, 5, 30, 19, 30, 0 }, 585858, 17.25, order_state_e::IDLE_WAITING_ACCEPTANCE, order_resolution_e::UNDEF }, "Michael Schröder" },
     };
 
-    shopndrop_protocol::web::DashScreenUser c;
+    web::DashScreenUser c;
 
-    shopndrop_protocol::web::init_DashScreenUser( & c, { 2019, 5, 22, 17, 30, 0 }, rides, orders );
+    web::init_DashScreenUser( & c, { 2019, 5, 22, 17, 30, 0 }, rides, orders );
 
-    auto s = shopndrop_protocol::web::create_GetDashScreenUserResponse( c );
+    auto s = web::create_GetDashScreenUserResponse( c );
 
-    std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
+    std::cout << CsvResponseEncoder::to_csv( *s ) << std::endl;
 
     delete s;
 }
 
 void test_GetDashScreenShopperResponse()
 {
-    std::vector<shopndrop_protocol::web::RideWithRequests>      rides    =
+    using namespace shopndrop_protocol;
+
+    std::vector<web::RideWithRequests>      rides    =
     {
             { 121212, { { 50668, 0, 0 }, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, 2 },
             { 232323, { { 50667, 0, 0 }, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, 1 },
@@ -187,22 +191,22 @@ void test_GetDashScreenShopperResponse()
             { 454545, { { 50667, 0, 0 }, { 2019, 5, 23, 9, 0, 0 },   1.5 }, 1 },
     };
 
-    std::vector<shopndrop_protocol::web::AcceptedOrderShopper>    orders   =
+    std::vector<web::AcceptedOrderShopper>    orders   =
     {
-            { 565656, { { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, shopndrop_protocol::order_status_e::CLOSED_FEEDBACK_RECEIVED }, { 50668, 0, 0 }, "Eigelstein 1", 1.12, 2.0 },
-            { 676767, { { 2019, 5, 22, 17, 30, 0 }, 252525, 23.39, shopndrop_protocol::order_status_e::CANCELLED }, { 50667, 0, 0 }, "Hohe Strasse 17", 2.5, 1.5 },
-            { 787878, { { 2019, 5, 27, 20, 20, 0 }, 363636, 11.87, shopndrop_protocol::order_status_e::DELIVERED_WAITING_FEEDBACK }, { 50672, 0, 0 }, "Antwerpener Strasse 25", 1.12, .5 },
-            { 898989, { { 2019, 5, 29, 18, 45, 0 }, 474747, 20.15, shopndrop_protocol::order_status_e::ACCEPTED_WAITING_DELIVERY }, { 50674, 0, 0 }, "Lindenstrasse 56", 2.02, 1.2 },
-            { 909090, { { 2019, 5, 30, 19, 30, 0 }, 585858, 23.20, shopndrop_protocol::order_status_e::WAITING_ACCEPTANCE }, { 50674, 0, 0 }, "Roonnstrasse 29", 2.3, 1.7 },
+            { 565656, { false, { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, order_state_e::UNDEF, order_resolution_e::DELIVERED }, { 50668, 0, 0 }, "Eigelstein 1", 1.12, 2.0 },
+            { 676767, { false, { 2019, 5, 22, 17, 30, 0 }, 252525, 23.39, order_state_e::UNDEF, order_resolution_e::RIDE_CANCELLED }, { 50667, 0, 0 }, "Hohe Strasse 17", 2.5, 1.5 },
+            { 787878, { true,  { 2019, 5, 27, 20, 20, 0 }, 363636, 11.87, order_state_e::DELIVERED_WAITING_FEEDBACK, order_resolution_e::UNDEF }, { 50672, 0, 0 }, "Antwerpener Strasse 25", 1.12, .5 },
+            { 898989, { true,  { 2019, 5, 29, 18, 45, 0 }, 474747, 20.15, order_state_e::ACCEPTED_WAITING_DELIVERY, order_resolution_e::UNDEF }, { 50674, 0, 0 }, "Lindenstrasse 56", 2.02, 1.2 },
+            { 909090, { true,  { 2019, 5, 30, 19, 30, 0 }, 585858, 23.20, order_state_e::IDLE_WAITING_ACCEPTANCE, order_resolution_e::UNDEF }, { 50674, 0, 0 }, "Roonnstrasse 29", 2.3, 1.7 },
     };
 
-    shopndrop_protocol::web::DashScreenShopper c;
+    web::DashScreenShopper c;
 
-    shopndrop_protocol::web::init_DashScreenShopper( & c, { 2019, 5, 22, 17, 30, 0 }, rides, orders );
+    web::init_DashScreenShopper( & c, { 2019, 5, 22, 17, 30, 0 }, rides, orders );
 
-    auto s = shopndrop_protocol::web::create_GetDashScreenShopperResponse( c );
+    auto s = web::create_GetDashScreenShopperResponse( c );
 
-    std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
+    std::cout << CsvResponseEncoder::to_csv( *s ) << std::endl;
 
     delete s;
 }

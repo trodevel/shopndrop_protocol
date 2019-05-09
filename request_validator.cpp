@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11019 $ $Date:: 2019-05-02 #$ $Author: serge $
+// $Revision: 11156 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -39,7 +39,7 @@ bool RequestValidator::validate( const id_t & r, const std::string & key)
     return true;
 }
 
-bool RequestValidator::validate( const order_status_e & r )
+bool RequestValidator::validate( const order_state_e & r )
 {
     return true;
 }

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11018 $ $Date:: 2019-05-02 #$ $Author: serge $
+// $Revision: 11159 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -77,13 +77,22 @@ struct Ride
     double          max_weight;
 };
 
-enum class order_status_e
+enum class order_resolution_e
 {
-    CANCELLED                   = 0,
-    WAITING_ACCEPTANCE          = 1,
+    UNDEF                       = 0,
+    DELIVERED                   = 1,
+    DECLINED_BY_SHOPPER         = 2,
+    RIDE_CANCELLED              = 3,
+    CANCELLED_BY_SHOPPER        = 4,
+    CANCELLED_BY_USER           = 5,
+};
+
+enum class order_state_e
+{
+    UNDEF                       = 0,
+    IDLE_WAITING_ACCEPTANCE     = 1,
     ACCEPTED_WAITING_DELIVERY   = 2,
     DELIVERED_WAITING_FEEDBACK  = 3,
-    CLOSED_FEEDBACK_RECEIVED    = 4,
 };
 
 enum class gender_e
@@ -105,10 +114,12 @@ struct Address
 
 struct Order
 {
+    bool                is_open;
     basic_objects::LocalTime delivery_time;
-    id_t            shopping_list_id;
-    double          sum;
-    order_status_e  status;
+    id_t                shopping_list_id;
+    double              sum;
+    order_state_e       state;
+    order_resolution_e  resolution;
 };
 
 /**************************************************

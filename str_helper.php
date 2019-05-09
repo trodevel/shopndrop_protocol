@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11002 $ $Date:: 2019-04-30 #$ $Author: serge $
+// $Revision: 11169 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -34,14 +34,32 @@ function to_string_GeoPosition( & $obj )
     return $res;
 }
 
-function to_string_order_status_e( $val )
+function to_string_order_state_e( $val )
 {
     $map = array(
-        order_status_e_CANCELLED                   => 'CANCELLED',
-        order_status_e_WAITING_ACCEPTANCE          => 'WAITING_ACCEPTANCE',
-        order_status_e_ACCEPTED_WAITING_DELIVERY   => 'ACCEPTED_WAITING_DELIVERY',
-        order_status_e_DELIVERED_WAITING_FEEDBACK  => 'DELIVERED_WAITING_FEEDBACK',
-        order_status_e_CLOSED_FEEDBACK_RECEIVED    => 'CLOSED_FEEDBACK_RECEIVED',
+        order_state_e_UNDEF                         => 'UNDEF',
+        order_state_e_IDLE_WAITING_ACCEPTANCE       => 'IDLE_WAITING_ACCEPTANCE',
+        order_state_e_ACCEPTED_WAITING_DELIVERY     => 'ACCEPTED_WAITING_DELIVERY',
+        order_state_e_DELIVERED_WAITING_FEEDBACK    => 'DELIVERED_WAITING_FEEDBACK',
+    );
+
+    if( array_key_exists( $val, $map ) )
+    {
+        return $map[ $val ];
+    }
+
+    return "?";
+}
+
+function to_string_order_resolution_e( $val )
+{
+    $map = array(
+        order_resolution_e_UNDEF                    => 'UNDEF',
+        order_resolution_e_DELIVERED                => 'DELIVERED',
+        order_resolution_e_DECLINED_BY_SHOPPER      => 'DECLINED_BY_SHOPPER',
+        order_resolution_e_RIDE_CANCELLED           => 'RIDE_CANCELLED',
+        order_resolution_e_CANCELLED_BY_SHOPPER     => 'CANCELLED_BY_SHOPPER',
+        order_resolution_e_CANCELLED_BY_USER        => 'CANCELLED_BY_USER',
     );
 
     if( array_key_exists( $val, $map ) )

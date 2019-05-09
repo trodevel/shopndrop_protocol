@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10924 $ $Date:: 2019-04-26 #$ $Author: serge $
+// $Revision: 11172 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -157,11 +157,18 @@ class Ride
     }
 }
 
-const order_status_e_CANCELLED                   = 0;
-const order_status_e_WAITING_ACCEPTANCE          = 1;
-const order_status_e_ACCEPTED_WAITING_DELIVERY   = 2;
-const order_status_e_DELIVERED_WAITING_FEEDBACK  = 3;
-const order_status_e_CLOSED_FEEDBACK_RECEIVED    = 4;
+const order_resolution_e_UNDEF                  = 0;
+const order_resolution_e_DELIVERED              = 1;
+const order_resolution_e_DECLINED_BY_SHOPPER    = 2;
+const order_resolution_e_RIDE_CANCELLED         = 3;
+const order_resolution_e_CANCELLED_BY_SHOPPER   = 4;
+const order_resolution_e_CANCELLED_BY_USER      = 5;
+
+
+const order_state_e_UNDEF                       = 0;
+const order_state_e_IDLE_WAITING_ACCEPTANCE     = 1;
+const order_state_e_ACCEPTED_WAITING_DELIVERY   = 2;
+const order_state_e_DELIVERED_WAITING_FEEDBACK  = 3;
 
 const gender_e_UNDEF   = 0;
 const gender_e_MALE    = 1;
@@ -179,10 +186,12 @@ class Address
 
 class Order
 {
+    public  $is_open;           // bool
     public  $delivery_time;     // basic_objects::LocalTime
     public  $shopping_list_id;  // id_t
     public  $sum;               // double
-    public  $status;            // order_status_e
+    public  $state;             // order_state_e
+    public  $resolution;        // order_resolution_e
 }
 
 /**************************************************

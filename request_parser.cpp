@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11019 $ $Date:: 2019-05-02 #$ $Author: serge $
+// $Revision: 11156 $ $Date:: 2019-05-09 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -79,13 +79,13 @@ void RequestParser::to_Id( id_t * res, const std::string & key, const generic_re
     get_value_or_throw_uint32( * res, key, r );
 }
 
-void RequestParser::to_order_status( order_status_e * res, const std::string & key, const generic_request::Request & r )
+void RequestParser::to_order_status( order_state_e * res, const std::string & key, const generic_request::Request & r )
 {
     uint32_t status;
 
     get_value_or_throw_uint32( status, key, r );
 
-    * res = static_cast<order_status_e>( status );
+    * res = static_cast<order_state_e>( status );
 }
 
 void RequestParser::to_ProductItem( ProductItem * res, const generic_request::Request & r )
