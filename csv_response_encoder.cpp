@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -368,8 +368,8 @@ std::string CsvResponseEncoder::to_csv( const web::GetShoppingRequestInfoRespons
 
     utils::CsvHelper::write_user_array(
             os,
-            r.rides.begin(),
-            r.rides.end(),
+            r.requests.begin(),
+            r.requests.end(),
             [](std::ostream & os, const web::ShoppingRequestInfo & r) { CsvResponseEncoder::write( os, r ); } );
 
     return os.str();

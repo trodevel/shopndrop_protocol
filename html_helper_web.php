@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11244 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -51,9 +51,9 @@ function to_html_GetProductItemListResponse( & $obj )
 {
 //     var_dump( $obj );
 
-    $res = '<h3>Product Item List (' . sizeof( $obj->product_items ) . ')</h3>';
-
     $num   = sizeof( $obj->product_items );
+
+    $res = '<h3>Product Item List (' . $num . ')</h3>';
 
     $body = '';
     for( $i = 0; $i < $num; $i++ )
@@ -84,14 +84,14 @@ function to_html_ShoppingRequestInfo_tabledata( & $obj )
 
 function to_html_GetShoppingRequestInfoResponse( & $obj )
 {
-    $res = '<h3>Shopping Request Info (' . sizeof( $obj->rides ) . ')</h3>';
+    $num   = sizeof( $obj->requests );
 
-    $num   = sizeof( $obj->rides );
+    $res = '<h3>Shopping Request Info (' . $num . ')</h3>';
 
     $body = '';
     for( $i = 0; $i < $num; $i++ )
     {
-        $body = $body . get_html_table_tr( to_html_ShoppingRequestInfo_tabledata( $obj->rides[$i] ) );
+        $body = $body . get_html_table_tr( to_html_ShoppingRequestInfo_tabledata( $obj->requests[$i] ) );
     }
 
     $res = $res. get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',

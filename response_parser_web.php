@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -262,11 +262,11 @@ function parse_GetShoppingRequestInfoResponse( & $csv_arr )
 
     //echo "size = $size\n";
 
-    $res->rides = array();
+    $res->requests = array();
 
     for( $i = 0; $i < $size; $i++ )
     {
-        array_push( $res->rides, parse_ShoppingRequestInfo( $csv_arr, $offset ) );
+        array_push( $res->requests, parse_ShoppingRequestInfo( $csv_arr, $offset ) );
     }
 
     return $res;

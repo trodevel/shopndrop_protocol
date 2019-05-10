@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -163,7 +163,7 @@ class GetShoppingRequestInfoRequest extends \shopndrop_protocol\Request
 
 class GetShoppingRequestInfoResponse extends \generic_protocol\BackwardMessage
 {
-    public  $rides;             // array<ShoppingRequestInfo>
+    public  $requests;          // array<ShoppingRequestInfo>
 }
 
 class GetShoppingListWithTotalsRequest extends \shopndrop_protocol\Request
