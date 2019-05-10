@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11229 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -137,10 +137,10 @@ inline GetProductItemListResponse * create_GetProductItemListResponse(
     return res;
 }
 
-inline GetDeliveryRequestInfoResponse * create_GetDeliveryRequestInfoResponse(
-        const std::vector<DeliveryRequestInfo>    & rides )
+inline GetShoppingRequestInfoResponse * create_GetShoppingRequestInfoResponse(
+        const std::vector<ShoppingRequestInfo>    & rides )
 {
-    auto * res = new GetDeliveryRequestInfoResponse;
+    auto * res = new GetShoppingRequestInfoResponse;
 
     res->rides  = rides;
 

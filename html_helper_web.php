@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11234 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -67,12 +67,12 @@ function to_html_GetProductItemListResponse( & $obj )
     return $res;
 }
 
-function get_header_DeliveryRequestInfo()
+function get_header_ShoppingRequestInfo()
 {
     return get_html_table_header_elems( array( 'ORDER ID', 'SUM', 'EARNING', 'WEIGHT' ) ) . \shopndrop_protocol\get_header_Address();
 }
 
-function to_html_DeliveryRequestInfo_tabledata( & $obj )
+function to_html_ShoppingRequestInfo_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
             $obj->order_id,
@@ -82,7 +82,7 @@ function to_html_DeliveryRequestInfo_tabledata( & $obj )
             \shopndrop_protocol\to_html_Address_tabledata( $obj->address );
 }
 
-function to_html_GetDeliveryRequestInfoResponse( & $obj )
+function to_html_GetShoppingRequestInfoResponse( & $obj )
 {
     $res = '<h3>Delivery Request Info (' . sizeof( $obj->rides ) . ')</h3>';
 
@@ -91,11 +91,11 @@ function to_html_GetDeliveryRequestInfoResponse( & $obj )
     $body = '';
     for( $i = 0; $i < $num; $i++ )
     {
-        $body = $body . get_html_table_tr( to_html_DeliveryRequestInfo_tabledata( $obj->rides[$i] ) );
+        $body = $body . get_html_table_tr( to_html_ShoppingRequestInfo_tabledata( $obj->rides[$i] ) );
     }
 
     $res = $res. get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-        get_html_table_tr( get_header_DeliveryRequestInfo() ) . $body );
+        get_html_table_tr( get_header_ShoppingRequestInfo() ) . $body );
 
     return $res;
 }
@@ -313,8 +313,8 @@ function to_html( $obj )
     $handler_map = array(
         'shopndrop_protocol\web\GetProductItemListRequest'      => 'to_html_not_impl',
         'shopndrop_protocol\web\GetProductItemListResponse'     => 'to_html_GetProductItemListResponse',
-        'shopndrop_protocol\web\GetDeliveryRequestInfoRequest'        => 'to_html_not_impl',
-        'shopndrop_protocol\web\GetDeliveryRequestInfoResponse'       => 'to_html_GetDeliveryRequestInfoResponse',
+        'shopndrop_protocol\web\GetShoppingRequestInfoRequest'        => 'to_html_not_impl',
+        'shopndrop_protocol\web\GetShoppingRequestInfoResponse'       => 'to_html_GetShoppingRequestInfoResponse',
         'shopndrop_protocol\web\GetShoppingListWithTotalsRequest'   => 'to_html_not_impl',
         'shopndrop_protocol\web\GetShoppingListWithTotalsResponse'  => 'to_html_GetShoppingListWithTotalsResponse',
         'shopndrop_protocol\web\GetDashScreenUserRequest'       => 'to_html_not_impl',

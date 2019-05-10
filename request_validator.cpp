@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11235 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -158,7 +158,7 @@ bool RequestValidator::validate( const GetProductItemListRequest & r )
     return true;
 }
 
-bool RequestValidator::validate( const GetDeliveryRequestInfoRequest & r )
+bool RequestValidator::validate( const GetShoppingRequestInfoRequest & r )
 {
     ::shopndrop_protocol::RequestValidator::validate( r.ride_id, "RIDE_ID" );
 

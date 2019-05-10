@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 11240 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 require_once 'shopndrop_protocol_web.php';
 
@@ -79,7 +79,7 @@ $session_id = "afafaf";
 {
     $ride_id    = 101;
 
-    $req = new \shopndrop_protocol\web\GetDeliveryRequestInfoRequest( $session_id, $ride_id );
+    $req = new \shopndrop_protocol\web\GetShoppingRequestInfoRequest( $session_id, $ride_id );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }

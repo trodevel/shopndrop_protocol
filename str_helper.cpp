@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11229 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 #include "str_helper.h"             // self
 
@@ -181,7 +181,7 @@ const std::string & StrHelper::to_string( const request_type_e s )
     {
         { Type:: TUPLE_VAL_STR( UNDEF ) },
         { Type:: TUPLE_VAL_STR( GetProductItemListRequest ) },
-        { Type:: TUPLE_VAL_STR( GetDeliveryRequestInfoRequest ) },
+        { Type:: TUPLE_VAL_STR( GetShoppingRequestInfoRequest ) },
         { Type:: TUPLE_VAL_STR( GetDashScreenUserRequest ) },
         { Type:: TUPLE_VAL_STR( GetDashScreenShopperRequest ) },
     };
@@ -201,7 +201,7 @@ std::ostream & StrHelper::write( std::ostream & os, const GetProductItemListRequ
     return os;
 }
 
-std::ostream & StrHelper::write( std::ostream & os, const GetDeliveryRequestInfoRequest & l )
+std::ostream & StrHelper::write( std::ostream & os, const GetShoppingRequestInfoRequest & l )
 {
     os << "ride_id " << l.ride_id;
 

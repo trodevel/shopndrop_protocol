@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11231 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -69,7 +69,7 @@ class RideWithRequests
     public  $num_requests;      // int
 }
 
-class DeliveryRequestInfo
+class ShoppingRequestInfo
 {
     public  $order_id;          // id_t
     public  $sum;               // double
@@ -138,7 +138,7 @@ class GetProductItemListResponse extends \generic_protocol\BackwardMessage
     public  $product_items;     // array<ProductItemWithId>
 }
 
-class GetDeliveryRequestInfoRequest extends \shopndrop_protocol\Request
+class GetShoppingRequestInfoRequest extends \shopndrop_protocol\Request
 {
     public  $ride_id;           // id_t
 
@@ -152,7 +152,7 @@ class GetDeliveryRequestInfoRequest extends \shopndrop_protocol\Request
     public function to_generic_request()
     {
         $res = array(
-            "CMD"       => "web/GetDeliveryRequestInfoRequest",
+            "CMD"       => "web/GetShoppingRequestInfoRequest",
             "RIDE_ID"   => $this->ride_id
         );
 
@@ -161,9 +161,9 @@ class GetDeliveryRequestInfoRequest extends \shopndrop_protocol\Request
     }
 }
 
-class GetDeliveryRequestInfoResponse extends \generic_protocol\BackwardMessage
+class GetShoppingRequestInfoResponse extends \generic_protocol\BackwardMessage
 {
-    public  $rides;             // array<DeliveryRequestInfo>
+    public  $rides;             // array<ShoppingRequestInfo>
 }
 
 class GetShoppingListWithTotalsRequest extends \shopndrop_protocol\Request

@@ -106,9 +106,9 @@ void test_GetProductItemListResponse()
     delete s;
 }
 
-void test_GetDeliveryRequestInfoResponse()
+void test_GetShoppingRequestInfoResponse()
 {
-    std::vector<shopndrop_protocol::web::DeliveryRequestInfo> pids  =
+    std::vector<shopndrop_protocol::web::ShoppingRequestInfo> pids  =
     {
             { 121212, 10.35,    ( 10.35 / 1.3 ) * .15,  2.0, { 50668, "Germany", "Köln", "Eigelstein", "1", "" } },
             { 232323, 7.62,     ( 7.62 / 1.3 ) * .15,   2.7, { 50667, "Germany", "Köln", "Hohe Strasse", "17", "" } },
@@ -116,7 +116,7 @@ void test_GetDeliveryRequestInfoResponse()
             { 454545, 20.39,    ( 20.39 / 1.3 ) * .15,  1.0, { 50674, "Germany", "Köln", "Lindenstrasse", "56", "" } },
     };
 
-    auto s = shopndrop_protocol::web::create_GetDeliveryRequestInfoResponse( pids );
+    auto s = shopndrop_protocol::web::create_GetShoppingRequestInfoResponse( pids );
 
     std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
 
@@ -223,7 +223,7 @@ int main()
     test_AddOrderResponse();
     test_CancelOrderResponse();
     test_GetProductItemListResponse();
-    test_GetDeliveryRequestInfoResponse();
+    test_GetShoppingRequestInfoResponse();
     test_GetShoppingListWithTotalsResponse();
     test_GetDashScreenUserResponse();
     test_GetDashScreenShopperResponse();
@@ -280,9 +280,9 @@ int main()
 
     test( "CMD=web/GetProductItemListRequest&SESSION_ID=afafaf" );
 
-    test( "CMD=web/GetDeliveryRequestInfoRequest&RIDE_ID=&&SESSION_ID=afafaf" );
-    test( "CMD=web/GetDeliveryRequestInfoRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
-    test( "CMD=web/GetDeliveryRequestInfoRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetShoppingRequestInfoRequest&RIDE_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetShoppingRequestInfoRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetShoppingRequestInfoRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
 
     test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=&&SESSION_ID=afafaf" );
     test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=0&&SESSION_ID=afafaf" );

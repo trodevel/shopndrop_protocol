@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11229 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_CSV_RESPONSE_ENCODER_H
 #define LIB_SHOPNDROP_PROTOCOL_CSV_RESPONSE_ENCODER_H
@@ -47,7 +47,7 @@ public:
     static std::ostream & write( std::ostream & os, const web::ShoppingListWithTotals & r );
     static std::ostream & write( std::ostream & os, const web::RideWithShopper & r );
     static std::ostream & write( std::ostream & os, const web::RideWithRequests & r );
-    static std::ostream & write( std::ostream & os, const web::DeliveryRequestInfo & r );
+    static std::ostream & write( std::ostream & os, const web::ShoppingRequestInfo & r );
     static std::ostream & write( std::ostream & os, const web::AcceptedOrderUser & r );
     static std::ostream & write( std::ostream & os, const web::AcceptedOrderShopper & r );
     static std::ostream & write( std::ostream & os, const web::DashScreenUser & r );
@@ -60,7 +60,7 @@ public:
     static std::string to_csv( const GetPersonalUserInfoResponse & r );
     static std::string to_csv( const generic_protocol::BackwardMessage & r );
     static std::string to_csv( const web::GetProductItemListResponse & r );
-    static std::string to_csv( const web::GetDeliveryRequestInfoResponse & r );
+    static std::string to_csv( const web::GetShoppingRequestInfoResponse & r );
     static std::string to_csv( const web::GetShoppingListWithTotalsResponse & r );
     static std::string to_csv( const web::GetDashScreenUserResponse & r );
     static std::string to_csv( const web::GetDashScreenShopperResponse & r );

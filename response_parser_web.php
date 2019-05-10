@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11231 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -110,11 +110,11 @@ function parse_RideWithRequests( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_DeliveryRequestInfo( & $csv_arr, & $offset )
+function parse_ShoppingRequestInfo( & $csv_arr, & $offset )
 {
     // 232323;2.18;.3;1.25;20190522173000;...
 
-    $res = new DeliveryRequestInfo;
+    $res = new ShoppingRequestInfo;
 
     $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
     $res->sum           = \basic_parser\parse_float( $csv_arr, $offset );
@@ -250,11 +250,11 @@ function parse_GetProductItemListResponse( & $csv_arr )
     return $res;
 }
 
-function parse_GetDeliveryRequestInfoResponse( & $csv_arr )
+function parse_GetShoppingRequestInfoResponse( & $csv_arr )
 {
-    // web/GetDeliveryRequestInfoResponse;5;...
+    // web/GetShoppingRequestInfoResponse;5;...
 
-    $res = new GetDeliveryRequestInfoResponse;
+    $res = new GetShoppingRequestInfoResponse;
 
     $offset = 1;
 
@@ -266,7 +266,7 @@ function parse_GetDeliveryRequestInfoResponse( & $csv_arr )
 
     for( $i = 0; $i < $size; $i++ )
     {
-        array_push( $res->rides, parse_DeliveryRequestInfo( $csv_arr, $offset ) );
+        array_push( $res->rides, parse_ShoppingRequestInfo( $csv_arr, $offset ) );
     }
 
     return $res;
@@ -323,7 +323,7 @@ protected static function parse_csv_array( $csv_arr )
 
     $func_map = array(
         'web/GetProductItemListResponse'    => 'parse_GetProductItemListResponse',
-        'web/GetDeliveryRequestInfoResponse'      => 'parse_GetDeliveryRequestInfoResponse',
+        'web/GetShoppingRequestInfoResponse'      => 'parse_GetShoppingRequestInfoResponse',
         'web/GetShoppingListWithTotalsResponse'     => 'parse_GetShoppingListWithTotalsResponse',
         'web/GetDashScreenUserResponse'     => 'parse_GetDashScreenUserResponse',
         'web/GetDashScreenShopperResponse'  => 'parse_GetDashScreenShopperResponse',

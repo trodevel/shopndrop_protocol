@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11231 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -60,9 +60,9 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     {
         return to_csv( static_cast<const GetRideResponse&>( r ) );
     }
-    else if( typeid( r ) == typeid( web::GetDeliveryRequestInfoResponse ) )
+    else if( typeid( r ) == typeid( web::GetShoppingRequestInfoResponse ) )
     {
-        return to_csv( static_cast<const web::GetDeliveryRequestInfoResponse&>( r ) );
+        return to_csv( static_cast<const web::GetShoppingRequestInfoResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( web::GetShoppingListWithTotalsResponse ) )
     {
@@ -220,7 +220,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::DashScre
     return os;
 }
 
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::DeliveryRequestInfo & r )
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::ShoppingRequestInfo & r )
 {
     utils::CsvHelper::write(
             os,
@@ -358,19 +358,19 @@ std::string CsvResponseEncoder::to_csv( const CancelOrderResponse & r )
     return utils::CsvHelper::to_csv( "CancelOrderResponse" );
 }
 
-std::string CsvResponseEncoder::to_csv( const web::GetDeliveryRequestInfoResponse & r )
+std::string CsvResponseEncoder::to_csv( const web::GetShoppingRequestInfoResponse & r )
 {
     std::ostringstream os;
 
     utils::CsvHelper::write(
             os,
-            "web/GetDeliveryRequestInfoResponse" ) ;
+            "web/GetShoppingRequestInfoResponse" ) ;
 
     utils::CsvHelper::write_user_array(
             os,
             r.rides.begin(),
             r.rides.end(),
-            [](std::ostream & os, const web::DeliveryRequestInfo & r) { CsvResponseEncoder::write( os, r ); } );
+            [](std::ostream & os, const web::ShoppingRequestInfo & r) { CsvResponseEncoder::write( os, r ); } );
 
     return os.str();
 }
