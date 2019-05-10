@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11242 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11244 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -84,7 +84,7 @@ function to_html_ShoppingRequestInfo_tabledata( & $obj )
 
 function to_html_GetShoppingRequestInfoResponse( & $obj )
 {
-    $res = '<h3>Delivery Request Info (' . sizeof( $obj->rides ) . ')</h3>';
+    $res = '<h3>Shopping Request Info (' . sizeof( $obj->rides ) . ')</h3>';
 
     $num   = sizeof( $obj->rides );
 
