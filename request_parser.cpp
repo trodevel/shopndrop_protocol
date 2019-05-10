@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11229 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11235 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -153,6 +153,7 @@ RequestParser::ForwardMessage * RequestParser::to_AddOrderRequest( const generic
     to_Id( & res->ride_id, "RIDE_ID", r );
 
     to_ShoppingList( & res->shopping_list, r );
+    to_Address( & res->delivery_address, r );
 
     RequestValidator::validate( * res );
 
@@ -225,11 +226,11 @@ void RequestParser::to_Address( Address * res, const generic_request::Request & 
 {
     get_value_or_throw_uint32( res->plz,    "PLZ", r );
 
+    get_value_or_throw( res->country,       "COUNTRY", r );
     get_value_or_throw( res->city,          "CITY", r );
     get_value_or_throw( res->street,        "STREET", r );
     get_value_or_throw( res->house_number,  "HOUSE_NUMBER", r );
     r.get_value( "EAL", res->extra_address_line );
-    get_value_or_throw( res->country,       "COUNTRY", r );
 }
 
 void RequestParser::to_ShoppingItem( ShoppingItem * res, const generic_request::Request & r )

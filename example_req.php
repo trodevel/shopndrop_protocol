@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 11229 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11240 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 require_once 'shopndrop_protocol_web.php';
 
@@ -43,7 +43,9 @@ $session_id = "afafaf";
 
     $shopping_list  = new \shopndrop_protocol\ShoppingList( $items );
 
-    $req = new \shopndrop_protocol\AddOrderRequest( $session_id, $ride_id, $shopping_list );
+    $delivery_address = new \shopndrop_protocol\Address( 50668, "Germany", "Köln", "Eigelstein", "10", "" );
+
+    $req = new \shopndrop_protocol\AddOrderRequest( $session_id, $ride_id, $shopping_list, $delivery_address );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }

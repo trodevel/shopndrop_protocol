@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11222 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11240 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -182,6 +182,31 @@ class Address
     public      $street;    // string
     public      $house_number;  // string
     public      $extra_address_line;    // string
+
+    function __construct( $plz, $country, $city, $street, $house_number, $extra_address_line )
+    {
+        $this->plz      = $plz;
+        $this->country  = $country;
+        $this->city     = $city;
+        $this->street   = $street;
+        $this->house_number = $house_number;
+        $this->extra_address_line   = $extra_address_line;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "PLZ"       => $this->plz,
+            "COUNTRY:X" => str2hex( $this->country ),
+            "CITY:X"    => str2hex( $this->city ),
+            "STREET:X"  => str2hex( $this->street ),
+            "HOUSE_NUMBER:X" => str2hex( $this->house_number ),
+            "EAL:X"     => str2hex( $this->extra_address_line )
+        );
+
+        return \generic_protocol\assemble_request( $res );
+    }
+
 }
 
 class Order
@@ -285,13 +310,15 @@ class AddOrderRequest extends Request
 {
     public $ride_id;        // id_t
     public $shopping_list;  // ShoppingList
+    public $delivery_address;   // Address
 
-    function __construct( $session_id, $ride_id, $shopping_list )
+    function __construct( $session_id, $ride_id, $shopping_list, $delivery_address )
     {
         parent::__construct( $session_id );
 
         $this->ride_id          = $ride_id;
         $this->shopping_list    = $shopping_list;
+        $this->delivery_address = $delivery_address;
     }
 
     public function to_generic_request()
@@ -303,6 +330,7 @@ class AddOrderRequest extends Request
 
         return \generic_protocol\assemble_request( $res ) .
             $this->shopping_list->to_generic_request() .
+            $this->delivery_address->to_generic_request() .
             parent::to_generic_request();
     }
 }

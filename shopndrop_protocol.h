@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11231 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11235 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -159,6 +159,7 @@ struct AddOrderRequest: public Request
 {
     id_t            ride_id;
     ShoppingList    shopping_list;
+    Address         delivery_address;
 };
 
 struct AddOrderResponse: public generic_protocol::BackwardMessage

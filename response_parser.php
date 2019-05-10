@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11223 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11241 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -88,14 +88,14 @@ function parse_Address( & $csv_arr, & $offset )
 {
     // 50668;Germany;Cologne;Breslau Platz;1;;
 
-    $res = new Address;
+    $plz            = \basic_parser\parse_int( $csv_arr, $offset );
+    $country        = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $city           = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $street         = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $house_number   = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $extra_address_line = \basic_parser\parse_enc_string( $csv_arr, $offset );
 
-    $res->plz           = \basic_parser\parse_int( $csv_arr, $offset );
-    $res->country       = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->city          = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->street        = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->house_number  = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->extra_address_line    = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res = new Address( $plz, $country, $city, $street, $house_number, $extra_address_line );
 
     return $res;
 }

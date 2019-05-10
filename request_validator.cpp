@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11229 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11235 $ $Date:: 2019-05-11 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -98,11 +98,11 @@ bool RequestValidator::validate( const Ride & r )
 
 bool RequestValidator::validate( const Address & r )
 {
-    THROW_IF_INT_NEG_ZERO( r.plz, "PLZ");
-    THROW_IF_STRING_EMPTY( r.city,      "CITY");
-    THROW_IF_STRING_EMPTY( r.street,    "STREET");
-    THROW_IF_STRING_EMPTY( r.house_number, "HOUSE_NUMBER");
-    THROW_IF_STRING_EMPTY( r.country,   "COUNTRY");
+    THROW_IF_INT_NEG_ZERO( r.plz,           "PLZ" );
+    THROW_IF_STRING_EMPTY( r.country,       "COUNTRY" );
+    THROW_IF_STRING_EMPTY( r.city,          "CITY" );
+    THROW_IF_STRING_EMPTY( r.street,        "STREET" );
+    THROW_IF_STRING_EMPTY( r.house_number,  "HOUSE_NUMBER" );
 
     return true;
 }
@@ -132,6 +132,7 @@ bool RequestValidator::validate( const AddOrderRequest & r )
 {
     validate( r.ride_id, "RIDE_ID" );
     validate( r.shopping_list );
+    validate( r.delivery_address );
 
     return generic_protocol::RequestValidator::validate( r );
 }
