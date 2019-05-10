@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11026 $ $Date:: 2019-05-02 #$ $Author: serge $
+// $Revision: 11231 $ $Date:: 2019-05-10 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -69,20 +69,20 @@ class RideWithRequests
     public  $num_requests;      // int
 }
 
-class OrderRequestInfo
+class DeliveryRequestInfo
 {
     public  $order_id;          // id_t
     public  $sum;               // double
     public  $earning;           // double
     public  $weight;            // double
-    public  $position;          // GeoPosition
-    public  $address;           // string
+    public  $address;           // Address
 }
 
 class AcceptedOrderUser
 {
     public  $order_id;          // id_t
     public  $order;             // Order
+    public  $sum;               // double
     public  $shopper_name;      // string
 }
 
@@ -90,8 +90,7 @@ class AcceptedOrderShopper
 {
     public  $order_id;          // id_t
     public  $order;             // Order
-    public  $position;          // GeoPosition
-    public  $address;           // string
+    public  $sum;               // double
     public  $earning;           // double
     public  $weight;            // double
 }
@@ -139,7 +138,7 @@ class GetProductItemListResponse extends \generic_protocol\BackwardMessage
     public  $product_items;     // array<ProductItemWithId>
 }
 
-class GetRideOrderInfoRequest extends \shopndrop_protocol\Request
+class GetDeliveryRequestInfoRequest extends \shopndrop_protocol\Request
 {
     public  $ride_id;           // id_t
 
@@ -153,7 +152,7 @@ class GetRideOrderInfoRequest extends \shopndrop_protocol\Request
     public function to_generic_request()
     {
         $res = array(
-            "CMD"       => "web/GetRideOrderInfoRequest",
+            "CMD"       => "web/GetDeliveryRequestInfoRequest",
             "RIDE_ID"   => $this->ride_id
         );
 
@@ -162,9 +161,9 @@ class GetRideOrderInfoRequest extends \shopndrop_protocol\Request
     }
 }
 
-class GetRideOrderInfoResponse extends \generic_protocol\BackwardMessage
+class GetDeliveryRequestInfoResponse extends \generic_protocol\BackwardMessage
 {
-    public  $rides;             // array<OrderRequestInfo>
+    public  $rides;             // array<DeliveryRequestInfo>
 }
 
 class GetShoppingListWithTotalsRequest extends \shopndrop_protocol\Request

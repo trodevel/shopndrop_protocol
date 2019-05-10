@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11172 $ $Date:: 2019-05-09 #$ $Author: serge $
+// $Revision: 11222 $ $Date:: 2019-05-10 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -177,19 +177,19 @@ const gender_e_FEMALE  = 2;
 class Address
 {
     public      $plz;       // int
+    public      $country;   // string
     public      $city;      // string
     public      $street;    // string
     public      $house_number;  // string
     public      $extra_address_line;    // string
-    public      $country;   // string
 }
 
 class Order
 {
     public  $is_open;           // bool
     public  $delivery_time;     // basic_objects::LocalTime
+    public  $delivery_address;  // Address
     public  $shopping_list_id;  // id_t
-    public  $sum;               // double
     public  $state;             // order_state_e
     public  $resolution;        // order_resolution_e
 }

@@ -106,17 +106,17 @@ void test_GetProductItemListResponse()
     delete s;
 }
 
-void test_GetRideOrderInfoResponse()
+void test_GetDeliveryRequestInfoResponse()
 {
-    std::vector<shopndrop_protocol::web::OrderRequestInfo> pids  =
+    std::vector<shopndrop_protocol::web::DeliveryRequestInfo> pids  =
     {
-            { 121212, 10.35,    ( 10.35 / 1.3 ) * .15,  2.0, { 50668, 0, 0 }, "Eigelstein 1" },
-            { 232323, 7.62,     ( 7.62 / 1.3 ) * .15,   2.7, { 50667, 0, 0 }, "Hohe Strasse 17" },
-            { 343434, 12.67,    ( 12.67 / 1.3 ) * .15,  1.5, { 50672, 0, 0 }, "Antwerpener Strasse 25" },
-            { 454545, 20.39,    ( 20.39 / 1.3 ) * .15,  1.0, { 50674, 0, 0 }, "Lindenstrasse 56" },
+            { 121212, 10.35,    ( 10.35 / 1.3 ) * .15,  2.0, { 50668, "Germany", "Köln", "Eigelstein", "1", "" } },
+            { 232323, 7.62,     ( 7.62 / 1.3 ) * .15,   2.7, { 50667, "Germany", "Köln", "Hohe Strasse", "17", "" } },
+            { 343434, 12.67,    ( 12.67 / 1.3 ) * .15,  1.5, { 50672, "Germany", "Köln", "Antwerpener Strasse", "25", "" } },
+            { 454545, 20.39,    ( 20.39 / 1.3 ) * .15,  1.0, { 50674, "Germany", "Köln", "Lindenstrasse", "56", "" } },
     };
 
-    auto s = shopndrop_protocol::web::create_GetRideOrderInfoResponse( pids );
+    auto s = shopndrop_protocol::web::create_GetDeliveryRequestInfoResponse( pids );
 
     std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
 
@@ -161,11 +161,11 @@ void test_GetDashScreenUserResponse()
 
     std::vector<web::AcceptedOrderUser>    orders   =
     {
-            { 565656, { false,  { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, order_state_e::UNDEF, order_resolution_e::DELIVERED }, "Liam Hoffman" },
-            { 676767, { false,  { 2019, 5, 22, 17, 30, 0 }, 252525, 17.25, order_state_e::UNDEF, order_resolution_e::RIDE_CANCELLED }, "Julian Koch" },
-            { 787878, { true,   { 2019, 5, 27, 20, 20, 0 }, 363636, 17.25, order_state_e::DELIVERED_WAITING_FEEDBACK, order_resolution_e::UNDEF }, "Tim Bauer" },
-            { 898989, { true,   { 2019, 5, 29, 18, 45, 0 }, 474747, 17.25, order_state_e::ACCEPTED_WAITING_DELIVERY, order_resolution_e::UNDEF }, "Elias Wolf" },
-            { 909090, { true,   { 2019, 5, 30, 19, 30, 0 }, 585858, 17.25, order_state_e::IDLE_WAITING_ACCEPTANCE, order_resolution_e::UNDEF }, "Michael Schröder" },
+            { 565656, { false,  { 2019, 3, 27, 20, 20, 0 }, { 50668, "Germany", "Köln", "Eigelstein", "1", "" },        141414, order_state_e::UNDEF, order_resolution_e::DELIVERED }, 17.25, "Liam Hoffman" },
+            { 676767, { false,  { 2019, 5, 22, 17, 30, 0 }, { 50667, "Germany", "Köln", "Hohe Strasse", "17", "" },     252525, order_state_e::UNDEF, order_resolution_e::RIDE_CANCELLED }, 17.25, "Julian Koch" },
+            { 787878, { true,   { 2019, 5, 27, 20, 20, 0 }, { 50672, "Germany", "Köln", "Antwerpener Strasse", "25", "" }, 363636, order_state_e::DELIVERED_WAITING_FEEDBACK, order_resolution_e::UNDEF }, 17.25, "Tim Bauer" },
+            { 898989, { true,   { 2019, 5, 29, 18, 45, 0 }, { 50674, "Germany", "Köln", "Lindenstrasse", "56", "" },    474747, order_state_e::ACCEPTED_WAITING_DELIVERY, order_resolution_e::UNDEF }, 17.25, "Elias Wolf" },
+            { 909090, { true,   { 2019, 5, 30, 19, 30, 0 }, { 50674, "Germany", "Köln", "Roonnstrasse", "29", "" },     585858, order_state_e::IDLE_WAITING_ACCEPTANCE, order_resolution_e::UNDEF }, 17.25, "Michael Schröder" },
     };
 
     web::DashScreenUser c;
@@ -193,11 +193,11 @@ void test_GetDashScreenShopperResponse()
 
     std::vector<web::AcceptedOrderShopper>    orders   =
     {
-            { 565656, { false, { 2019, 3, 27, 20, 20, 0 }, 141414, 17.25, order_state_e::UNDEF, order_resolution_e::DELIVERED }, { 50668, 0, 0 }, "Eigelstein 1", 1.12, 2.0 },
-            { 676767, { false, { 2019, 5, 22, 17, 30, 0 }, 252525, 23.39, order_state_e::UNDEF, order_resolution_e::RIDE_CANCELLED }, { 50667, 0, 0 }, "Hohe Strasse 17", 2.5, 1.5 },
-            { 787878, { true,  { 2019, 5, 27, 20, 20, 0 }, 363636, 11.87, order_state_e::DELIVERED_WAITING_FEEDBACK, order_resolution_e::UNDEF }, { 50672, 0, 0 }, "Antwerpener Strasse 25", 1.12, .5 },
-            { 898989, { true,  { 2019, 5, 29, 18, 45, 0 }, 474747, 20.15, order_state_e::ACCEPTED_WAITING_DELIVERY, order_resolution_e::UNDEF }, { 50674, 0, 0 }, "Lindenstrasse 56", 2.02, 1.2 },
-            { 909090, { true,  { 2019, 5, 30, 19, 30, 0 }, 585858, 23.20, order_state_e::IDLE_WAITING_ACCEPTANCE, order_resolution_e::UNDEF }, { 50674, 0, 0 }, "Roonnstrasse 29", 2.3, 1.7 },
+            { 565656, { false, { 2019, 3, 27, 20, 20, 0 }, { 50668, "Germany", "Köln", "Eigelstein", "1", "" },        141414, order_state_e::UNDEF, order_resolution_e::DELIVERED }, 17.25, 1.12, 2.0 },
+            { 676767, { false, { 2019, 5, 22, 17, 30, 0 }, { 50667, "Germany", "Köln", "Hohe Strasse", "17", "" },     252525, order_state_e::UNDEF, order_resolution_e::RIDE_CANCELLED }, 23.39, 2.5, 1.5 },
+            { 787878, { true,  { 2019, 5, 27, 20, 20, 0 }, { 50672, "Germany", "Köln", "Antwerpener Strasse", "25", "" }, 363636, order_state_e::DELIVERED_WAITING_FEEDBACK, order_resolution_e::UNDEF }, 11.87, 1.12, .5 },
+            { 898989, { true,  { 2019, 5, 29, 18, 45, 0 }, { 50674, "Germany", "Köln", "Lindenstrasse", "56", "" },    474747, order_state_e::ACCEPTED_WAITING_DELIVERY, order_resolution_e::UNDEF }, 20.15, 2.02, 1.2 },
+            { 909090, { true,  { 2019, 5, 30, 19, 30, 0 }, { 50674, "Germany", "Köln", "Roonnstrasse", "29", "" },     585858, order_state_e::IDLE_WAITING_ACCEPTANCE, order_resolution_e::UNDEF }, 23.20, 2.3, 1.7 },
     };
 
     web::DashScreenShopper c;
@@ -223,7 +223,7 @@ int main()
     test_AddOrderResponse();
     test_CancelOrderResponse();
     test_GetProductItemListResponse();
-    test_GetRideOrderInfoResponse();
+    test_GetDeliveryRequestInfoResponse();
     test_GetShoppingListWithTotalsResponse();
     test_GetDashScreenUserResponse();
     test_GetDashScreenShopperResponse();
@@ -273,9 +273,9 @@ int main()
 
     test( "CMD=web/GetProductItemListRequest&SESSION_ID=afafaf" );
 
-    test( "CMD=web/GetRideOrderInfoRequest&RIDE_ID=&&SESSION_ID=afafaf" );
-    test( "CMD=web/GetRideOrderInfoRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
-    test( "CMD=web/GetRideOrderInfoRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDeliveryRequestInfoRequest&RIDE_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDeliveryRequestInfoRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDeliveryRequestInfoRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
 
     test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=&&SESSION_ID=afafaf" );
     test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=0&&SESSION_ID=afafaf" );

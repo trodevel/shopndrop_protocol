@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11030 $ $Date:: 2019-05-02 #$ $Author: serge $
+// $Revision: 11231 $ $Date:: 2019-05-10 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -110,30 +110,30 @@ function parse_RideWithRequests( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_OrderRequestInfo( & $csv_arr, & $offset )
+function parse_DeliveryRequestInfo( & $csv_arr, & $offset )
 {
-    // 232323;2.18;.3;1.25;50668;0;0;20190522173000;Breslau=20Platz=201;
+    // 232323;2.18;.3;1.25;20190522173000;...
 
-    $res = new OrderRequestInfo;
+    $res = new DeliveryRequestInfo;
 
     $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
     $res->sum           = \basic_parser\parse_float( $csv_arr, $offset );
     $res->earning       = \basic_parser\parse_float( $csv_arr, $offset );
     $res->weight        = \basic_parser\parse_float( $csv_arr, $offset );
-    $res->position      = \shopndrop_protocol\parse_GeoPosition( $csv_arr, $offset );
-    $res->address       = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->address       = \shopndrop_protocol\parse_Address( $csv_arr, $offset );
 
     return $res;
 }
 
 function parse_AcceptedOrderUser( & $csv_arr, & $offset )
 {
-    // 232323;20190327202000;141414;17.25;4;Johann=20Meyer;
+    // 232323;20190327202000;50668;Germany;Cologne;Breslau Platz;1;;141414;4;17.25;Johann=20Meyer;
 
     $res = new AcceptedOrderUser;
 
     $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
     $res->order         = \shopndrop_protocol\parse_Order( $csv_arr, $offset );
+    $res->sum           = \basic_parser\parse_float( $csv_arr, $offset );
     $res->shopper_name  = \basic_parser\parse_enc_string( $csv_arr, $offset );
 
     return $res;
@@ -141,14 +141,13 @@ function parse_AcceptedOrderUser( & $csv_arr, & $offset )
 
 function parse_AcceptedOrderShopper( & $csv_arr, & $offset )
 {
-    // 232323;20190327202000;141414;17.25;4;50668;0;0;Breslau=20Platz=201;3.27;1.5;
+    // 232323;20190327202000;50668;Germany;Cologne;Breslau Platz;1;;141414;4;17.25;3.27;1.5;
 
     $res = new AcceptedOrderShopper;
 
     $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
     $res->order         = \shopndrop_protocol\parse_Order( $csv_arr, $offset );
-    $res->position      = \shopndrop_protocol\parse_GeoPosition( $csv_arr, $offset );
-    $res->address       = \basic_parser\parse_enc_string( $csv_arr, $offset );
+    $res->sum           = \basic_parser\parse_float( $csv_arr, $offset );
     $res->earning       = \basic_parser\parse_float( $csv_arr, $offset );
     $res->weight        = \basic_parser\parse_float( $csv_arr, $offset );
 
@@ -251,11 +250,11 @@ function parse_GetProductItemListResponse( & $csv_arr )
     return $res;
 }
 
-function parse_GetRideOrderInfoResponse( & $csv_arr )
+function parse_GetDeliveryRequestInfoResponse( & $csv_arr )
 {
-    // web/GetRideOrderInfoResponse;5;...
+    // web/GetDeliveryRequestInfoResponse;5;...
 
-    $res = new GetRideOrderInfoResponse;
+    $res = new GetDeliveryRequestInfoResponse;
 
     $offset = 1;
 
@@ -267,7 +266,7 @@ function parse_GetRideOrderInfoResponse( & $csv_arr )
 
     for( $i = 0; $i < $size; $i++ )
     {
-        array_push( $res->rides, parse_OrderRequestInfo( $csv_arr, $offset ) );
+        array_push( $res->rides, parse_DeliveryRequestInfo( $csv_arr, $offset ) );
     }
 
     return $res;
@@ -324,7 +323,7 @@ protected static function parse_csv_array( $csv_arr )
 
     $func_map = array(
         'web/GetProductItemListResponse'    => 'parse_GetProductItemListResponse',
-        'web/GetRideOrderInfoResponse'      => 'parse_GetRideOrderInfoResponse',
+        'web/GetDeliveryRequestInfoResponse'      => 'parse_GetDeliveryRequestInfoResponse',
         'web/GetShoppingListWithTotalsResponse'     => 'parse_GetShoppingListWithTotalsResponse',
         'web/GetDashScreenUserResponse'     => 'parse_GetDashScreenUserResponse',
         'web/GetDashScreenShopperResponse'  => 'parse_GetDashScreenShopperResponse',

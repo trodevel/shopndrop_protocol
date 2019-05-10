@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11159 $ $Date:: 2019-05-09 #$ $Author: serge $
+// $Revision: 11231 $ $Date:: 2019-05-10 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -105,19 +105,19 @@ enum class gender_e
 struct Address
 {
     uint32_t    plz;
+    std::string country;
     std::string city;
     std::string street;
     std::string house_number;
     std::string extra_address_line;
-    std::string country;
 };
 
 struct Order
 {
     bool                is_open;
     basic_objects::LocalTime delivery_time;
+    Address             delivery_address;
     id_t                shopping_list_id;
-    double              sum;
     order_state_e       state;
     order_resolution_e  resolution;
 };
@@ -237,20 +237,20 @@ struct RideWithRequests
     uint32_t        num_requests;
 };
 
-struct OrderRequestInfo
+struct DeliveryRequestInfo
 {
     id_t            order_id;
     double          sum;
     double          earning;
     double          weight;
-    GeoPosition     position;
-    std::string     address;
+    Address         address;
 };
 
 struct AcceptedOrderUser
 {
     id_t            order_id;
     Order           order;
+    double          sum;
     std::string     shopper_name;
 };
 
@@ -258,8 +258,7 @@ struct AcceptedOrderShopper
 {
     id_t            order_id;
     Order           order;
-    GeoPosition     position;
-    std::string     address;
+    double          sum;
     double          earning;
     double          weight;
 };
@@ -293,14 +292,14 @@ struct GetProductItemListResponse: public generic_protocol::BackwardMessage
     std::vector<ProductItemWithId>  product_items;
 };
 
-struct GetRideOrderInfoRequest: public Request
+struct GetDeliveryRequestInfoRequest: public Request
 {
     id_t            ride_id;
 };
 
-struct GetRideOrderInfoResponse: public generic_protocol::BackwardMessage
+struct GetDeliveryRequestInfoResponse: public generic_protocol::BackwardMessage
 {
-    std::vector<OrderRequestInfo>    rides;
+    std::vector<DeliveryRequestInfo>    rides;
 };
 
 struct GetShoppingListWithTotalsRequest: public Request

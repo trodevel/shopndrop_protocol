@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11171 $ $Date:: 2019-05-09 #$ $Author: serge $
+// $Revision: 11223 $ $Date:: 2019-05-10 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -86,30 +86,30 @@ function parse_Ride( & $csv_arr, & $offset )
 
 function parse_Address( & $csv_arr, & $offset )
 {
-    // 50668;Cologne;Breslau Platz;;Germany
+    // 50668;Germany;Cologne;Breslau Platz;1;;
 
     $res = new Address;
 
     $res->plz           = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->country       = \basic_parser\parse_enc_string( $csv_arr, $offset );
     $res->city          = \basic_parser\parse_enc_string( $csv_arr, $offset );
     $res->street        = \basic_parser\parse_enc_string( $csv_arr, $offset );
     $res->house_number  = \basic_parser\parse_enc_string( $csv_arr, $offset );
     $res->extra_address_line    = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->country       = \basic_parser\parse_enc_string( $csv_arr, $offset );
 
     return $res;
 }
 
 function parse_Order( & $csv_arr, & $offset )
 {
-    // 1;20190327202000;141414;17.25;2;0;
+    // 1;20190327202000;50668;Germany;Cologne;Breslau Platz;1;;141414;2;0;
 
     $res = new Order;
 
     $res->is_open           = \basic_parser\parse_int( $csv_arr, $offset );
     $res->delivery_time     = \basic_objects\parse_LocalTime( $csv_arr, $offset );
+    $res->delivery_address  = parse_Address( $csv_arr, $offset );
     $res->shopping_list_id  = \basic_parser\parse_int( $csv_arr, $offset );
-    $res->sum               = \basic_parser\parse_float( $csv_arr, $offset );
     $res->state             = \basic_parser\parse_int( $csv_arr, $offset );
     $res->resolution        = \basic_parser\parse_int( $csv_arr, $offset );
 

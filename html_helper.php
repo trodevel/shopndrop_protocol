@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11173 $ $Date:: 2019-05-09 #$ $Author: serge $
+// $Revision: 11226 $ $Date:: 2019-05-10 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -79,20 +79,39 @@ function to_html_Ride_tabledata( & $obj )
         $obj->max_weight ) );
 }
 
+function get_header_Address()
+{
+    return get_html_table_header_elems( array( 'PLZ', 'COUNTRY', 'CITY', 'STR', 'NO', 'EAL' ) );
+}
+
+function to_html_Address_tabledata( & $obj )
+{
+    return get_html_table_data_elems( array(
+        $obj->plz,
+        $obj->country,
+        $obj->city,
+        $obj->street,
+        $obj->house_number,
+        $obj->extra_address_line ) );
+}
+
 function get_header_Order()
 {
-    return get_html_table_header_elems( array( 'IS OPEN', 'DELIVERY TIME', 'SHOPPING LIST ID', 'SUM', 'STATE', 'RESOLUTION' ) );
+    return get_html_table_header_elems( array( 'IS OPEN', 'DELIVERY TIME' ) ) .
+        get_header_Address() .
+        get_html_table_header_elems( array( 'SHOPPING LIST ID', 'STATE', 'RESOLUTION' ) );
 }
 
 function to_html_Order_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
         $obj->is_open ? "Y" : "N",
-        \basic_objects\to_string_LocalTime( $obj->delivery_time ),
-        $obj->shopping_list_id,
-        $obj->sum,
-        to_string_order_state_e( $obj->state ) . " (" . $obj->state . ")",
-        to_string_order_resolution_e( $obj->resolution ) . " (" . $obj->resolution . ")",) );
+        \basic_objects\to_string_LocalTime( $obj->delivery_time ) ) ) .
+        to_html_Address_tabledata( $obj->delivery_address ) .
+        get_html_table_data_elems( array(
+            $obj->shopping_list_id,
+            to_string_order_state_e( $obj->state ) . " (" . $obj->state . ")",
+            to_string_order_resolution_e( $obj->resolution ) . " (" . $obj->resolution . ")") );
 }
 
 /**************************************************

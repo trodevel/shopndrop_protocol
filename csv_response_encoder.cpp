@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11160 $ $Date:: 2019-05-09 #$ $Author: serge $
+// $Revision: 11231 $ $Date:: 2019-05-10 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -60,9 +60,9 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     {
         return to_csv( static_cast<const GetRideResponse&>( r ) );
     }
-    else if( typeid( r ) == typeid( web::GetRideOrderInfoResponse ) )
+    else if( typeid( r ) == typeid( web::GetDeliveryRequestInfoResponse ) )
     {
-        return to_csv( static_cast<const web::GetRideOrderInfoResponse&>( r ) );
+        return to_csv( static_cast<const web::GetDeliveryRequestInfoResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( web::GetShoppingListWithTotalsResponse ) )
     {
@@ -95,10 +95,12 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const Order & r )
     utils::CsvHelper::write( os, static_cast<unsigned>( r.is_open ) );
 
     basic_objects::CsvHelper::write( os, r.delivery_time );
+
+    write( os, r.delivery_address );
+
     utils::CsvHelper::write(
             os,
-            r.shopping_list_id,
-            r.sum );
+            r.shopping_list_id );
 
     write( os, r.state );
     write( os, r.resolution );
@@ -158,7 +160,9 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::Accepted
 
     write( os, r.order );
 
-    utils::CsvHelper::write( os, utils::nonascii_hex_codec::encode( r.shopper_name ) );
+    utils::CsvHelper::write( os,
+            r.sum,
+            utils::nonascii_hex_codec::encode( r.shopper_name ) );
 
     return os;
 }
@@ -169,14 +173,9 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::Accepted
 
     write( os, r.order );
 
-    write( os, r.position );
-
     utils::CsvHelper::write(
             os,
-            utils::nonascii_hex_codec::encode( r.address ) );
-
-    utils::CsvHelper::write(
-            os,
+            r.sum,
             r.earning,
             r.weight );
 
@@ -221,7 +220,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::DashScre
     return os;
 }
 
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::OrderRequestInfo & r )
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::DeliveryRequestInfo & r )
 {
     utils::CsvHelper::write(
             os,
@@ -230,11 +229,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::OrderReq
             r.earning,
             r.weight );
 
-    write( os, r.position );
-
-    utils::CsvHelper::write(
-            os,
-            utils::nonascii_hex_codec::encode( r.address ) );
+    write( os, r.address );
 
     return os;
 }
@@ -281,11 +276,11 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const Address & r )
     utils::CsvHelper::write(
             os,
             r.plz,
+            utils::nonascii_hex_codec::encode( r.country ),
             utils::nonascii_hex_codec::encode( r.city ),
             utils::nonascii_hex_codec::encode( r.street ),
             utils::nonascii_hex_codec::encode( r.house_number ),
-            utils::nonascii_hex_codec::encode( r.extra_address_line ),
-            utils::nonascii_hex_codec::encode( r.country ) );
+            utils::nonascii_hex_codec::encode( r.extra_address_line ) );
 
     return os;
 }
@@ -363,19 +358,19 @@ std::string CsvResponseEncoder::to_csv( const CancelOrderResponse & r )
     return utils::CsvHelper::to_csv( "CancelOrderResponse" );
 }
 
-std::string CsvResponseEncoder::to_csv( const web::GetRideOrderInfoResponse & r )
+std::string CsvResponseEncoder::to_csv( const web::GetDeliveryRequestInfoResponse & r )
 {
     std::ostringstream os;
 
     utils::CsvHelper::write(
             os,
-            "web/GetRideOrderInfoResponse" ) ;
+            "web/GetDeliveryRequestInfoResponse" ) ;
 
     utils::CsvHelper::write_user_array(
             os,
             r.rides.begin(),
             r.rides.end(),
-            [](std::ostream & os, const web::OrderRequestInfo & r) { CsvResponseEncoder::write( os, r ); } );
+            [](std::ostream & os, const web::DeliveryRequestInfo & r) { CsvResponseEncoder::write( os, r ); } );
 
     return os.str();
 }

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11177 $ $Date:: 2019-05-09 #$ $Author: serge $
+// $Revision: 11229 $ $Date:: 2019-05-10 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -253,7 +253,7 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
     static const std::map<KeyType, PPMF> funcs =
     {
         { KeyType::GetProductItemListRequest,   & Type::to_GetProductItemListRequest },
-        { KeyType::GetRideOrderInfoRequest,     & Type::to_GetRideOrderInfoRequest },
+        { KeyType::GetDeliveryRequestInfoRequest,     & Type::to_GetDeliveryRequestInfoRequest },
         { KeyType::GetShoppingListWithTotalsRequest,    & Type::to_GetShoppingListWithTotalsRequest },
         { KeyType::GetDashScreenUserRequest,    & Type::to_GetDashScreenUserRequest },
         { KeyType::GetDashScreenShopperRequest, & Type::to_GetDashScreenShopperRequest },
@@ -288,9 +288,9 @@ RequestParser::ForwardMessage * RequestParser::to_GetProductItemListRequest( con
     return res;
 }
 
-RequestParser::ForwardMessage * RequestParser::to_GetRideOrderInfoRequest( const generic_request::Request & r )
+RequestParser::ForwardMessage * RequestParser::to_GetDeliveryRequestInfoRequest( const generic_request::Request & r )
 {
-    auto * res = new GetRideOrderInfoRequest;
+    auto * res = new GetDeliveryRequestInfoRequest;
 
     generic_protocol::RequestParser::to_request( res, r );
 
