@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11273 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -458,7 +458,7 @@ class RateShopperRequest extends Request
         parent::__construct( $session_id );
 
         $this->order_id     = $order_id;
-        $this->stars        = $starts;
+        $this->stars        = $stars;
     }
 
     public function to_generic_request()

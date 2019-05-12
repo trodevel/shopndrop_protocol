@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11273 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 require_once 'shopndrop_protocol_web.php';
 
@@ -84,8 +84,9 @@ $session_id = "afafaf";
 
 {
     $ride_id        = 101;
+    $stars          = 4;
 
-    $req = new \shopndrop_protocol\RateShopperRequest( $session_id, $ride_id );
+    $req = new \shopndrop_protocol\RateShopperRequest( $session_id, $ride_id, $stars );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }

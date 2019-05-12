@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11272 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -372,6 +372,26 @@ std::string CsvResponseEncoder::to_csv( const AddOrderResponse & r )
 std::string CsvResponseEncoder::to_csv( const CancelOrderResponse & r )
 {
     return utils::CsvHelper::to_csv( "CancelOrderResponse" );
+}
+
+std::string CsvResponseEncoder::to_csv( const AcceptOrderResponse & r )
+{
+    return utils::CsvHelper::to_csv( "AcceptOrderResponse" );
+}
+
+std::string CsvResponseEncoder::to_csv( const DeclineOrderResponse & r )
+{
+    return utils::CsvHelper::to_csv( "DeclineOrderResponse" );
+}
+
+std::string CsvResponseEncoder::to_csv( const MarkDeliveredOrderResponse & r )
+{
+    return utils::CsvHelper::to_csv( "MarkDeliveredOrderResponse" );
+}
+
+std::string CsvResponseEncoder::to_csv( const RateShopperResponse & r )
+{
+    return utils::CsvHelper::to_csv( "RateShopperResponse" );
 }
 
 std::string CsvResponseEncoder::to_csv( const web::GetShoppingRequestInfoResponse & r )
