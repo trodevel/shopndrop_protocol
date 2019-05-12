@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11272 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11290 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -110,7 +110,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const Order & r )
 {
     utils::CsvHelper::write( os, static_cast<unsigned>( r.is_open ) );
 
-    basic_objects::CsvHelper::write( os, r.delivery_time );
+    utils::CsvHelper::write( os, r.ride_id );
 
     write( os, r.delivery_address );
 
@@ -174,6 +174,8 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::Accepted
 {
     utils::CsvHelper::write( os, r.order_id );
 
+    basic_objects::CsvHelper::write( os, r.delivery_time );
+
     write( os, r.order );
 
     utils::CsvHelper::write( os,
@@ -186,6 +188,8 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::Accepted
 std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::AcceptedOrderShopper & r )
 {
     utils::CsvHelper::write( os, r.order_id );
+
+    basic_objects::CsvHelper::write( os, r.delivery_time );
 
     write( os, r.order );
 

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11290 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -115,7 +115,7 @@ struct Address
 struct Order
 {
     bool                is_open;
-    basic_objects::LocalTime delivery_time;
+    id_t                ride_id;
     Address             delivery_address;
     id_t                shopping_list_id;
     order_state_e       state;
@@ -287,6 +287,7 @@ struct ShoppingRequestInfo
 struct AcceptedOrderUser
 {
     id_t            order_id;
+    basic_objects::LocalTime delivery_time;
     Order           order;
     double          sum;
     std::string     shopper_name;
@@ -295,6 +296,7 @@ struct AcceptedOrderUser
 struct AcceptedOrderShopper
 {
     id_t            order_id;
+    basic_objects::LocalTime delivery_time;
     Order           order;
     double          sum;
     double          earning;
