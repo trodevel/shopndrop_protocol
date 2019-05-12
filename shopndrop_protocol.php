@@ -212,7 +212,7 @@ class Address
 class Order
 {
     public  $is_open;           // bool
-    public  $delivery_time;     // basic_objects::LocalTime
+    public  $ride_id;           // id_t
     public  $delivery_address;  // Address
     public  $shopping_list_id;  // id_t
     public  $state;             // order_state_e

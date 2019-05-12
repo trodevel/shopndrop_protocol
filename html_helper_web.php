@@ -184,7 +184,7 @@ function to_html_RideWithRequests_tabledata( & $obj )
 
 function get_header_AcceptedOrderUser()
 {
-    return get_html_table_header_elems( array( 'ORDER ID' ) ) .
+    return get_html_table_header_elems( array( 'ORDER ID', 'DELIVERY TIME' ) ) .
     \shopndrop_protocol\get_header_Order() .
     get_html_table_header_elems( array( 'SUM', 'SHOPPER NAME' ) );
 }
@@ -192,7 +192,8 @@ function get_header_AcceptedOrderUser()
 function to_html_AcceptedOrderUser_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
-        $obj->order_id ) ) .
+        $obj->order_id,
+        \basic_objects\to_string_LocalTime( $obj->delivery_time ) ) ) .
         \shopndrop_protocol\to_html_Order_tabledata( $obj->order ) .
         get_html_table_data_elems( array(
             $obj->sum,
@@ -201,7 +202,7 @@ function to_html_AcceptedOrderUser_tabledata( & $obj )
 
 function get_header_AcceptedOrderShopper()
 {
-    return get_html_table_header_elems( array( 'ORDER ID' ) ) .
+    return get_html_table_header_elems( array( 'ORDER ID', 'DELIVERY TIME' ) ) .
         \shopndrop_protocol\get_header_Order() .
         get_html_table_header_elems( array( 'SUM', 'EARNING', 'WEIGHT' ) );
 }
@@ -209,7 +210,8 @@ function get_header_AcceptedOrderShopper()
 function to_html_AcceptedOrderShopper_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
-        $obj->order_id ) ) .
+        $obj->order_id,
+        \basic_objects\to_string_LocalTime( $obj->delivery_time ) ) ) .
         \shopndrop_protocol\to_html_Order_tabledata( $obj->order ) .
         get_html_table_data_elems( array(
             $obj->sum,

@@ -127,11 +127,12 @@ function parse_ShoppingRequestInfo( & $csv_arr, & $offset )
 
 function parse_AcceptedOrderUser( & $csv_arr, & $offset )
 {
-    // 232323;20190327202000;50668;Germany;Cologne;Breslau Platz;1;;141414;4;17.25;Johann=20Meyer;
+    // 232323;20190327202000;1;565656;50668;Germany;Cologne;Breslau Platz;1;;141414;4;17.25;Johann=20Meyer;
 
     $res = new AcceptedOrderUser;
 
     $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->delivery_time = \basic_objects\parse_LocalTime( $csv_arr, $offset );
     $res->order         = \shopndrop_protocol\parse_Order( $csv_arr, $offset );
     $res->sum           = \basic_parser\parse_float( $csv_arr, $offset );
     $res->shopper_name  = \basic_parser\parse_enc_string( $csv_arr, $offset );
@@ -141,11 +142,12 @@ function parse_AcceptedOrderUser( & $csv_arr, & $offset )
 
 function parse_AcceptedOrderShopper( & $csv_arr, & $offset )
 {
-    // 232323;20190327202000;50668;Germany;Cologne;Breslau Platz;1;;141414;4;17.25;3.27;1.5;
+    // 232323;20190327202000;1;565656;50668;Germany;Cologne;Breslau Platz;1;;141414;4;17.25;3.27;1.5;
 
     $res = new AcceptedOrderShopper;
 
     $res->order_id      = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->delivery_time = \basic_objects\parse_LocalTime( $csv_arr, $offset );
     $res->order         = \shopndrop_protocol\parse_Order( $csv_arr, $offset );
     $res->sum           = \basic_parser\parse_float( $csv_arr, $offset );
     $res->earning       = \basic_parser\parse_float( $csv_arr, $offset );

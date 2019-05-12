@@ -97,7 +97,7 @@ function to_html_Address_tabledata( & $obj )
 
 function get_header_Order()
 {
-    return get_html_table_header_elems( array( 'IS OPEN', 'DELIVERY TIME' ) ) .
+    return get_html_table_header_elems( array( 'IS OPEN', 'RIDE ID' ) ) .
         get_header_Address() .
         get_html_table_header_elems( array( 'SHOPPING LIST ID', 'STATE', 'RESOLUTION' ) );
 }
@@ -106,7 +106,7 @@ function to_html_Order_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
         $obj->is_open ? "Y" : "N",
-        \basic_objects\to_string_LocalTime( $obj->delivery_time ) ) ) .
+        $obj->ride_id ) ) .
         to_html_Address_tabledata( $obj->delivery_address ) .
         get_html_table_data_elems( array(
             $obj->shopping_list_id,

@@ -81,6 +81,7 @@ class ShoppingRequestInfo
 class AcceptedOrderUser
 {
     public  $order_id;          // id_t
+    public  $delivery_time;     // basic_objects::LocalTime
     public  $order;             // Order
     public  $sum;               // double
     public  $shopper_name;      // string
@@ -89,6 +90,7 @@ class AcceptedOrderUser
 class AcceptedOrderShopper
 {
     public  $order_id;          // id_t
+    public  $delivery_time;     // basic_objects::LocalTime
     public  $order;             // Order
     public  $sum;               // double
     public  $earning;           // double

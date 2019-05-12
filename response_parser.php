@@ -102,12 +102,12 @@ function parse_Address( & $csv_arr, & $offset )
 
 function parse_Order( & $csv_arr, & $offset )
 {
-    // 1;20190327202000;50668;Germany;Cologne;Breslau Platz;1;;141414;2;0;
+    // 1;565656;50668;Germany;Cologne;Breslau Platz;1;;141414;2;0;
 
     $res = new Order;
 
     $res->is_open           = \basic_parser\parse_int( $csv_arr, $offset );
-    $res->delivery_time     = \basic_objects\parse_LocalTime( $csv_arr, $offset );
+    $res->ride_id           = \basic_parser\parse_int( $csv_arr, $offset );
     $res->delivery_address  = parse_Address( $csv_arr, $offset );
     $res->shopping_list_id  = \basic_parser\parse_int( $csv_arr, $offset );
     $res->state             = \basic_parser\parse_int( $csv_arr, $offset );
