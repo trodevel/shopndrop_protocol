@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11226 $ $Date:: 2019-05-10 #$ $Author: serge $
+// $Revision: 11275 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -160,6 +160,34 @@ function to_html_CancelOrderResponse( & $obj )
     return $res;
 }
 
+function to_html_AcceptOrderResponse( & $obj )
+{
+    $res = '<h3>AcceptOrderResponse</h3>';
+
+    return $res;
+}
+
+function to_html_DeclineOrderResponse( & $obj )
+{
+    $res = '<h3>DeclineOrderResponse</h3>';
+
+    return $res;
+}
+
+function to_html_MarkDeliveredOrderResponse( & $obj )
+{
+    $res = '<h3>MarkDeliveredOrderResponse</h3>';
+
+    return $res;
+}
+
+function to_html_RateShopperResponse( & $obj )
+{
+    $res = '<h3>RateShopperResponse</h3>';
+
+    return $res;
+}
+
 function to_html_GetPersonalUserInfoResponse( & $obj )
 {
     return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
@@ -186,6 +214,10 @@ function to_html( $obj )
         'shopndrop_protocol\AddOrderResponse'       => 'to_html_AddOrderResponse',
         'shopndrop_protocol\CancelOrderRequest'     => 'to_html_not_impl',
         'shopndrop_protocol\CancelOrderResponse'    => 'to_html_CancelOrderResponse',
+        'shopndrop_protocol\AcceptOrderResponse'    => 'to_html_AcceptOrderResponse',
+        'shopndrop_protocol\DeclineOrderResponse'   => 'to_html_DeclineOrderResponse',
+        'shopndrop_protocol\MarkDeliveredOrderResponse'    => 'to_html_MarkDeliveredOrderResponse',
+        'shopndrop_protocol\RateShopperResponse'    => 'to_html_RateShopperResponse',
     );
 
     $type = get_class ( $obj );
