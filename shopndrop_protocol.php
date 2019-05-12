@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11240 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 

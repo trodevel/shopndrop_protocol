@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11241 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -173,6 +173,42 @@ function parse_CancelOrderResponse( & $csv_arr )
     return $res;
 }
 
+function parse_AcceptOrderResponse( & $csv_arr )
+{
+    // AcceptOrderResponse;
+
+    $res = new AcceptOrderResponse;
+
+    return $res;
+}
+
+function parse_DeclineOrderResponse( & $csv_arr )
+{
+    // DeclineOrderResponse;
+
+    $res = new DeclineOrderResponse;
+
+    return $res;
+}
+
+function parse_MarkDeliveredOrderResponse( & $csv_arr )
+{
+    // MarkDeliveredOrderResponse;
+
+    $res = new MarkDeliveredOrderResponse;
+
+    return $res;
+}
+
+function parse_RateShopperResponse( & $csv_arr )
+{
+    // RateShopperResponse;
+
+    $res = new RateShopperResponse;
+
+    return $res;
+}
+
 function parse_GetPersonalUserInfoResponse( & $csv_arr )
 {
     // GetPersonalUserInfoResponse;123;1;John;Doe;Yoyodine=20Corp.;john.doe@yoyodine.com;+491234567890;Europe/Berlin;
@@ -209,6 +245,10 @@ protected static function parse_csv_array( $csv_arr )
         'GetRideResponse'               => 'parse_GetRideResponse',
         'AddOrderResponse'              => 'parse_AddOrderResponse',
         'CancelOrderResponse'           => 'parse_CancelOrderResponse',
+        'AcceptOrderResponse'           => 'parse_AcceptOrderResponse',
+        'DeclineOrderResponse'          => 'parse_DeclineOrderResponse',
+        'MarkDeliveredOrderResponse'    => 'parse_MarkDeliveredOrderResponse',
+        'RateShopperResponse'           => 'parse_RateShopperResponse',
         'GetPersonalUserInfoResponse'   => 'parse_GetPersonalUserInfoResponse',
         );
 

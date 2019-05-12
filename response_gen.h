@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -93,6 +93,34 @@ inline AddOrderResponse * create_AddOrderResponse( id_t order_id )
 inline CancelOrderResponse * create_CancelOrderResponse()
 {
     auto * res = new CancelOrderResponse;
+
+    return res;
+}
+
+inline AcceptOrderResponse * create_AcceptOrderResponse()
+{
+    auto * res = new AcceptOrderResponse;
+
+    return res;
+}
+
+inline DeclineOrderResponse * create_DeclineOrderResponse()
+{
+    auto * res = new DeclineOrderResponse;
+
+    return res;
+}
+
+inline MarkDeliveredOrderResponse * create_MarkDeliveredOrderResponse()
+{
+    auto * res = new MarkDeliveredOrderResponse;
+
+    return res;
+}
+
+inline RateShopperResponse * create_RateShopperResponse()
+{
+    auto * res = new RateShopperResponse;
 
     return res;
 }

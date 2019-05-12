@@ -89,6 +89,42 @@ void test_CancelOrderResponse()
     delete s;
 }
 
+void test_AcceptOrderResponse()
+{
+    auto s = shopndrop_protocol::create_AcceptOrderResponse();
+
+    std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
+
+    delete s;
+}
+
+void test_DeclineOrderResponse()
+{
+    auto s = shopndrop_protocol::create_DeclineOrderResponse();
+
+    std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
+
+    delete s;
+}
+
+void test_MarkDeliveredOrderResponse()
+{
+    auto s = shopndrop_protocol::create_MarkDeliveredOrderResponse();
+
+    std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
+
+    delete s;
+}
+
+void test_RateShopperResponse()
+{
+    auto s = shopndrop_protocol::create_RateShopperResponse();
+
+    std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
+
+    delete s;
+}
+
 void test_GetProductItemListResponse()
 {
     std::vector<shopndrop_protocol::web::ProductItemWithId> pids  =
@@ -222,6 +258,10 @@ int main()
 
     test_AddOrderResponse();
     test_CancelOrderResponse();
+    test_AcceptOrderResponse();
+    test_DeclineOrderResponse();
+    test_MarkDeliveredOrderResponse();
+    test_RateShopperResponse();
     test_GetProductItemListResponse();
     test_GetShoppingRequestInfoResponse();
     test_GetShoppingListWithTotalsResponse();

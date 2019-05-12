@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -51,6 +51,22 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     else if( typeid( r ) == typeid( CancelOrderResponse ) )
     {
         return to_csv( static_cast<const CancelOrderResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( AcceptOrderResponse ) )
+    {
+        return to_csv( static_cast<const AcceptOrderResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( DeclineOrderResponse ) )
+    {
+        return to_csv( static_cast<const DeclineOrderResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( MarkDeliveredOrderResponse ) )
+    {
+        return to_csv( static_cast<const MarkDeliveredOrderResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( RateShopperResponse ) )
+    {
+        return to_csv( static_cast<const RateShopperResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( AddRideResponse ) )
     {
