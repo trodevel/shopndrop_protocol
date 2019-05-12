@@ -41,6 +41,10 @@ public:
     static bool validate( const GetRideRequest & r );
     static bool validate( const AddOrderRequest & r );
     static bool validate( const CancelOrderRequest & r );
+    static bool validate( const AcceptOrderRequest & r );
+    static bool validate( const DeclineOrderRequest & r );
+    static bool validate( const MarkDeliveredOrderRequest & r );
+    static bool validate( const RateShopperRequest & r );
     static bool validate( const GetPersonalUserInfoRequest & r );
 };
 

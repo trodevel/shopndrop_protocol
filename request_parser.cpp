@@ -45,16 +45,24 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
 
     typedef ForwardMessage* (*PPMF)( const generic_request::Request & r );
 
+#define HANDLER_MAP_ENTRY(_v)       { KeyType::_v,    & Type::to_##_v }
+
     static const std::map<KeyType, PPMF> funcs =
     {
-        { KeyType::AddRideRequest,              & Type::to_AddRideRequest },
-        { KeyType::AddOrderRequest,             & Type::to_AddOrderRequest },
-        { KeyType::CancelOrderRequest,          & Type::to_CancelOrderRequest },
-        { KeyType::CancelRideRequest,           & Type::to_CancelRideRequest },
-        { KeyType::GetPersonalUserInfoRequest,  & Type::to_GetPersonalUserInfoRequest },
-        { KeyType::GetRideRequest,              & Type::to_GetRideRequest },
-        { KeyType::GetPersonalUserInfoRequest,  & Type::to_GetPersonalUserInfoRequest },
+        HANDLER_MAP_ENTRY( AddRideRequest ),
+        HANDLER_MAP_ENTRY( AddOrderRequest ),
+        HANDLER_MAP_ENTRY( CancelOrderRequest ),
+        HANDLER_MAP_ENTRY( AcceptOrderRequest ),
+        HANDLER_MAP_ENTRY( DeclineOrderRequest ),
+        HANDLER_MAP_ENTRY( MarkDeliveredOrderRequest ),
+        HANDLER_MAP_ENTRY( RateShopperRequest ),
+        HANDLER_MAP_ENTRY( CancelRideRequest ),
+        HANDLER_MAP_ENTRY( GetPersonalUserInfoRequest ),
+        HANDLER_MAP_ENTRY( GetRideRequest ),
+        HANDLER_MAP_ENTRY( GetPersonalUserInfoRequest ),
     };
+
+#undef HANDLER_MAP_ENTRY
 
     auto it = funcs.find( type );
 
@@ -173,6 +181,59 @@ RequestParser::ForwardMessage * RequestParser::to_CancelOrderRequest( const gene
     return res;
 }
 
+RequestParser::ForwardMessage * RequestParser::to_AcceptOrderRequest( const generic_request::Request & r )
+{
+    auto * res = new AcceptOrderRequest;
+
+    generic_protocol::RequestParser::to_request( res, r );
+
+    to_Id( & res->order_id, "ORDER_ID", r );
+
+    RequestValidator::validate( * res );
+
+    return res;
+}
+
+RequestParser::ForwardMessage * RequestParser::to_DeclineOrderRequest( const generic_request::Request & r )
+{
+    auto * res = new DeclineOrderRequest;
+
+    generic_protocol::RequestParser::to_request( res, r );
+
+    to_Id( & res->order_id, "ORDER_ID", r );
+
+    RequestValidator::validate( * res );
+
+    return res;
+}
+
+RequestParser::ForwardMessage * RequestParser::to_MarkDeliveredOrderRequest( const generic_request::Request & r )
+{
+    auto * res = new MarkDeliveredOrderRequest;
+
+    generic_protocol::RequestParser::to_request( res, r );
+
+    to_Id( & res->order_id, "ORDER_ID", r );
+
+    RequestValidator::validate( * res );
+
+    return res;
+}
+
+RequestParser::ForwardMessage * RequestParser::to_RateShopperRequest( const generic_request::Request & r )
+{
+    auto * res = new RateShopperRequest;
+
+    generic_protocol::RequestParser::to_request( res, r );
+
+    to_Id( & res->order_id, "ORDER_ID", r );
+    get_value_or_throw_uint32( res->stars, "STARS", r );
+
+    RequestValidator::validate( * res );
+
+    return res;
+}
+
 RequestParser::ForwardMessage * RequestParser::to_GetPersonalUserInfoRequest( const generic_request::Request & r )
 {
     auto * res = new GetPersonalUserInfoRequest;
@@ -251,14 +312,18 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
 
     typedef ForwardMessage* (*PPMF)( const generic_request::Request & r );
 
+#define HANDLER_MAP_ENTRY(_v)       { KeyType::_v,    & Type::to_##_v }
+
     static const std::map<KeyType, PPMF> funcs =
     {
-        { KeyType::GetProductItemListRequest,   & Type::to_GetProductItemListRequest },
-        { KeyType::GetShoppingRequestInfoRequest,     & Type::to_GetShoppingRequestInfoRequest },
-        { KeyType::GetShoppingListWithTotalsRequest,    & Type::to_GetShoppingListWithTotalsRequest },
-        { KeyType::GetDashScreenUserRequest,    & Type::to_GetDashScreenUserRequest },
-        { KeyType::GetDashScreenShopperRequest, & Type::to_GetDashScreenShopperRequest },
+        HANDLER_MAP_ENTRY( GetProductItemListRequest ),
+        HANDLER_MAP_ENTRY( GetShoppingRequestInfoRequest ),
+        HANDLER_MAP_ENTRY( GetShoppingListWithTotalsRequest ),
+        HANDLER_MAP_ENTRY( GetDashScreenUserRequest ),
+        HANDLER_MAP_ENTRY( GetDashScreenShopperRequest ),
     };
+
+#undef HANDLER_MAP_ENTRY
 
     auto it = funcs.find( type );
 

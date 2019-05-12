@@ -144,6 +144,35 @@ bool RequestValidator::validate( const CancelOrderRequest & r )
     return generic_protocol::RequestValidator::validate( r );
 }
 
+bool RequestValidator::validate( const AcceptOrderRequest & r )
+{
+    validate( r.order_id, "ORDER_ID" );
+
+    return generic_protocol::RequestValidator::validate( r );
+}
+
+bool RequestValidator::validate( const DeclineOrderRequest & r )
+{
+    validate( r.order_id, "ORDER_ID" );
+
+    return generic_protocol::RequestValidator::validate( r );
+}
+
+bool RequestValidator::validate( const MarkDeliveredOrderRequest & r )
+{
+    validate( r.order_id, "ORDER_ID" );
+
+    return generic_protocol::RequestValidator::validate( r );
+}
+
+bool RequestValidator::validate( const RateShopperRequest & r )
+{
+    validate( r.order_id, "ORDER_ID" );
+    THROW_IF_INT_NOT_IN_RANGE( r.stars, "STARS", 0, 5 );
+
+    return generic_protocol::RequestValidator::validate( r );
+}
+
 bool RequestValidator::validate( const GetPersonalUserInfoRequest & r )
 {
     validate( r.user_id, "USER_ID" );

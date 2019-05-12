@@ -58,6 +58,10 @@ private:
     static ForwardMessage *             to_GetRideRequest( const generic_request::Request & r );
     static ForwardMessage *             to_AddOrderRequest( const generic_request::Request & r );
     static ForwardMessage *             to_CancelOrderRequest( const generic_request::Request & r );
+    static ForwardMessage *             to_AcceptOrderRequest( const generic_request::Request & r );
+    static ForwardMessage *             to_DeclineOrderRequest( const generic_request::Request & r );
+    static ForwardMessage *             to_MarkDeliveredOrderRequest( const generic_request::Request & r );
+    static ForwardMessage *             to_RateShopperRequest( const generic_request::Request & r );
     static ForwardMessage *             to_GetPersonalUserInfoRequest( const generic_request::Request & r );
 };
 

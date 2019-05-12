@@ -176,6 +176,43 @@ struct CancelOrderResponse: public generic_protocol::BackwardMessage
 {
 };
 
+struct AcceptOrderRequest: public Request
+{
+    id_t            order_id;
+};
+
+struct AcceptOrderResponse: public generic_protocol::BackwardMessage
+{
+};
+
+struct DeclineOrderRequest: public Request
+{
+    id_t            order_id;
+};
+
+struct DeclineOrderResponse: public generic_protocol::BackwardMessage
+{
+};
+
+struct MarkDeliveredOrderRequest: public Request
+{
+    id_t            order_id;
+};
+
+struct MarkDeliveredOrderResponse: public generic_protocol::BackwardMessage
+{
+};
+
+struct RateShopperRequest: public Request
+{
+    id_t            order_id;
+    uint32_t        stars;
+};
+
+struct RateShopperResponse: public generic_protocol::BackwardMessage
+{
+};
+
 struct GetPersonalUserInfoRequest: public Request
 {
     id_t            user_id;

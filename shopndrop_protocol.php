@@ -367,6 +367,117 @@ class CancelOrderResponse extends \generic_protocol\BackwardMessage
 {
 }
 
+class AcceptOrderRequest extends Request
+{
+    public $order_id;   // id_t
+
+    function __construct( $session_id, $order_id )
+    {
+        parent::__construct( $session_id );
+
+        $this->order_id     = $order_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "AcceptOrderRequest",
+            "ORDER_ID"  => $this->order_id
+        );
+
+        return \generic_protocol\assemble_request( $res ) .
+        parent::to_generic_request();
+    }
+}
+
+class AcceptOrderResponse extends \generic_protocol\BackwardMessage
+{
+}
+
+class DeclineOrderRequest extends Request
+{
+    public $order_id;   // id_t
+
+    function __construct( $session_id, $order_id )
+    {
+        parent::__construct( $session_id );
+
+        $this->order_id     = $order_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "DeclineOrderRequest",
+            "ORDER_ID"  => $this->order_id
+        );
+
+        return \generic_protocol\assemble_request( $res ) .
+        parent::to_generic_request();
+    }
+}
+
+class DeclineOrderResponse extends \generic_protocol\BackwardMessage
+{
+}
+
+class MarkDeliveredOrderRequest extends Request
+{
+    public $order_id;   // id_t
+
+    function __construct( $session_id, $order_id )
+    {
+        parent::__construct( $session_id );
+
+        $this->order_id     = $order_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "MarkDeliveredOrderRequest",
+            "ORDER_ID"  => $this->order_id
+        );
+
+        return \generic_protocol\assemble_request( $res ) .
+        parent::to_generic_request();
+    }
+}
+
+class MarkDeliveredOrderResponse extends \generic_protocol\BackwardMessage
+{
+}
+
+class RateShopperRequest extends Request
+{
+    public $order_id;   // id_t
+    public $stars;      // int
+
+    function __construct( $session_id, $order_id, $stars )
+    {
+        parent::__construct( $session_id );
+
+        $this->order_id     = $order_id;
+        $this->stars        = $starts;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "RateShopperRequest",
+            "ORDER_ID"  => $this->order_id,
+            "STARS"     => $this->stars,
+        );
+
+        return \generic_protocol\assemble_request( $res ) .
+        parent::to_generic_request();
+    }
+}
+
+class RateShopperResponse extends \generic_protocol\BackwardMessage
+{
+}
+
 class GetPersonalUserInfoRequest extends Request
 {
     public $user_id;        // id_t

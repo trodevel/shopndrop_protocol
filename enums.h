@@ -34,6 +34,10 @@ enum class request_type_e
     GetRideRequest,
     AddOrderRequest,
     CancelOrderRequest,
+    AcceptOrderRequest,
+    DeclineOrderRequest,
+    MarkDeliveredOrderRequest,
+    RateShopperRequest,
     GetPersonalUserInfoRequest,
 };
 

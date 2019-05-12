@@ -42,6 +42,10 @@ public:
     static std::ostream & write( std::ostream & os, const GetRideRequest & l );
     static std::ostream & write( std::ostream & os, const AddOrderRequest & l );
     static std::ostream & write( std::ostream & os, const CancelOrderRequest & l );
+    static std::ostream & write( std::ostream & os, const AcceptOrderRequest & l );
+    static std::ostream & write( std::ostream & os, const DeclineOrderRequest & l );
+    static std::ostream & write( std::ostream & os, const MarkDeliveredOrderRequest & l );
+    static std::ostream & write( std::ostream & os, const RateShopperRequest & l );
     static std::ostream & write( std::ostream & os, const GetPersonalUserInfoRequest & l );
 
     template<class T>

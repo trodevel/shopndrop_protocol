@@ -160,6 +160,34 @@ std::ostream & StrHelper::write( std::ostream & os, const CancelOrderRequest & l
     return os;
 }
 
+std::ostream & StrHelper::write( std::ostream & os, const AcceptOrderRequest & l )
+{
+    os << "order_id " << l.order_id;
+
+    return os;
+}
+
+std::ostream & StrHelper::write( std::ostream & os, const DeclineOrderRequest & l )
+{
+    os << "order_id " << l.order_id;
+
+    return os;
+}
+
+std::ostream & StrHelper::write( std::ostream & os, const MarkDeliveredOrderRequest & l )
+{
+    os << "order_id " << l.order_id;
+
+    return os;
+}
+
+std::ostream & StrHelper::write( std::ostream & os, const RateShopperRequest & l )
+{
+    os << "order_id " << l.order_id << " stars " << l.stars;
+
+    return os;
+}
+
 std::ostream & StrHelper::write( std::ostream & os, const GetPersonalUserInfoRequest & l )
 {
     os << "user_id " << l.user_id;

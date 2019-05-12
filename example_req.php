@@ -59,6 +59,38 @@ $session_id = "afafaf";
 }
 
 {
+    $ride_id        = 101;
+
+    $req = new \shopndrop_protocol\AcceptOrderRequest( $session_id, $ride_id );
+
+    echo "req = " . $req->to_generic_request() . "\n";
+}
+
+{
+    $ride_id        = 101;
+
+    $req = new \shopndrop_protocol\DeclineOrderRequest( $session_id, $ride_id );
+
+    echo "req = " . $req->to_generic_request() . "\n";
+}
+
+{
+    $ride_id        = 101;
+
+    $req = new \shopndrop_protocol\MarkDeliveredOrderRequest( $session_id, $ride_id );
+
+    echo "req = " . $req->to_generic_request() . "\n";
+}
+
+{
+    $ride_id        = 101;
+
+    $req = new \shopndrop_protocol\RateShopperRequest( $session_id, $ride_id );
+
+    echo "req = " . $req->to_generic_request() . "\n";
+}
+
+{
     $user_id    = 101;
 
     $req = new \shopndrop_protocol\GetPersonalUserInfoRequest( $session_id, $user_id );

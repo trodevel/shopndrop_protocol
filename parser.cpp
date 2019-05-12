@@ -56,6 +56,10 @@ request_type_e Parser::to_request_type( const std::string & s )
         make_inverse_pair( Type:: TUPLE_VAL_STR( GetRideRequest ) ),
         make_inverse_pair( Type:: TUPLE_VAL_STR( AddOrderRequest ) ),
         make_inverse_pair( Type:: TUPLE_VAL_STR( CancelOrderRequest ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR( AcceptOrderRequest ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR( DeclineOrderRequest ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR( MarkDeliveredOrderRequest ) ),
+        make_inverse_pair( Type:: TUPLE_VAL_STR( RateShopperRequest ) ),
         make_inverse_pair( Type:: TUPLE_VAL_STR( GetPersonalUserInfoRequest ) ),
     };
 
