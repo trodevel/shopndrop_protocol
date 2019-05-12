@@ -306,6 +306,28 @@ int main()
     test( "CMD=CancelOrderRequest&ORDER_ID=0&&SESSION_ID=afafaf" );
     test( "CMD=CancelOrderRequest&ORDER_ID=1&&SESSION_ID=afafaf" );
 
+    test( "CMD=AcceptOrderRequest&ORDER_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=AcceptOrderRequest&ORDER_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=AcceptOrderRequest&ORDER_ID=1&&SESSION_ID=afafaf" );
+
+    test( "CMD=DeclineOrderRequest&ORDER_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=DeclineOrderRequest&ORDER_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=DeclineOrderRequest&ORDER_ID=1&&SESSION_ID=afafaf" );
+
+    test( "CMD=MarkDeliveredOrderRequest&ORDER_ID=&&SESSION_ID=afafaf" );
+    test( "CMD=MarkDeliveredOrderRequest&ORDER_ID=0&&SESSION_ID=afafaf" );
+    test( "CMD=MarkDeliveredOrderRequest&ORDER_ID=1&&SESSION_ID=afafaf" );
+
+    test( "CMD=RateShopperRequest&ORDER_ID=&STARS=4&SESSION_ID=afafaf" );
+    test( "CMD=RateShopperRequest&ORDER_ID=0&STARS=4&SESSION_ID=afafaf" );
+    test( "CMD=RateShopperRequest&ORDER_ID=1&STARS=4&SESSION_ID=afafaf" );
+    test( "CMD=RateShopperRequest&ORDER_ID=1&STARS=&SESSION_ID=afafaf" );
+    test( "CMD=RateShopperRequest&ORDER_ID=1&STARS=-1&SESSION_ID=afafaf" );
+    test( "CMD=RateShopperRequest&ORDER_ID=1&STARS=0&SESSION_ID=afafaf" );
+    test( "CMD=RateShopperRequest&ORDER_ID=1&STARS=1&SESSION_ID=afafaf" );
+    test( "CMD=RateShopperRequest&ORDER_ID=1&STARS=5&SESSION_ID=afafaf" );
+    test( "CMD=RateShopperRequest&ORDER_ID=1&STARS=6&SESSION_ID=afafaf" );
+
     test( "CMD=CancelRideRequest&RIDE_ID=&&SESSION_ID=afafaf" );
     test( "CMD=CancelRideRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
     test( "CMD=CancelRideRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
