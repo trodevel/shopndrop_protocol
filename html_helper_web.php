@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11320 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -150,36 +150,33 @@ function to_html_GetShoppingListWithTotalsResponse( & $obj )
     return $res;
 }
 
-function get_header_RideWithShopper()
+function get_header_RideSummaryWithShopper()
 {
     return get_html_table_header_elems( array( 'RIDE ID' ) ) .
-        \shopndrop_protocol\get_header_Ride() .
+        \shopndrop_protocol\get_header_RideSummary() .
         get_html_table_header_elems( array( 'SHOPPER NAME' ) );
 }
 
-function to_html_RideWithShopper_tabledata( & $obj )
+function to_html_RideSummaryWithShopper_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
         $obj->ride_id ) ) .
-        \shopndrop_protocol\to_html_Ride_tabledata( $obj->ride ) .
+        \shopndrop_protocol\to_html_RideSummary_tabledata( $obj->ride ) .
         get_html_table_data_elems( array(
             $obj->shopper_name ) );
 }
 
-function get_header_RideWithRequests()
+function get_header_RideWithId()
 {
     return get_html_table_header_elems( array( 'RIDE ID' ) ) .
-    \shopndrop_protocol\get_header_Ride() .
-    get_html_table_header_elems( array( 'NUM REQUESTS' ) );
+    \shopndrop_protocol\get_header_Ride();
 }
 
-function to_html_RideWithRequests_tabledata( & $obj )
+function to_html_RideWithId_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
         $obj->ride_id ) ) .
-        \shopndrop_protocol\to_html_Ride_tabledata( $obj->ride ) .
-        get_html_table_data_elems( array(
-            $obj->num_requests ) );
+        \shopndrop_protocol\to_html_Ride_tabledata( $obj->ride );
 }
 
 function get_header_AcceptedOrderUser()
@@ -232,11 +229,11 @@ function to_html_DashScreenUser( & $obj )
         $body = '';
         for( $i = 0; $i < $num; $i++ )
         {
-            $body = $body . get_html_table_tr( to_html_RideWithShopper_tabledata( $obj->rides[$i] ) );
+            $body = $body . get_html_table_tr( to_html_RideSummaryWithShopper_tabledata( $obj->rides[$i] ) );
         }
 
         $res = $res . get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-                get_html_table_tr( get_header_RideWithShopper() ) . $body );
+                get_html_table_tr( get_header_RideSummaryWithShopper() ) . $body );
     }
 
     {
@@ -276,11 +273,11 @@ function to_html_DashScreenShopper( & $obj )
         $body = '';
         for( $i = 0; $i < $num; $i++ )
         {
-            $body = $body . get_html_table_tr( to_html_RideWithRequests_tabledata( $obj->rides[$i] ) );
+            $body = $body . get_html_table_tr( to_html_RideWithId_tabledata( $obj->rides[$i] ) );
         }
 
         $res = $res . get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_tr( get_header_RideWithRequests() ) . $body );
+            get_html_table_tr( get_header_RideWithId() ) . $body );
     }
 
     {

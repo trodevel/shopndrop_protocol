@@ -49,9 +49,13 @@ void test_CancelRideResponse()
 
 void test_GetRideResponse()
 {
+    shopndrop_protocol::RideSummary ride_summary;
+
+    shopndrop_protocol::init_RideSummary( & ride_summary, { 50668, 0, 0 }, { 2019, 05, 22, 18, 0, 0 }, 2.5 );
+
     shopndrop_protocol::Ride ride;
 
-    shopndrop_protocol::init_Ride( & ride, { 50668, 0, 0 }, { 2019, 05, 22, 18, 0, 0 }, 2.0 );
+    shopndrop_protocol::init_Ride( & ride, true, ride_summary, { 565656, 737373, 878787 }, 121212, shopndrop_protocol::ride_resolution_e::UNDEF );
 
     auto s = shopndrop_protocol::create_GetRideResponse( ride );
 
@@ -187,7 +191,7 @@ void test_GetDashScreenUserResponse()
 {
     using namespace shopndrop_protocol;
 
-    std::vector<web::RideWithShopper>      rides    =
+    std::vector<web::RideSummaryWithShopper>      rides    =
     {
             { 121212, { { 50668, 0, 0 }, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, "Matthias Mayer" },
             { 232323, { { 50667, 0, 0 }, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, "Lukas Himmelfarb" },
@@ -219,12 +223,15 @@ void test_GetDashScreenShopperResponse()
 {
     using namespace shopndrop_protocol;
 
-    std::vector<web::RideWithRequests>      rides    =
+    std::vector<web::RideWithId>      rides    =
     {
-            { 121212, { { 50668, 0, 0 }, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, 2 },
-            { 232323, { { 50667, 0, 0 }, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, 1 },
-            { 343434, { { 50672, 0, 0 }, { 2019, 5, 22, 23, 10, 0 }, 2.5 }, 1 },
-            { 454545, { { 50667, 0, 0 }, { 2019, 5, 23, 9, 0, 0 },   1.5 }, 1 },
+            { 121212, { false, { { 50668, 0, 0 }, { 2019, 5, 22, 17, 30, 0 }, 3.0 }, { 757575, 838383 }, 292929, shopndrop_protocol::ride_resolution_e::CANCELLED } },
+            { 232323, { false, { { 50667, 0, 0 }, { 2019, 5, 22, 19, 45, 0 }, 1.0 }, { 757575, 838383 }, 575757, shopndrop_protocol::ride_resolution_e::EXPIRED_OR_COMPLETED } },
+            { 343434, { true,  { { 50672, 0, 0 }, { 2019, 5, 22, 23, 10, 0 }, 2.5 }, { 757575, 838383 }, 848484, shopndrop_protocol::ride_resolution_e::UNDEF } },
+            { 454545, { true,  { { 50667, 0, 0 }, { 2019, 5, 23, 9, 0, 0 },   1.5 }, { 757575, 838383 }, 292929, shopndrop_protocol::ride_resolution_e::UNDEF } },
+            { 565656, { true,  { { 50667, 0, 0 }, { 2019, 5, 24, 9, 30, 0 },  1.0 }, { 757575, 838383 }, 0, shopndrop_protocol::ride_resolution_e::UNDEF } },
+            { 676767, { true,  { { 50667, 0, 0 }, { 2019, 5, 24, 9, 30, 0 },  1.2 }, { }, 272727, shopndrop_protocol::ride_resolution_e::UNDEF } },
+            { 787878, { true,  { { 50667, 0, 0 }, { 2019, 5, 24, 12, 0, 0 },  1.3 }, { }, 0, shopndrop_protocol::ride_resolution_e::UNDEF } },
     };
 
     std::vector<web::AcceptedOrderShopper>    orders   =

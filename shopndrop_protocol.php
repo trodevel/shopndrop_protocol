@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11273 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11305 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -132,7 +132,7 @@ class GeoPosition
     }
 }
 
-class Ride
+class RideSummary
 {
     public      $position;      // GeoPosition
     public      $delivery_time; // basic_objects::LocalTime
@@ -156,6 +156,19 @@ class Ride
             $this->delivery_time->to_generic_request( "DELIVERY_TIME" );
     }
 }
+
+const ride_resolution_e_UNDEF                   = 0;
+const ride_resolution_e_EXPIRED_OR_COMPLETED    = 1;
+const ride_resolution_e_CANCELLED               = 2;
+
+class Ride
+{
+    public  $is_open;           // bool
+    public  $summary;           // RideSummary
+    public  $pending_order_ids; // array<id_t>
+    public  $accepted_order_id; // id_t
+    public  $resolution;        // ride_resolution_e
+};
 
 const order_resolution_e_UNDEF                  = 0;
 const order_resolution_e_DELIVERED              = 1;
@@ -225,7 +238,7 @@ class Order
 
 class AddRideRequest extends Request
 {
-    public $ride;   // Ride
+    public $ride;   // RideSummary
 
     function __construct( $session_id, $ride )
     {

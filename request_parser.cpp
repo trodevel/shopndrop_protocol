@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11292 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -274,7 +274,7 @@ void RequestParser::to_GeoPosition( GeoPosition * res, const generic_request::Re
     res->longitude  = 0;    // currently not supported
 }
 
-void RequestParser::to_Ride( Ride * res, const generic_request::Request & r )
+void RequestParser::to_Ride( RideSummary * res, const generic_request::Request & r )
 {
     to_GeoPosition( & res->position, r );
 

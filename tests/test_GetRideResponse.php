@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 10972 $ $Date:: 2019-04-29 #$ $Author: serge $
+// $Revision: 11317 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 require_once '../shopndrop_protocol_web.php';
 require_once '../response_parser_web.php';
@@ -8,7 +8,7 @@ require_once '../html_helper_web.php';
 
 {
     $resp  =
-    'GetRideResponse;50668;0;0;20190522180000;2.5;';
+    'GetRideResponse;1;50668;0;0;20190522180000;2.5;3;565656;737373;878787;121212;0;';
 
     $parsed = \shopndrop_protocol\web\ResponseParser::parse( $resp );
 

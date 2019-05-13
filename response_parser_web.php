@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11306 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -84,28 +84,27 @@ function parse_ShoppingListWithTotals( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_RideWithShopper( & $csv_arr, & $offset )
+function parse_RideSummaryWithShopper( & $csv_arr, & $offset )
 {
     // 232323;50668;0;0;20190522173000;3.5;Johann=20Meyer;
 
-    $res = new RideWithShopper;
+    $res = new RideSummaryWithShopper;
 
     $res->ride_id       = \basic_parser\parse_int( $csv_arr, $offset );
-    $res->ride          = \shopndrop_protocol\parse_Ride( $csv_arr, $offset );
+    $res->ride          = \shopndrop_protocol\parse_RideSummary( $csv_arr, $offset );
     $res->shopper_name  = \basic_parser\parse_enc_string( $csv_arr, $offset );
 
     return $res;
 }
 
-function parse_RideWithRequests( & $csv_arr, & $offset )
+function parse_RideWithId( & $csv_arr, & $offset )
 {
     // 232323;50668;0;0;20190522173000;3.5;1;
 
-    $res = new RideWithRequests;
+    $res = new RideWithId;
 
     $res->ride_id       = \basic_parser\parse_int( $csv_arr, $offset );
     $res->ride          = \shopndrop_protocol\parse_Ride( $csv_arr, $offset );
-    $res->num_requests  = \basic_parser\parse_int( $csv_arr, $offset );
 
     return $res;
 }
@@ -173,7 +172,7 @@ function parse_DashScreenUser( & $csv_arr, & $offset )
 
         for( $i = 0; $i < $size; $i++ )
         {
-            array_push( $res->rides, parse_RideWithShopper( $csv_arr, $offset ) );
+            array_push( $res->rides, parse_RideSummaryWithShopper( $csv_arr, $offset ) );
         }
     }
 
@@ -210,7 +209,7 @@ function parse_DashScreenShopper( & $csv_arr, & $offset )
 
         for( $i = 0; $i < $size; $i++ )
         {
-            array_push( $res->rides, parse_RideWithRequests( $csv_arr, $offset ) );
+            array_push( $res->rides, parse_RideWithId( $csv_arr, $offset ) );
         }
     }
 

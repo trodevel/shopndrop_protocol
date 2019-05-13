@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 11273 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11313 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 require_once 'shopndrop_protocol_web.php';
 
@@ -9,9 +9,9 @@ echo "OK\n";
 $session_id = "afafaf";
 
 {
-    $ride = new \shopndrop_protocol\Ride( \shopndrop_protocol\GeoPosition::withPlz( 50668 ), new \basic_objects\LocalTime( 2019, 05, 22, 17, 30, 0 ), 2.5 );
+    $ride_summary = new \shopndrop_protocol\RideSummary( \shopndrop_protocol\GeoPosition::withPlz( 50668 ), new \basic_objects\LocalTime( 2019, 05, 22, 17, 30, 0 ), 2.5 );
 
-    $req = new \shopndrop_protocol\AddRideRequest( $session_id, $ride );
+    $req = new \shopndrop_protocol\AddRideRequest( $session_id, $ride_summary );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }

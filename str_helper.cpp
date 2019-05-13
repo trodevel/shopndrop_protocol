@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11292 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 #include "str_helper.h"             // self
 
@@ -111,7 +111,7 @@ std::ostream & StrHelper::write( std::ostream & os, const GeoPosition & l )
     return os;
 }
 
-std::ostream & StrHelper::write( std::ostream & os, const Ride & l )
+std::ostream & StrHelper::write( std::ostream & os, const RideSummary & l )
 {
     write( os, l.position );
     os << " delivery_time ";

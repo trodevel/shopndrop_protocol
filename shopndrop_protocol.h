@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11290 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11298 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -70,11 +70,27 @@ struct GeoPosition
     double          longitude;
 };
 
+struct RideSummary
+{
+    GeoPosition         position;
+    basic_objects::LocalTime delivery_time;
+    double              max_weight;
+};
+
+enum class ride_resolution_e
+{
+    UNDEF                       = 0,
+    EXPIRED_OR_COMPLETED        = 1,
+    CANCELLED                   = 2,
+};
+
 struct Ride
 {
-    GeoPosition     position;
-    basic_objects::LocalTime delivery_time;
-    double          max_weight;
+    bool                is_open;
+    RideSummary         summary;
+    std::vector<id_t>   pending_order_ids;
+    id_t                accepted_order_id;
+    ride_resolution_e   resolution;
 };
 
 enum class order_resolution_e
@@ -128,7 +144,7 @@ struct Order
 
 struct AddRideRequest: public Request
 {
-    Ride            ride;
+    RideSummary     ride;
 };
 
 struct AddRideResponse: public generic_protocol::BackwardMessage
@@ -261,18 +277,17 @@ struct ShoppingListWithTotals
     double          weight;
 };
 
-struct RideWithShopper
+struct RideSummaryWithShopper
 {
     id_t            ride_id;
-    Ride            ride;
+    RideSummary     ride;
     std::string     shopper_name;
 };
 
-struct RideWithRequests
+struct RideWithId
 {
     id_t            ride_id;
     Ride            ride;
-    uint32_t        num_requests;
 };
 
 struct ShoppingRequestInfo
@@ -307,7 +322,7 @@ struct DashScreenUser
 {
     basic_objects::LocalTime        current_time;
 
-    std::vector<RideWithShopper>        rides;
+    std::vector<RideSummaryWithShopper> rides;
     std::vector<AcceptedOrderUser>      orders;
 };
 
@@ -315,7 +330,7 @@ struct DashScreenShopper
 {
     basic_objects::LocalTime        current_time;
 
-    std::vector<RideWithRequests>       rides;
+    std::vector<RideWithId>             rides;
     std::vector<AcceptedOrderShopper>   orders;
 };
 

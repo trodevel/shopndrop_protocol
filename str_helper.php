@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11169 $ $Date:: 2019-05-09 #$ $Author: serge $
+// $Revision: 11304 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -32,6 +32,22 @@ function to_string_GeoPosition( & $obj )
     $res = $obj->plz . " ( " . $obj->latitude . ", " . $obj->longitude . " )";
 
     return $res;
+}
+
+function to_string_ride_resolution_e( $val )
+{
+    $map = array(
+        ride_resolution_e_UNDEF                     => 'UNDEF',
+        ride_resolution_e_EXPIRED_OR_COMPLETED      => 'EXPIRED_OR_COMPLETED',
+        ride_resolution_e_CANCELLED                 => 'CANCELLED',
+    );
+
+    if( array_key_exists( $val, $map ) )
+    {
+        return $map[ $val ];
+    }
+
+    return "?";
 }
 
 function to_string_order_state_e( $val )

@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11275 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11319 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -66,17 +66,36 @@ function to_html_ShoppingItem_tabledata( & $obj )
         $obj->amount ) );
 }
 
-function get_header_Ride()
+function get_header_RideSummary()
 {
     return get_html_table_header_elems( array( 'POSITION', 'DELIVERY TIME', 'MAX_WEIGHT' ) );
 }
 
-function to_html_Ride_tabledata( & $obj )
+function to_html_RideSummary_tabledata( & $obj )
 {
     return get_html_table_data_elems( array(
         to_string_GeoPosition( $obj->position ),
         \basic_objects\to_string_LocalTime( $obj->delivery_time ),
         $obj->max_weight ) );
+}
+
+function get_header_Ride()
+{
+    return get_html_table_header_elems( array( 'IS OPEN' ) ) .
+        get_header_RideSummary() .
+        get_html_table_header_elems( array( 'PENDING ORDER IDS', 'ACCEPTED ORDER ID', 'RESOLUTION' ) );
+
+}
+
+function to_html_Ride_tabledata( & $obj )
+{
+    return get_html_table_data_elems( array(
+        $obj->is_open ? "Y" : "N" ) ) .
+        to_html_RideSummary_tabledata( $obj->summary ) .
+        get_html_table_data_elems( array(
+            sizeof( $obj->pending_order_ids ) . ": " . \basic_objects\to_string_array( $obj->pending_order_ids ),
+            $obj->accepted_order_id,
+            to_string_ride_resolution_e( $obj->resolution ) . " (" . $obj->resolution . ")") );
 }
 
 function get_header_Address()

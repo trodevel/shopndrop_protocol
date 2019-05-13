@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11292 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 #include <string>
 #include <sstream>
@@ -36,7 +36,7 @@ public:
     static const std::string & to_string( const order_state_e l );
     static const std::string & to_string( const order_resolution_e l );
     static std::ostream & write( std::ostream & os, const GeoPosition & l );
-    static std::ostream & write( std::ostream & os, const Ride & l );
+    static std::ostream & write( std::ostream & os, const RideSummary & l );
     static std::ostream & write( std::ostream & os, const AddRideRequest & l );
     static std::ostream & write( std::ostream & os, const CancelRideRequest & l );
     static std::ostream & write( std::ostream & os, const GetRideRequest & l );

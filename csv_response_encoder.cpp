@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11290 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11308 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -210,7 +210,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::DashScre
                 os,
                 r.rides.begin(),
                 r.rides.end(),
-                [](std::ostream & os, const web::RideWithShopper & r ) { CsvResponseEncoder::write( os, r ); } );
+                [](std::ostream & os, const web::RideSummaryWithShopper & r ) { CsvResponseEncoder::write( os, r ); } );
 
     utils::CsvHelper::write_user_array<false>(
                 os,
@@ -229,7 +229,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::DashScre
                 os,
                 r.rides.begin(),
                 r.rides.end(),
-                [](std::ostream & os, const web::RideWithRequests & r ) { CsvResponseEncoder::write( os, r ); } );
+                [](std::ostream & os, const web::RideWithId & r ) { CsvResponseEncoder::write( os, r ); } );
 
     utils::CsvHelper::write_user_array<false>(
                 os,
@@ -272,11 +272,33 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const GeoPosition &
     return os;
 }
 
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const Ride & r )
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const RideSummary & r )
 {
     write( os, r.position );
     basic_objects::CsvHelper::write( os, r.delivery_time );
     utils::CsvHelper::write( os, r.max_weight );
+
+    return os;
+}
+
+std::ostream & CsvResponseEncoder::write( std::ostream & os, ride_resolution_e r )
+{
+    utils::CsvHelper::write( os, static_cast<unsigned>( r ) );
+
+    return os;
+}
+
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const Ride & r )
+{
+    utils::CsvHelper::write( os, static_cast<unsigned>( r.is_open ) );
+
+    write( os, r.summary );
+
+    utils::CsvHelper::write_array( os, r.pending_order_ids.begin(), r.pending_order_ids.end() );
+
+    utils::CsvHelper::write( os, r.accepted_order_id );
+
+    write( os, r.resolution );
 
     return os;
 }
@@ -305,7 +327,7 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const Address & r )
     return os;
 }
 
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::RideWithShopper & r )
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::RideSummaryWithShopper & r )
 {
     utils::CsvHelper::write( os, r.ride_id );
 
@@ -324,13 +346,11 @@ std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::Shopping
     return os;
 }
 
-std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::RideWithRequests & r )
+std::ostream & CsvResponseEncoder::write( std::ostream & os, const web::RideWithId & r )
 {
     utils::CsvHelper::write( os, r.ride_id );
 
     write( os, r.ride );
-
-    utils::CsvHelper::write( os, r.num_requests );
 
     return os;
 }

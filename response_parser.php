@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11316 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -71,7 +71,7 @@ function parse_GeoPosition( & $csv_arr, & $offset )
     return $res;
 }
 
-function parse_Ride( & $csv_arr, & $offset )
+function parse_RideSummary( & $csv_arr, & $offset )
 {
     // 50668;0;0;20190522173000;3.5
 
@@ -79,7 +79,22 @@ function parse_Ride( & $csv_arr, & $offset )
     $delivery_time  = \basic_objects\parse_LocalTime( $csv_arr, $offset );
     $max_weigth     = \basic_parser\parse_float( $csv_arr, $offset );
 
-    $res = new Ride( $position, $delivery_time, $max_weigth );
+    $res = new RideSummary( $position, $delivery_time, $max_weigth );
+
+    return $res;
+}
+
+function parse_Ride( & $csv_arr, & $offset )
+{
+    // 1;50668;0;0;20190522180000;2.5;3;565656;737373;878787;121212;0;
+
+    $res = new Ride;
+
+    $res->is_open           = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->summary           = parse_RideSummary( $csv_arr, $offset );
+    $res->pending_order_ids = \basic_parser\parse_VectorInt( $csv_arr, $offset );
+    $res->accepted_order_id = \basic_parser\parse_int( $csv_arr, $offset );
+    $res->resolution        = \basic_parser\parse_int( $csv_arr, $offset );
 
     return $res;
 }

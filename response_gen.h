@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11309 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -58,8 +58,8 @@ inline GeoPosition * init_GeoPosition(
     return res;
 }
 
-inline Ride * init_Ride(
-        Ride           * res,
+inline RideSummary * init_RideSummary(
+        RideSummary           * res,
         const GeoPosition               & position,
         const basic_objects::LocalTime  & delivery_time,
         double                          max_weight )
@@ -71,8 +71,25 @@ inline Ride * init_Ride(
     return res;
 }
 
+inline Ride * init_Ride(
+        Ride           * res,
+        bool                            is_open,
+        const RideSummary               & summary,
+        const std::vector<id_t>         & pending_order_ids,
+        id_t                            accepted_order_id,
+        ride_resolution_e               resolution )
+{
+    res->is_open            = is_open;
+    res->summary            = summary;
+    res->pending_order_ids  = pending_order_ids;
+    res->accepted_order_id  = accepted_order_id;
+    res->resolution         = resolution;
+
+    return res;
+}
+
 inline GetRideResponse * create_GetRideResponse(
-        const Ride              & ride )
+        const Ride  & ride )
 {
     auto * res = new GetRideResponse;
 
@@ -207,9 +224,9 @@ inline GetDashScreenShopperResponse * create_GetDashScreenShopperResponse(
 
 inline DashScreenUser * init_DashScreenUser(
         DashScreenUser  * res,
-        const basic_objects::LocalTime          & current_time,
-        const std::vector<RideWithShopper>      & rides,
-        const std::vector<AcceptedOrderUser>    & orders )
+        const basic_objects::LocalTime              & current_time,
+        const std::vector<RideSummaryWithShopper>   & rides,
+        const std::vector<AcceptedOrderUser>        & orders )
 {
     res->current_time   = current_time;
     res->rides          = rides;
@@ -221,7 +238,7 @@ inline DashScreenUser * init_DashScreenUser(
 inline DashScreenShopper * init_DashScreenShopper(
         DashScreenShopper  * res,
         const basic_objects::LocalTime          & current_time,
-        const std::vector<RideWithRequests>     & rides,
+        const std::vector<RideWithId>           & rides,
         const std::vector<AcceptedOrderShopper> & orders )
 {
     res->current_time   = current_time;

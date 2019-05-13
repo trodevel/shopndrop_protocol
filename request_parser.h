@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 11292 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 #include "generic_request/request.h"        // generic_request::Request
 #include "basic_parser/malformed_request.h" // MalformedRequest
@@ -45,7 +45,7 @@ public:
     static void                         to_ShoppingItem( ShoppingItem * res, const generic_request::Request & r );
     static void                         to_ShoppingList( ShoppingList * res, const generic_request::Request & r );
     static void                         to_GeoPosition( GeoPosition * res, const generic_request::Request & r );
-    static void                         to_Ride( Ride * res, const generic_request::Request & r );
+    static void                         to_Ride( RideSummary * res, const generic_request::Request & r );
     static void                         to_Address( Address * res, const generic_request::Request & r );
     //static void                         to_Order( Order * res, const generic_request::Request & r );
 

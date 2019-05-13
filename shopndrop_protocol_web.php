@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11245 $ $Date:: 2019-05-11 #$ $Author: serge $
+// $Revision: 11298 $ $Date:: 2019-05-13 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -55,18 +55,17 @@ class ShoppingListWithTotals
     public  $weight;            // double
 }
 
-class RideWithShopper
+class RideSummaryWithShopper
 {
     public  $ride_id;           // id_t
-    public  $ride;              // Ride
+    public  $ride;              // RideSummary
     public  $shopper_name;      // string
 }
 
-class RideWithRequests
+class RideWithId
 {
     public  $ride_id;           // id_t
     public  $ride;              // Ride
-    public  $num_requests;      // int
 }
 
 class ShoppingRequestInfo
@@ -101,7 +100,7 @@ class DashScreenUser
 {
     public  $current_time;      // basic_objects::LocalTime
 
-    public  $rides;             // array<RideWithShopper>
+    public  $rides;             // array<RideSummaryWithShopper>
     public  $orders;            // array<AcceptedOrderUser>
 }
 
@@ -109,7 +108,7 @@ class DashScreenShopper
 {
     public  $current_time;      // basic_objects::LocalTime
 
-    public  $rides;             // array<RideWithRequests>
+    public  $rides;             // array<RideWithId>
     public  $orders;            // array<AcceptedOrderShopper>
 }
 
