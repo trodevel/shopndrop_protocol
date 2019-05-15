@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11298 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 11407 $ $Date:: 2019-05-14 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -198,12 +198,14 @@ class GetShoppingListWithTotalsResponse extends \generic_protocol\BackwardMessag
 class GetDashScreenUserRequest extends \shopndrop_protocol\Request
 {
     public  $user_id;           // id_t
+    public  $position;          // GeoPosition
 
-    function __construct( $session_id, $user_id )
+    function __construct( $session_id, $user_id, $position )
     {
         parent::__construct( $session_id );
 
         $this->user_id      = $user_id;
+        $this->position     = $position;
     }
 
     public function to_generic_request()
@@ -214,6 +216,7 @@ class GetDashScreenUserRequest extends \shopndrop_protocol\Request
         );
 
         return \generic_protocol\assemble_request( $res ) .
+            $this->position->to_generic_request() .
             parent::to_generic_request();
     }
 }
@@ -226,12 +229,14 @@ class GetDashScreenUserResponse extends \generic_protocol\BackwardMessage
 class GetDashScreenShopperRequest extends \shopndrop_protocol\Request
 {
     public  $user_id;           // id_t
+    public  $position;          // GeoPosition
 
-    function __construct( $session_id, $user_id )
+    function __construct( $session_id, $user_id, $position )
     {
         parent::__construct( $session_id );
 
         $this->user_id      = $user_id;
+        $this->position     = $position;
     }
 
     public function to_generic_request()
@@ -242,6 +247,7 @@ class GetDashScreenShopperRequest extends \shopndrop_protocol\Request
         );
 
         return \generic_protocol\assemble_request( $res ) .
+            $this->position->to_generic_request() .
             parent::to_generic_request();
     }
 }

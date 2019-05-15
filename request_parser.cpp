@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11292 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 11407 $ $Date:: 2019-05-14 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -388,6 +388,8 @@ RequestParser::ForwardMessage * RequestParser::to_GetDashScreenUserRequest( cons
 
     ::shopndrop_protocol::RequestParser::to_Id( & res->user_id, "USER_ID", r );
 
+    ::shopndrop_protocol::RequestParser::to_GeoPosition( & res->position, r );
+
     RequestValidator::validate( * res );
 
     return res;
@@ -400,6 +402,8 @@ RequestParser::ForwardMessage * RequestParser::to_GetDashScreenShopperRequest( c
     generic_protocol::RequestParser::to_request( res, r );
 
     ::shopndrop_protocol::RequestParser::to_Id( & res->user_id, "USER_ID", r );
+
+    ::shopndrop_protocol::RequestParser::to_GeoPosition( & res->position, r );
 
     RequestValidator::validate( * res );
 

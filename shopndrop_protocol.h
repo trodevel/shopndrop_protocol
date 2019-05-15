@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11298 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 11407 $ $Date:: 2019-05-14 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -370,6 +370,7 @@ struct GetShoppingListWithTotalsResponse: public generic_protocol::BackwardMessa
 struct GetDashScreenUserRequest: public Request
 {
     id_t            user_id;
+    GeoPosition     position;
 };
 
 struct GetDashScreenUserResponse: public generic_protocol::BackwardMessage
@@ -380,6 +381,7 @@ struct GetDashScreenUserResponse: public generic_protocol::BackwardMessage
 struct GetDashScreenShopperRequest: public Request
 {
     id_t            user_id;
+    GeoPosition     position;
 };
 
 struct GetDashScreenShopperResponse: public generic_protocol::BackwardMessage

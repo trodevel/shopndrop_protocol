@@ -357,13 +357,17 @@ int main()
     test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=0&&SESSION_ID=afafaf" );
     test( "CMD=web/GetShoppingListWithTotalsRequest&SHOPPING_LIST_ID=1&&SESSION_ID=afafaf" );
 
-    test( "CMD=web/GetDashScreenUserRequest&USER_ID=&&SESSION_ID=afafaf" );
-    test( "CMD=web/GetDashScreenUserRequest&USER_ID=0&&SESSION_ID=afafaf" );
-    test( "CMD=web/GetDashScreenUserRequest&USER_ID=1&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=&PLZ=1&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=0&PLZ=1&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=1&PLZ=1&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=1&PLZ=&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=1&PLZ=0&SESSION_ID=afafaf" );
 
-    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=&&SESSION_ID=afafaf" );
-    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=0&&SESSION_ID=afafaf" );
-    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=1&&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=&PLZ=1&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=0&PLZ=1&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenShopperRequest&USER_ID=1&PLZ=1&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=1&PLZ=&SESSION_ID=afafaf" );
+    test( "CMD=web/GetDashScreenUserRequest&USER_ID=1&PLZ=0&SESSION_ID=afafaf" );
 
     return 0;
 }

@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 11313 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 11408 $ $Date:: 2019-05-14 #$ $Author: serge $
 
 require_once 'shopndrop_protocol_web.php';
 
@@ -128,7 +128,7 @@ $session_id = "afafaf";
 {
     $user_id    = 115;
 
-    $req = new \shopndrop_protocol\web\GetDashScreenUserRequest( $session_id, $user_id );
+    $req = new \shopndrop_protocol\web\GetDashScreenUserRequest( $session_id, $user_id, \shopndrop_protocol\GeoPosition::withPlz( 50668 ) );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }
@@ -136,7 +136,7 @@ $session_id = "afafaf";
 {
     $user_id    = 115;
 
-    $req = new \shopndrop_protocol\web\GetDashScreenShopperRequest( $session_id, $user_id );
+    $req = new \shopndrop_protocol\web\GetDashScreenShopperRequest( $session_id, $user_id, \shopndrop_protocol\GeoPosition::withPlz( 50668 ) );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }

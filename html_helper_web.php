@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11320 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 11426 $ $Date:: 2019-05-14 #$ $Author: serge $
 
 namespace shopndrop_protocol\web;
 
@@ -239,7 +239,7 @@ function to_html_DashScreenUser( & $obj )
     {
         $num   = sizeof( $obj->orders );
 
-        $res = $res . '<h2>My accepted orders ( ' . $num . ' )</h2>';
+        $res = $res . '<h2>My orders ( ' . $num . ' )</h2>';
 
         $body = '';
         for( $i = 0; $i < $num; $i++ )
