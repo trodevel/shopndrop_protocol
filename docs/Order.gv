@@ -17,14 +17,14 @@
 #
 # SKV 19508
 #
-# $Id: Order.gv 11152 2019-05-08 23:48:18Z serge $
+# $Id: Order.gv 11446 2019-05-16 00:08:58Z serge $
 #
 # execute: FL=Order; dot -l sdl.ps -Tps $FL.gv -o $FL.ps; ps2pdf $FL.ps $FL.pdf
 
 digraph Order
 {
 
-label="$Id: Order.gv 11152 2019-05-08 23:48:18Z serge $";
+label="$Id: Order.gv 11446 2019-05-16 00:08:58Z serge $";
 
 size="7,7";
 ratio=fill;
@@ -55,8 +55,8 @@ WAITING_ACCEPTANCE__RESOL_1                 [ label="resolution := CANCELLED_BY_
 WAITING_ACCEPTANCE__RESOL_2                 [ label="resolution := DECLINED_BY_SHOPPER" shape = sdl_task ]
 WAITING_ACCEPTANCE__RESOL_3                 [ label="resolution := RIDE_CANCELLED"      shape = sdl_task ]
 
-ACCEPTED_WAITING_DELIVERY__DELIVERED        [ label="Delivered"                         shape = sdl_input_from_right fillcolor=cyan ]
-ACCEPTED_WAITING_DELIVERY__SEND_DELIVERED   [ label="DeliveredR"                        shape = sdl_output_to_right ]
+ACCEPTED_WAITING_DELIVERY__DELIVERED        [ label="MarkDeliveredOrder"                shape = sdl_input_from_right fillcolor=cyan ]
+ACCEPTED_WAITING_DELIVERY__SEND_DELIVERED   [ label="MarkDeliveredOrderR"               shape = sdl_output_to_right ]
 ACCEPTED_WAITING_DELIVERY__CANCEL_RIDE      [ label="CancelRide"                        shape = sdl_input_from_right fillcolor=cyan ]
 ACCEPTED_WAITING_DELIVERY__SEND_CANCEL_RIDE [ label="CancelRideR"                       shape = sdl_output_to_right ]
 ACCEPTED_WAITING_DELIVERY__CANCEL_ORDER     [ label="CancelOrder"                       shape = sdl_input_from_left  fillcolor=green ]
