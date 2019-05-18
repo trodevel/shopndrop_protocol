@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11309 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 11494 $ $Date:: 2019-05-17 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -244,6 +244,24 @@ inline DashScreenShopper * init_DashScreenShopper(
     res->current_time   = current_time;
     res->rides          = rides;
     res->orders         = orders;
+
+    return res;
+}
+
+
+inline ShoppingRequestInfo * init_ShoppingRequestInfo(
+        ShoppingRequestInfo * res,
+        id_t                order_id,
+        double              sum,
+        double              earning,
+        double              weight,
+        Address             address )
+{
+    res->order_id   = order_id;
+    res->sum        = sum;
+    res->earning    = earning;
+    res->weight     = weight;
+    res->address    = address;
 
     return res;
 }
