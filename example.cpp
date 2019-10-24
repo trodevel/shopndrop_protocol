@@ -64,17 +64,6 @@ void test_GetRideResponse()
     delete s;
 }
 
-void test_GetPersonalUserInfoResponse()
-{
-    auto s = shopndrop_protocol::create_GetPersonalUserInfoResponse( 123,
-            shopndrop_protocol::gender_e::MALE,
-            "John", "Doe", "Yoyodine Corp.", "john.doe@yoyodine.com", "+491234567890", "Europe/Berlin" );
-
-    std::cout << shopndrop_protocol::CsvResponseEncoder::to_csv( *s ) << std::endl;
-
-    delete s;
-}
-
 void test_AddOrderResponse()
 {
     auto s = shopndrop_protocol::create_AddOrderResponse( 123 );
@@ -261,8 +250,6 @@ int main()
 
     test_GetRideResponse();
 
-    test_GetPersonalUserInfoResponse();
-
     test_AddOrderResponse();
     test_CancelOrderResponse();
     test_AcceptOrderResponse();
@@ -342,10 +329,6 @@ int main()
     test( "CMD=GetRideRequest&RIDE_ID=&&SESSION_ID=afafaf" );
     test( "CMD=GetRideRequest&RIDE_ID=0&&SESSION_ID=afafaf" );
     test( "CMD=GetRideRequest&RIDE_ID=1&&SESSION_ID=afafaf" );
-
-    test( "CMD=GetPersonalUserInfoRequest&USER_ID=&&SESSION_ID=afafaf" );
-    test( "CMD=GetPersonalUserInfoRequest&USER_ID=0&&SESSION_ID=afafaf" );
-    test( "CMD=GetPersonalUserInfoRequest&USER_ID=1&&SESSION_ID=afafaf" );
 
     test( "CMD=web/GetProductItemListRequest&SESSION_ID=afafaf" );
 

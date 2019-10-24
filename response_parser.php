@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11316 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -224,26 +224,6 @@ function parse_RateShopperResponse( & $csv_arr )
     return $res;
 }
 
-function parse_GetPersonalUserInfoResponse( & $csv_arr )
-{
-    // GetPersonalUserInfoResponse;123;1;John;Doe;Yoyodine=20Corp.;john.doe@yoyodine.com;+491234567890;Europe/Berlin;
-
-    $offset = 1;
-
-    $res = new GetPersonalUserInfoResponse;
-
-    $res->user_id       = \basic_parser\parse_int( $csv_arr, $offset );
-    $res->gender        = \basic_parser\parse_int( $csv_arr, $offset );
-    $res->first_name    = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->last_name     = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->company_name  = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->email         = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->phone         = \basic_parser\parse_enc_string( $csv_arr, $offset );
-    $res->timezone      = \basic_parser\parse_string( $csv_arr, $offset );
-
-    return $res;
-}
-
 class ResponseParser extends \generic_protocol\ResponseParser
 {
 
@@ -264,7 +244,6 @@ protected static function parse_csv_array( $csv_arr )
         'DeclineOrderResponse'          => 'parse_DeclineOrderResponse',
         'MarkDeliveredOrderResponse'    => 'parse_MarkDeliveredOrderResponse',
         'RateShopperResponse'           => 'parse_RateShopperResponse',
-        'GetPersonalUserInfoResponse'   => 'parse_GetPersonalUserInfoResponse',
         );
 
     if( array_key_exists( $type, $func_map ) )

@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11319 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -205,15 +205,6 @@ function to_html_RateShopperResponse( & $obj )
     $res = '<h3>RateShopperResponse</h3>';
 
     return $res;
-}
-
-function to_html_GetPersonalUserInfoResponse( & $obj )
-{
-    return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'USER_ID', 'GENDER', 'LAST NAME', 'FIRST NAME',
-                    'COMPANY', 'EMAIL', 'PHONE', 'TIMEZONE' ) ) .
-            get_html_table_row_data( array( $obj->user_id, $obj->gender, $obj->last_name, $obj->first_name, $obj->company_name,
-                    $obj->email, $obj->phone, $obj->timezone ) ) );
 }
 
 // *********************************************************

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11271 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 #include "parser.h"                 // self
 
@@ -60,7 +60,6 @@ request_type_e Parser::to_request_type( const std::string & s )
         make_inverse_pair( Type:: TUPLE_VAL_STR( DeclineOrderRequest ) ),
         make_inverse_pair( Type:: TUPLE_VAL_STR( MarkDeliveredOrderRequest ) ),
         make_inverse_pair( Type:: TUPLE_VAL_STR( RateShopperRequest ) ),
-        make_inverse_pair( Type:: TUPLE_VAL_STR( GetPersonalUserInfoRequest ) ),
     };
 
     auto it = m.find( s );

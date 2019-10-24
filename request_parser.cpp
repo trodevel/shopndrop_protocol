@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11407 $ $Date:: 2019-05-14 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -57,9 +57,7 @@ generic_protocol::ForwardMessage* RequestParser::to_forward_message( const gener
         HANDLER_MAP_ENTRY( MarkDeliveredOrderRequest ),
         HANDLER_MAP_ENTRY( RateShopperRequest ),
         HANDLER_MAP_ENTRY( CancelRideRequest ),
-        HANDLER_MAP_ENTRY( GetPersonalUserInfoRequest ),
         HANDLER_MAP_ENTRY( GetRideRequest ),
-        HANDLER_MAP_ENTRY( GetPersonalUserInfoRequest ),
     };
 
 #undef HANDLER_MAP_ENTRY

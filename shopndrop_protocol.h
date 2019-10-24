@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11407 $ $Date:: 2019-05-14 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -227,11 +227,6 @@ struct RateShopperRequest: public Request
 
 struct RateShopperResponse: public generic_protocol::BackwardMessage
 {
-};
-
-struct GetPersonalUserInfoRequest: public Request
-{
-    id_t            user_id;
 };
 
 struct GetPersonalUserInfoResponse: public generic_protocol::BackwardMessage

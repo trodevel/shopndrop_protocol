@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11308 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 #include "csv_response_encoder.h"       // self
 
@@ -83,10 +83,6 @@ std::string CsvResponseEncoder::to_csv( const generic_protocol::BackwardMessage 
     else if( typeid( r ) == typeid( web::GetShoppingListWithTotalsResponse ) )
     {
         return to_csv( static_cast<const web::GetShoppingListWithTotalsResponse&>( r ) );
-    }
-    else if( typeid( r ) == typeid( GetPersonalUserInfoResponse ) )
-    {
-        return to_csv( static_cast<const GetPersonalUserInfoResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( web::GetProductItemListResponse ) )
     {
@@ -446,20 +442,6 @@ std::string CsvResponseEncoder::to_csv( const web::GetShoppingListWithTotalsResp
     write( os, r.shopping_list );
 
     return os.str();
-}
-
-std::string CsvResponseEncoder::to_csv( const GetPersonalUserInfoResponse & r )
-{
-    return utils::CsvHelper::to_csv(
-            "GetPersonalUserInfoResponse",
-            r.user_id,
-            static_cast<uint32_t>( r.gender ),
-            utils::nonascii_hex_codec::encode( r.first_name ),
-            utils::nonascii_hex_codec::encode( r.last_name ),
-            utils::nonascii_hex_codec::encode( r.company_name ),
-            utils::nonascii_hex_codec::encode( r.email ),
-            utils::nonascii_hex_codec::encode( r.phone ),
-            utils::nonascii_hex_codec::encode( r.timezone ) );
 }
 
 std::string CsvResponseEncoder::to_csv( const web::GetProductItemListResponse & r )

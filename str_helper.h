@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11292 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 #include <string>
 #include <sstream>
@@ -46,7 +46,6 @@ public:
     static std::ostream & write( std::ostream & os, const DeclineOrderRequest & l );
     static std::ostream & write( std::ostream & os, const MarkDeliveredOrderRequest & l );
     static std::ostream & write( std::ostream & os, const RateShopperRequest & l );
-    static std::ostream & write( std::ostream & os, const GetPersonalUserInfoRequest & l );
 
     template<class T>
     static std::string to_string( const T & l )

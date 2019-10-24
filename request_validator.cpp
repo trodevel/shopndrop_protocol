@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11292 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 
 #include "request_validator.h"      // self
@@ -169,13 +169,6 @@ bool RequestValidator::validate( const RateShopperRequest & r )
 {
     validate( r.order_id, "ORDER_ID" );
     THROW_IF_INT_NOT_IN_RANGE( r.stars, "STARS", 0, 5 );
-
-    return generic_protocol::RequestValidator::validate( r );
-}
-
-bool RequestValidator::validate( const GetPersonalUserInfoRequest & r )
-{
-    validate( r.user_id, "USER_ID" );
 
     return generic_protocol::RequestValidator::validate( r );
 }

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11292 $ $Date:: 2019-05-13 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 #include "generic_request/request.h"        // generic_request::Request
 #include "basic_parser/malformed_request.h" // MalformedRequest
@@ -62,7 +62,6 @@ private:
     static ForwardMessage *             to_DeclineOrderRequest( const generic_request::Request & r );
     static ForwardMessage *             to_MarkDeliveredOrderRequest( const generic_request::Request & r );
     static ForwardMessage *             to_RateShopperRequest( const generic_request::Request & r );
-    static ForwardMessage *             to_GetPersonalUserInfoRequest( const generic_request::Request & r );
 };
 
 namespace web

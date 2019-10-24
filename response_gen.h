@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11494 $ $Date:: 2019-05-17 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
 #define LIB_SHOPNDROP_PROTOCOL_RESPONSE_GEN_H
@@ -138,30 +138,6 @@ inline MarkDeliveredOrderResponse * create_MarkDeliveredOrderResponse()
 inline RateShopperResponse * create_RateShopperResponse()
 {
     auto * res = new RateShopperResponse;
-
-    return res;
-}
-
-inline GetPersonalUserInfoResponse * create_GetPersonalUserInfoResponse(
-        id_t                user_id,
-        gender_e            gender,
-        const std::string   & first_name,
-        const std::string   & last_name,
-        const std::string   & company_name,
-        const std::string   & email,
-        const std::string   & phone,
-        const std::string   & timezone )
-{
-    auto * res = new GetPersonalUserInfoResponse;
-
-    res->user_id    = user_id;
-    res->gender     = gender;
-    res->first_name = first_name;
-    res->last_name  = last_name;
-    res->company_name = company_name;
-    res->email      = email;
-    res->phone      = phone;
-    res->timezone   = timezone;
 
     return res;
 }

@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 11408 $ $Date:: 2019-05-14 #$ $Author: serge $
+// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
 
 require_once 'shopndrop_protocol_web.php';
 
@@ -87,14 +87,6 @@ $session_id = "afafaf";
     $stars          = 4;
 
     $req = new \shopndrop_protocol\RateShopperRequest( $session_id, $ride_id, $stars );
-
-    echo "req = " . $req->to_generic_request() . "\n";
-}
-
-{
-    $user_id    = 101;
-
-    $req = new \shopndrop_protocol\GetPersonalUserInfoRequest( $session_id, $user_id );
 
     echo "req = " . $req->to_generic_request() . "\n";
 }
