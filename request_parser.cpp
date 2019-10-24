@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
+// $Revision: 12255 $ $Date:: 2019-10-24 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -226,19 +226,6 @@ RequestParser::ForwardMessage * RequestParser::to_RateShopperRequest( const gene
 
     to_Id( & res->order_id, "ORDER_ID", r );
     get_value_or_throw_uint32( res->stars, "STARS", r );
-
-    RequestValidator::validate( * res );
-
-    return res;
-}
-
-RequestParser::ForwardMessage * RequestParser::to_GetPersonalUserInfoRequest( const generic_request::Request & r )
-{
-    auto * res = new GetPersonalUserInfoRequest;
-
-    generic_protocol::RequestParser::to_request( res, r );
-
-    to_Id( & res->user_id, "USER_ID", r );
 
     RequestValidator::validate( * res );
 
