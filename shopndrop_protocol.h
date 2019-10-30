@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
+// $Revision: 12297 $ $Date:: 2019-10-30 #$ $Author: serge $
 
 #ifndef LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
 #define LIB_SHOPNDROP_PROTOCOL_SHOPNDROP_PROTOCOL_H
@@ -227,18 +227,6 @@ struct RateShopperRequest: public Request
 
 struct RateShopperResponse: public generic_protocol::BackwardMessage
 {
-};
-
-struct GetPersonalUserInfoResponse: public generic_protocol::BackwardMessage
-{
-    id_t            user_id;
-    gender_e        gender;
-    std::string     first_name;
-    std::string     last_name;
-    std::string     company_name;
-    std::string     email;
-    std::string     phone;
-    std::string     timezone;
 };
 
 namespace web

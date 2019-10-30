@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
+// $Revision: 12269 $ $Date:: 2019-10-25 #$ $Author: serge $
 
 #ifndef SHOPNDROP_PROTOCOL_ENUMS_H
 #define SHOPNDROP_PROTOCOL_ENUMS_H

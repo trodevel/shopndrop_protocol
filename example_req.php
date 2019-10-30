@@ -1,6 +1,6 @@
 <?php
 
-// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
+// $Revision: 12269 $ $Date:: 2019-10-25 #$ $Author: serge $
 
 require_once 'shopndrop_protocol_web.php';
 

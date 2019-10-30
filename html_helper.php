@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12248 $ $Date:: 2019-10-23 #$ $Author: serge $
+// $Revision: 12297 $ $Date:: 2019-10-30 #$ $Author: serge $
 
 namespace shopndrop_protocol;
 
@@ -218,8 +218,6 @@ function to_html( $obj )
         'shopndrop_protocol\CancelRideResponse'     => 'to_html_CancelRideResponse',
         'shopndrop_protocol\GetRideRequest'         => 'to_html_not_impl',
         'shopndrop_protocol\GetRideResponse'        => 'to_html_GetRideResponse',
-        'shopndrop_protocol\GetPersonalUserInfoRequest'     => 'to_html_not_impl',
-        'shopndrop_protocol\GetPersonalUserInfoResponse'    => 'to_html_GetPersonalUserInfoResponse',
         'shopndrop_protocol\AddOrderRequest'        => 'to_html_not_impl',
         'shopndrop_protocol\AddOrderResponse'       => 'to_html_AddOrderResponse',
         'shopndrop_protocol\CancelOrderRequest'     => 'to_html_not_impl',
