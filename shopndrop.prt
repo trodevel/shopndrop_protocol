@@ -1,0 +1,253 @@
+############################################################
+#
+# Shopndrop Protocol messages.
+#
+# Copyright (C) 2019 Sergey Kolevatov
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+# $Revision: 13549 $ $Date:: 2020-08-23 #$ $Author: serge $
+
+############################################################
+
+protocol shopndrop
+
+############################################################
+
+base generic_protocol
+
+use basic_objects
+
+############################################################
+
+extern generic_protocol::BackwardMessage
+extern generic_protocol::Request string
+
+base_msg Request: generic_protocol::Request
+
+base_msg_end
+
+# **************************************************
+# * OBJECTS
+# **************************************************
+
+obj ProductItem
+
+    string          name       : [1,)
+    string          unit       : [1,)
+    double          price      : (0,)
+    double          weight     : (0,)
+
+obj_end
+
+obj ShoppingItem
+
+    uint32          product_item_id  : [1,)
+    uint32          amount     : [1,)
+
+obj_end
+
+obj ShoppingList
+
+    array<o ShoppingItem> items  : [1,)
+
+obj_end
+
+obj GeoPosition
+
+    uint32          plz         : [1,)
+    double          latitude    : [0,0] # non-zero latitude is not supported yet
+    double          longitude   : [0,0] # non-zero longitude is not supported yet
+
+obj_end
+
+obj RideSummary
+
+    o GeoPosition       position
+    o basic_objects::LocalTime delivery_time
+    double              max_weight     : (0,)
+
+obj_end
+
+enum ride_resolution_e
+
+    UNDEF                       = 0
+    EXPIRED_OR_COMPLETED        = 1
+    CANCELLED                   = 2
+
+enum_end
+
+obj Ride
+
+    bool                is_open
+    o RideSummary       summary
+    array<uint32>       pending_order_ids
+    uint32              accepted_order_id
+    e ride_resolution_e resolution
+
+obj_end
+
+enum order_resolution_e
+
+    UNDEF                       = 0
+    DELIVERED                   = 1
+    DECLINED_BY_SHOPPER         = 2
+    RIDE_CANCELLED              = 3
+    CANCELLED_BY_SHOPPER        = 4
+    CANCELLED_BY_USER           = 5
+
+enum_end
+
+enum order_state_e
+
+    UNDEF                       = 0
+    IDLE_WAITING_ACCEPTANCE     = 1
+    ACCEPTED_WAITING_DELIVERY   = 2
+    DELIVERED_WAITING_FEEDBACK  = 3
+
+enum_end
+
+enum gender_e
+
+    UNDEF   = 0
+    MALE    = 1
+    FEMALE  = 2
+
+enum_end
+
+obj Address
+
+    uint32      plz          : [1,)
+    string      country      : (0,)
+    string      city         : (0,)
+    string      street       : (0,)
+    string      house_number : (0,)
+    string      extra_address_line
+
+obj_end
+
+obj Order
+
+    bool                is_open
+    uint32              ride_id : [1,)
+    o Address           delivery_address
+    uint32              shopping_list_id : [1,)
+    e order_state_e     state
+    e order_resolution_e  resolution
+
+obj_end
+
+# **************************************************
+# * REQUESTS
+# **************************************************
+
+msg AddRideRequest: Request
+
+    o RideSummary     ride
+
+msg_end
+
+msg AddRideResponse: generic_protocol::BackwardMessage
+
+    uint32          ride_id : [1,)
+
+msg_end
+
+msg CancelRideRequest: Request
+
+    uint32          ride_id : [1,)
+
+msg_end
+
+msg CancelRideResponse: generic_protocol::BackwardMessage
+
+msg_end
+
+msg GetRideRequest: Request
+
+    uint32          ride_id : [1,)
+
+msg_end
+
+msg GetRideResponse: generic_protocol::BackwardMessage
+
+    o Ride          ride
+
+msg_end
+
+msg AddOrderRequest: Request
+
+    uint32          ride_id : [1,)
+    o ShoppingList  shopping_list
+    o Address       delivery_address
+
+msg_end
+
+msg AddOrderResponse: generic_protocol::BackwardMessage
+
+    uint32          order_id : [1,)
+
+msg_end
+
+msg CancelOrderRequest: Request
+
+    uint32          order_id : [1,)
+
+msg_end
+
+msg CancelOrderResponse: generic_protocol::BackwardMessage
+
+msg_end
+
+msg AcceptOrderRequest: Request
+
+    uint32          order_id : [1,)
+
+msg_end
+
+msg AcceptOrderResponse: generic_protocol::BackwardMessage
+
+msg_end
+
+msg DeclineOrderRequest: Request
+
+    uint32          order_id : [1,)
+
+msg_end
+
+msg DeclineOrderResponse: generic_protocol::BackwardMessage
+
+msg_end
+
+msg MarkDeliveredOrderRequest: Request
+
+    uint32          order_id : [1,)
+
+msg_end
+
+msg MarkDeliveredOrderResponse: generic_protocol::BackwardMessage
+
+msg_end
+
+msg RateShopperRequest: Request
+
+    uint32          order_id : [1,)
+    uint32          stars    : [0,5]
+
+msg_end
+
+msg RateShopperResponse: generic_protocol::BackwardMessage
+
+msg_end

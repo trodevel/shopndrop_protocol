@@ -1,5 +1,5 @@
-#ifndef APG_SHOPNDROP__STR_HELPER_H
-#define APG_SHOPNDROP__STR_HELPER_H
+#ifndef APG_SHOPNDROP__CSV_HELPER_H
+#define APG_SHOPNDROP__CSV_HELPER_H
 
 // system includes
 #include <sstream>
@@ -10,7 +10,7 @@
 namespace shopndrop_protocol
 {
 
-namespace str_helper
+namespace csv_helper
 {
 
 // enums
@@ -52,8 +52,11 @@ std::ostream & write( std::ostream & os, const MarkDeliveredOrderResponse & r );
 std::ostream & write( std::ostream & os, const RateShopperRequest & r );
 std::ostream & write( std::ostream & os, const RateShopperResponse & r );
 
+// generic
+std::ostream & write( std::ostream & os, const basic_parser::Object & r );
+
 template<class T>
-std::string to_string( const T & l )
+std::string to_csv( const T & l )
 {
     std::ostringstream os;
 
@@ -62,8 +65,8 @@ std::string to_string( const T & l )
     return os.str();
 }
 
-} // namespace str_helper
+} // namespace csv_helper
 
 } // namespace shopndrop_protocol
 
-#endif // APG_SHOPNDROP__STR_HELPER_H
+#endif // APG_SHOPNDROP__CSV_HELPER_H

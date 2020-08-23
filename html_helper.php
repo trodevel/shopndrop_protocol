@@ -1,234 +1,484 @@
 <?php
 
-/*
-
-Shopndrop Protocol messages.
-
-Copyright (C) 2019 Sergey Kolevatov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-// $Revision: 12297 $ $Date:: 2019-10-30 #$ $Author: serge $
-
 namespace shopndrop_protocol;
 
-require_once 'shopndrop_protocol.php';
-require_once 'str_helper.php';              // to_string_GeoPosition
-require_once __DIR__.'/../generic_protocol/str_helper.php';
-require_once __DIR__.'/../basic_objects/str_helper.php';        // to_string_TimeWindow
-require_once __DIR__.'/../php_snippets/epoch_to_date.php';      // epoch_to_date
 
-function to_html_not_impl( & $obj )
+// includes
+require_once __DIR__.'/../generic_protocol/html_helper.php';
+require_once __DIR__.'/../basic_objects/html_helper.php';
+require_once __DIR__.'/../basic_parser/html_helper.php';
+require_once 'str_helper.php';
+
+// enums
+
+function to_html_header__ride_resolution_e( $r )
 {
-    return get_html_table_header_elems( array( 'not implemented yet' ) );
+    return array( 'RIDE_RESOLUTION_E' );
 }
 
-/**************************************************
- * OBJECTS
- **************************************************/
-
-function get_header_ProductItem()
+function to_html__ride_resolution_e( $r )
 {
-    return get_html_table_header_elems( array( 'NAME', 'UNIT', 'PRICE', 'WEIGHT' ) );
+    return to_string__ride_resolution_e( $r ) . " (" . $r . ")";
 }
 
-function to_html_ProductItem_tabledata( & $obj )
+function to_html_header__order_resolution_e( $r )
 {
-    return get_html_table_data_elems( array(
-        $obj->name,
-        $obj->unit,
-        $obj->price,
-        $obj->weight ) );
+    return array( 'ORDER_RESOLUTION_E' );
 }
 
-function get_header_ShoppingItem()
+function to_html__order_resolution_e( $r )
 {
-    return get_html_table_header_elems( array( 'PRODUCT ITEM ID', 'AMOUNT' ) );
+    return to_string__order_resolution_e( $r ) . " (" . $r . ")";
 }
 
-function to_html_ShoppingItem_tabledata( & $obj )
+function to_html_header__order_state_e( $r )
 {
-    return get_html_table_data_elems( array(
-        $obj->product_item_id,
-        $obj->amount ) );
+    return array( 'ORDER_STATE_E' );
 }
 
-function get_header_RideSummary()
+function to_html__order_state_e( $r )
 {
-    return get_html_table_header_elems( array( 'POSITION', 'DELIVERY TIME', 'MAX_WEIGHT' ) );
+    return to_string__order_state_e( $r ) . " (" . $r . ")";
 }
 
-function to_html_RideSummary_tabledata( & $obj )
+function to_html_header__gender_e( $r )
 {
-    return get_html_table_data_elems( array(
-        to_string_GeoPosition( $obj->position ),
-        \basic_objects\to_string_LocalTime( $obj->delivery_time ),
-        $obj->max_weight ) );
+    return array( 'GENDER_E' );
 }
 
-function get_header_Ride()
+function to_html__gender_e( $r )
 {
-    return get_html_table_header_elems( array( 'IS OPEN' ) ) .
-        get_header_RideSummary() .
-        get_html_table_header_elems( array( 'PENDING ORDER IDS', 'ACCEPTED ORDER ID', 'RESOLUTION' ) );
-
+    return to_string__gender_e( $r ) . " (" . $r . ")";
 }
 
-function to_html_Ride_tabledata( & $obj )
-{
-    return get_html_table_data_elems( array(
-        $obj->is_open ? "Y" : "N" ) ) .
-        to_html_RideSummary_tabledata( $obj->summary ) .
-        get_html_table_data_elems( array(
-            sizeof( $obj->pending_order_ids ) . ": " . \basic_objects\to_string_array( $obj->pending_order_ids ),
-            $obj->accepted_order_id,
-            to_string_ride_resolution_e( $obj->resolution ) . " (" . $obj->resolution . ")") );
-}
+// objects
 
-function get_header_Address()
+function to_html__ProductItem( & $r )
 {
-    return get_html_table_header_elems( array( 'PLZ', 'COUNTRY', 'CITY', 'STR', 'NO', 'EAL' ) );
-}
+    $header = array( 'NAME', 'UNIT', 'PRICE', 'WEIGHT' );
 
-function to_html_Address_tabledata( & $obj )
-{
-    return get_html_table_data_elems( array(
-        $obj->plz,
-        $obj->country,
-        $obj->city,
-        $obj->street,
-        $obj->house_number,
-        $obj->extra_address_line ) );
-}
+    $data = array(
+        \basic_parser\to_html__string( $r->name ),
+        \basic_parser\to_html__string( $r->unit ),
+        \basic_parser\to_html__float( $r->price ),
+        \basic_parser\to_html__float( $r->weight )
+        );
 
-function get_header_Order()
-{
-    return get_html_table_header_elems( array( 'IS OPEN', 'RIDE ID' ) ) .
-        get_header_Address() .
-        get_html_table_header_elems( array( 'SHOPPING LIST ID', 'STATE', 'RESOLUTION' ) );
-}
-
-function to_html_Order_tabledata( & $obj )
-{
-    return get_html_table_data_elems( array(
-        $obj->is_open ? "Y" : "N",
-        $obj->ride_id ) ) .
-        to_html_Address_tabledata( $obj->delivery_address ) .
-        get_html_table_data_elems( array(
-            $obj->shopping_list_id,
-            to_string_order_state_e( $obj->state ) . " (" . $obj->state . ")",
-            to_string_order_resolution_e( $obj->resolution ) . " (" . $obj->resolution . ")") );
-}
-
-/**************************************************
- * RESPONSES
- **************************************************/
-
-function to_html_AddRideResponse( & $obj )
-{
-    $res = get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-        get_html_table_row_header( array( 'RIDE ID' ) ) .
-        get_html_table_row_data( array( $obj->ride_id ) ) );
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-function to_html_CancelRideResponse( & $obj )
+function to_html__ShoppingItem( & $r )
 {
-    $res = '<h3>CancelRideResponse</h3>';
+    $header = array( 'PRODUCT_ITEM_ID', 'AMOUNT' );
+
+    $data = array(
+        \basic_parser\to_html__int( $r->product_item_id ),
+        \basic_parser\to_html__int( $r->amount )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-function to_html_GetRideResponse( & $obj )
+function to_html__ShoppingList( & $r )
 {
-    $body = get_html_table_tr( to_html_Ride_tabledata( $obj->ride ) );
+    $header = array( 'ITEMS' );
 
-    $res = get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-        get_html_table_tr( get_header_Ride() ) . $body );
+    $data = array(
+        \basic_parser\to_html__vector( $r->items, '\shopndrop_protocol\to_html__ShoppingItem' )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-function to_html_AddOrderResponse( & $obj )
+function to_html__GeoPosition( & $r )
 {
-    $res = get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-        get_html_table_row_header( array( 'ORDER ID' ) ) .
-        get_html_table_row_data( array( $obj->order_id ) ) );
+    $header = array( 'PLZ', 'LATITUDE', 'LONGITUDE' );
+
+    $data = array(
+        \basic_parser\to_html__int( $r->plz ),
+        \basic_parser\to_html__float( $r->latitude ),
+        \basic_parser\to_html__float( $r->longitude )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-function to_html_CancelOrderResponse( & $obj )
+function to_html__RideSummary( & $r )
 {
-    $res = '<h3>CancelOrderResponse</h3>';
+    $header = array( 'POSITION', 'DELIVERY_TIME', 'MAX_WEIGHT' );
+
+    $data = array(
+        to_html__GeoPosition( $r->position ),
+        \basic_objects\to_html__LocalTime( $r->delivery_time ),
+        \basic_parser\to_html__float( $r->max_weight )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-function to_html_AcceptOrderResponse( & $obj )
+function to_html__Ride( & $r )
 {
-    $res = '<h3>AcceptOrderResponse</h3>';
+    $header = array( 'IS_OPEN', 'SUMMARY', 'PENDING_ORDER_IDS', 'ACCEPTED_ORDER_ID', 'RESOLUTION' );
+
+    $data = array(
+        \basic_parser\to_html__bool( $r->is_open ),
+        to_html__RideSummary( $r->summary ),
+        \basic_parser\to_html__vector( $r->pending_order_ids, '\basic_parser\to_html__int' ),
+        \basic_parser\to_html__int( $r->accepted_order_id ),
+        to_html__ride_resolution_e( $r->resolution )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-function to_html_DeclineOrderResponse( & $obj )
+function to_html__Address( & $r )
 {
-    $res = '<h3>DeclineOrderResponse</h3>';
+    $header = array( 'PLZ', 'COUNTRY', 'CITY', 'STREET', 'HOUSE_NUMBER', 'EXTRA_ADDRESS_LINE' );
+
+    $data = array(
+        \basic_parser\to_html__int( $r->plz ),
+        \basic_parser\to_html__string( $r->country ),
+        \basic_parser\to_html__string( $r->city ),
+        \basic_parser\to_html__string( $r->street ),
+        \basic_parser\to_html__string( $r->house_number ),
+        \basic_parser\to_html__string( $r->extra_address_line )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-function to_html_MarkDeliveredOrderResponse( & $obj )
+function to_html__Order( & $r )
 {
-    $res = '<h3>MarkDeliveredOrderResponse</h3>';
+    $header = array( 'IS_OPEN', 'RIDE_ID', 'DELIVERY_ADDRESS', 'SHOPPING_LIST_ID', 'STATE', 'RESOLUTION' );
+
+    $data = array(
+        \basic_parser\to_html__bool( $r->is_open ),
+        \basic_parser\to_html__int( $r->ride_id ),
+        to_html__Address( $r->delivery_address ),
+        \basic_parser\to_html__int( $r->shopping_list_id ),
+        to_html__order_state_e( $r->state ),
+        to_html__order_resolution_e( $r->resolution )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-function to_html_RateShopperResponse( & $obj )
+// base messages
+
+function to_html__Request( & $r )
 {
-    $res = '<h3>RateShopperResponse</h3>';
+    $header = array(  );
+
+    $data = array(        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
 
     return $res;
 }
 
-// *********************************************************
+// messages
+
+function to_html__AddRideRequest( & $r )
+{
+    $header = array( 'Request', 'RIDE' );
+
+    $data = array(
+        to_html__Request( $r ),
+        to_html__RideSummary( $r->ride )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__AddRideResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage', 'RIDE_ID' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r ),
+        \basic_parser\to_html__int( $r->ride_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__CancelRideRequest( & $r )
+{
+    $header = array( 'Request', 'RIDE_ID' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->ride_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__CancelRideResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__GetRideRequest( & $r )
+{
+    $header = array( 'Request', 'RIDE_ID' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->ride_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__GetRideResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage', 'RIDE' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r ),
+        to_html__Ride( $r->ride )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__AddOrderRequest( & $r )
+{
+    $header = array( 'Request', 'RIDE_ID', 'SHOPPING_LIST', 'DELIVERY_ADDRESS' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->ride_id ),
+        to_html__ShoppingList( $r->shopping_list ),
+        to_html__Address( $r->delivery_address )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__AddOrderResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage', 'ORDER_ID' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r ),
+        \basic_parser\to_html__int( $r->order_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__CancelOrderRequest( & $r )
+{
+    $header = array( 'Request', 'ORDER_ID' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->order_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__CancelOrderResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__AcceptOrderRequest( & $r )
+{
+    $header = array( 'Request', 'ORDER_ID' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->order_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__AcceptOrderResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__DeclineOrderRequest( & $r )
+{
+    $header = array( 'Request', 'ORDER_ID' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->order_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__DeclineOrderResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__MarkDeliveredOrderRequest( & $r )
+{
+    $header = array( 'Request', 'ORDER_ID' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->order_id )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__MarkDeliveredOrderResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__RateShopperRequest( & $r )
+{
+    $header = array( 'Request', 'ORDER_ID', 'STARS' );
+
+    $data = array(
+        to_html__Request( $r ),
+        \basic_parser\to_html__int( $r->order_id ),
+        \basic_parser\to_html__int( $r->stars )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+function to_html__RateShopperResponse( & $r )
+{
+    $header = array( 'generic_protocol::BackwardMessage' );
+
+    $data = array(
+        \generic_protocol\to_html__BackwardMessage( $r )
+        );
+
+    $res = \basic_parser\to_html_table( $header, $data );
+
+    return $res;
+}
+
+// generic
 
 function to_html( $obj )
 {
     $handler_map = array(
-        'shopndrop_protocol\AddRideRequest'         => 'to_html_not_impl',
-        'shopndrop_protocol\AddRideResponse'        => 'to_html_AddRideResponse',
-        'shopndrop_protocol\CancelRideRequest'      => 'to_html_not_impl',
-        'shopndrop_protocol\CancelRideResponse'     => 'to_html_CancelRideResponse',
-        'shopndrop_protocol\GetRideRequest'         => 'to_html_not_impl',
-        'shopndrop_protocol\GetRideResponse'        => 'to_html_GetRideResponse',
-        'shopndrop_protocol\AddOrderRequest'        => 'to_html_not_impl',
-        'shopndrop_protocol\AddOrderResponse'       => 'to_html_AddOrderResponse',
-        'shopndrop_protocol\CancelOrderRequest'     => 'to_html_not_impl',
-        'shopndrop_protocol\CancelOrderResponse'    => 'to_html_CancelOrderResponse',
-        'shopndrop_protocol\AcceptOrderResponse'    => 'to_html_AcceptOrderResponse',
-        'shopndrop_protocol\DeclineOrderResponse'   => 'to_html_DeclineOrderResponse',
-        'shopndrop_protocol\MarkDeliveredOrderResponse'    => 'to_html_MarkDeliveredOrderResponse',
-        'shopndrop_protocol\RateShopperResponse'    => 'to_html_RateShopperResponse',
+        // objects
+        'shopndrop_protocol\ProductItem'         => 'to_html__ProductItem',
+        'shopndrop_protocol\ShoppingItem'         => 'to_html__ShoppingItem',
+        'shopndrop_protocol\ShoppingList'         => 'to_html__ShoppingList',
+        'shopndrop_protocol\GeoPosition'         => 'to_html__GeoPosition',
+        'shopndrop_protocol\RideSummary'         => 'to_html__RideSummary',
+        'shopndrop_protocol\Ride'         => 'to_html__Ride',
+        'shopndrop_protocol\Address'         => 'to_html__Address',
+        'shopndrop_protocol\Order'         => 'to_html__Order',
+        // messages
+        'shopndrop_protocol\AddRideRequest'         => 'to_html__AddRideRequest',
+        'shopndrop_protocol\AddRideResponse'         => 'to_html__AddRideResponse',
+        'shopndrop_protocol\CancelRideRequest'         => 'to_html__CancelRideRequest',
+        'shopndrop_protocol\CancelRideResponse'         => 'to_html__CancelRideResponse',
+        'shopndrop_protocol\GetRideRequest'         => 'to_html__GetRideRequest',
+        'shopndrop_protocol\GetRideResponse'         => 'to_html__GetRideResponse',
+        'shopndrop_protocol\AddOrderRequest'         => 'to_html__AddOrderRequest',
+        'shopndrop_protocol\AddOrderResponse'         => 'to_html__AddOrderResponse',
+        'shopndrop_protocol\CancelOrderRequest'         => 'to_html__CancelOrderRequest',
+        'shopndrop_protocol\CancelOrderResponse'         => 'to_html__CancelOrderResponse',
+        'shopndrop_protocol\AcceptOrderRequest'         => 'to_html__AcceptOrderRequest',
+        'shopndrop_protocol\AcceptOrderResponse'         => 'to_html__AcceptOrderResponse',
+        'shopndrop_protocol\DeclineOrderRequest'         => 'to_html__DeclineOrderRequest',
+        'shopndrop_protocol\DeclineOrderResponse'         => 'to_html__DeclineOrderResponse',
+        'shopndrop_protocol\MarkDeliveredOrderRequest'         => 'to_html__MarkDeliveredOrderRequest',
+        'shopndrop_protocol\MarkDeliveredOrderResponse'         => 'to_html__MarkDeliveredOrderResponse',
+        'shopndrop_protocol\RateShopperRequest'         => 'to_html__RateShopperRequest',
+        'shopndrop_protocol\RateShopperResponse'         => 'to_html__RateShopperResponse',
     );
 
-    $type = get_class ( $obj );
+    $type = get_class( $obj );
 
     if( array_key_exists( $type, $handler_map ) )
     {
@@ -238,5 +488,8 @@ function to_html( $obj )
 
     return \generic_protocol\to_html( $obj );
 }
+
+# namespace_end shopndrop_protocol
+
 
 ?>
