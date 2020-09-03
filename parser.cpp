@@ -512,7 +512,7 @@ basic_parser::Object* to_forward_message( const generic_request::Request & r )
     if( it != funcs.end() )
         return it->second( r );
 
-    return nullptr;
+    return generic_protocol::parser::to_forward_message( r );
 }
 
 using basic_parser::MalformedRequest;
