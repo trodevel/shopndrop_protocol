@@ -86,7 +86,9 @@ function to_string__gender_e( $r )
 
 function to_string__ProductItem( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " name=" . \basic_parser\to_string__string( $r->name );
     $res .= " unit=" . \basic_parser\to_string__string( $r->unit );
@@ -100,7 +102,9 @@ function to_string__ProductItem( & $r )
 
 function to_string__ShoppingItem( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " product_item_id=" . \basic_parser\to_string__int( $r->product_item_id );
     $res .= " amount=" . \basic_parser\to_string__int( $r->amount );
@@ -112,7 +116,9 @@ function to_string__ShoppingItem( & $r )
 
 function to_string__ShoppingList( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " items=" . \basic_parser\to_string__vector( $r->items, '\shopndrop_protocol\to_string__ShoppingItem' ); // Array
 
@@ -123,7 +129,9 @@ function to_string__ShoppingList( & $r )
 
 function to_string__GeoPosition( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " plz=" . \basic_parser\to_string__int( $r->plz );
     $res .= " latitude=" . \basic_parser\to_string__float( $r->latitude );
@@ -136,7 +144,9 @@ function to_string__GeoPosition( & $r )
 
 function to_string__RideSummary( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " position=" . to_string__GeoPosition( $r->position );
     $res .= " delivery_time=" . \basic_objects\to_string__LocalTime( $r->delivery_time );
@@ -149,7 +159,9 @@ function to_string__RideSummary( & $r )
 
 function to_string__Ride( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " is_open=" . \basic_parser\to_string__bool( $r->is_open );
     $res .= " summary=" . to_string__RideSummary( $r->summary );
@@ -164,7 +176,9 @@ function to_string__Ride( & $r )
 
 function to_string__Address( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " plz=" . \basic_parser\to_string__int( $r->plz );
     $res .= " country=" . \basic_parser\to_string__string( $r->country );
@@ -180,7 +194,9 @@ function to_string__Address( & $r )
 
 function to_string__Order( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
 
     $res .= " is_open=" . \basic_parser\to_string__bool( $r->is_open );
     $res .= " ride_id=" . \basic_parser\to_string__int( $r->ride_id );
@@ -198,7 +214,12 @@ function to_string__Order( & $r )
 
 function to_string__Request( & $r )
 {
-    $res = "";    $res .= "(";
+    $res = "";
+
+    $res .= "(";
+
+    // base class
+    $res .= \generic_protocol\to_string__Request( $r );
 
 
     $res .= ")";
@@ -210,7 +231,9 @@ function to_string__Request( & $r )
 
 function to_string__AddRideRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " ride=" . to_string__RideSummary( $r->ride );
@@ -220,7 +243,9 @@ function to_string__AddRideRequest( & $r )
 
 function to_string__AddRideResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
     $res .= " ride_id=" . \basic_parser\to_string__int( $r->ride_id );
@@ -230,7 +255,9 @@ function to_string__AddRideResponse( & $r )
 
 function to_string__CancelRideRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " ride_id=" . \basic_parser\to_string__int( $r->ride_id );
@@ -240,7 +267,9 @@ function to_string__CancelRideRequest( & $r )
 
 function to_string__CancelRideResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
 
@@ -249,7 +278,9 @@ function to_string__CancelRideResponse( & $r )
 
 function to_string__GetRideRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " ride_id=" . \basic_parser\to_string__int( $r->ride_id );
@@ -259,7 +290,9 @@ function to_string__GetRideRequest( & $r )
 
 function to_string__GetRideResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
     $res .= " ride=" . to_string__Ride( $r->ride );
@@ -269,7 +302,9 @@ function to_string__GetRideResponse( & $r )
 
 function to_string__AddOrderRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " ride_id=" . \basic_parser\to_string__int( $r->ride_id );
@@ -281,7 +316,9 @@ function to_string__AddOrderRequest( & $r )
 
 function to_string__AddOrderResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
     $res .= " order_id=" . \basic_parser\to_string__int( $r->order_id );
@@ -291,7 +328,9 @@ function to_string__AddOrderResponse( & $r )
 
 function to_string__CancelOrderRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " order_id=" . \basic_parser\to_string__int( $r->order_id );
@@ -301,7 +340,9 @@ function to_string__CancelOrderRequest( & $r )
 
 function to_string__CancelOrderResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
 
@@ -310,7 +351,9 @@ function to_string__CancelOrderResponse( & $r )
 
 function to_string__AcceptOrderRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " order_id=" . \basic_parser\to_string__int( $r->order_id );
@@ -320,7 +363,9 @@ function to_string__AcceptOrderRequest( & $r )
 
 function to_string__AcceptOrderResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
 
@@ -329,7 +374,9 @@ function to_string__AcceptOrderResponse( & $r )
 
 function to_string__DeclineOrderRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " order_id=" . \basic_parser\to_string__int( $r->order_id );
@@ -339,7 +386,9 @@ function to_string__DeclineOrderRequest( & $r )
 
 function to_string__DeclineOrderResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
 
@@ -348,7 +397,9 @@ function to_string__DeclineOrderResponse( & $r )
 
 function to_string__MarkDeliveredOrderRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " order_id=" . \basic_parser\to_string__int( $r->order_id );
@@ -358,7 +409,9 @@ function to_string__MarkDeliveredOrderRequest( & $r )
 
 function to_string__MarkDeliveredOrderResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
 
@@ -367,7 +420,9 @@ function to_string__MarkDeliveredOrderResponse( & $r )
 
 function to_string__RateShopperRequest( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= to_string__Request( $r );
 
     $res .= " order_id=" . \basic_parser\to_string__int( $r->order_id );
@@ -378,7 +433,9 @@ function to_string__RateShopperRequest( & $r )
 
 function to_string__RateShopperResponse( & $r )
 {
-    $res = "";    // base class
+    $res = "";
+
+    // base class
     $res .= \generic_protocol\to_string__BackwardMessage( $r );
 
 
