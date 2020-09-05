@@ -131,6 +131,9 @@ std::ostream & write( std::ostream & os, const Order & r )
 
 std::ostream & write( std::ostream & os, const Request & r )
 {
+    // base class
+    ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::Request&>( r ) );
+
 
     return os;
 }

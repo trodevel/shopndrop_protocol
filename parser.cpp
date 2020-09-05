@@ -126,6 +126,9 @@ void get_value_or_throw( Order * res, const std::string & prefix, const generic_
 
 void get_value_or_throw( Request * res, const generic_request::Request & r )
 {
+    // base class
+    ::generic_protocol::parser::get_value_or_throw( static_cast<generic_protocol::Request*>( res ), r );
+
 }
 
 // messages

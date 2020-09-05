@@ -222,6 +222,9 @@ std::ostream & write( std::ostream & os, const Request & r )
 {
     os << "(";
 
+    // base class
+    ::generic_protocol::str_helper::write( os, static_cast<const generic_protocol::Request&>( r ) );
+
 
     os << ")";
 

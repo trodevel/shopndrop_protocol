@@ -127,6 +127,9 @@ bool validate( const std::string & prefix, const Order & r )
 
 bool validate( const Request & r )
 {
+    // base class
+    ::generic_protocol::validator::validate( static_cast<const generic_protocol::Request&>( r ) );
+
 
     return true;
 }
