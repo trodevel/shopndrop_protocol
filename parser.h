@@ -1,5 +1,5 @@
-#ifndef APG_SHOPNDROP__PARSER_H
-#define APG_SHOPNDROP__PARSER_H
+#ifndef APG_SHOPNDROP_PROTOCOL__PARSER_H
+#define APG_SHOPNDROP_PROTOCOL__PARSER_H
 
 // includes
 #include "generic_request/request.h"
@@ -86,4 +86,4 @@ Object * to_RateShopperResponse( const generic_request::Request & r );
 
 } // namespace shopndrop_protocol
 
-#endif // APG_SHOPNDROP__PARSER_H
+#endif // APG_SHOPNDROP_PROTOCOL__PARSER_H

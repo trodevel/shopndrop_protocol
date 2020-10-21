@@ -121,7 +121,7 @@ class AddRideRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2431248626;
+    const MESSAGE_ID = 1336774100;
 
     public $ride                ; // type: RideSummary
 };
@@ -134,7 +134,7 @@ class AddRideResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 231958649;
+    const MESSAGE_ID = 3741428193;
 
     public $ride_id             ; // type: uint32_t // valid range: [1, +inf)
 };
@@ -147,7 +147,7 @@ class CancelRideRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3468537354;
+    const MESSAGE_ID = 2605092588;
 
     public $ride_id             ; // type: uint32_t // valid range: [1, +inf)
 };
@@ -160,7 +160,7 @@ class CancelRideResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3203089937;
+    const MESSAGE_ID = 4158126716;
 };
 
 // Message
@@ -171,7 +171,7 @@ class GetRideRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3114637117;
+    const MESSAGE_ID = 1726083611;
 
     public $ride_id             ; // type: uint32_t // valid range: [1, +inf)
 };
@@ -184,7 +184,7 @@ class GetRideResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 102890279;
+    const MESSAGE_ID = 3572710079;
 
     public $ride                ; // type: Ride
 };
@@ -197,7 +197,7 @@ class AddOrderRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 934252208;
+    const MESSAGE_ID = 3850194728;
 
     public $ride_id             ; // type: uint32_t // valid range: [1, +inf)
     public $shopping_list       ; // type: ShoppingList
@@ -212,7 +212,7 @@ class AddOrderResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2510687907;
+    const MESSAGE_ID = 1805698836;
 
     public $order_id            ; // type: uint32_t // valid range: [1, +inf)
 };
@@ -225,7 +225,7 @@ class CancelOrderRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2224529624;
+    const MESSAGE_ID = 3450543285;
 
     public $order_id            ; // type: uint32_t // valid range: [1, +inf)
 };
@@ -238,7 +238,7 @@ class CancelOrderResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3598508007;
+    const MESSAGE_ID = 3845586622;
 };
 
 // Message
@@ -249,7 +249,7 @@ class AcceptOrderRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 1926949505;
+    const MESSAGE_ID = 1004951276;
 
     public $order_id            ; // type: uint32_t // valid range: [1, +inf)
 };
@@ -262,7 +262,7 @@ class AcceptOrderResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3292363773;
+    const MESSAGE_ID = 4151794340;
 };
 
 // Message
@@ -273,7 +273,7 @@ class DeclineOrderRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3904779176;
+    const MESSAGE_ID = 3690205937;
 
     public $order_id            ; // type: uint32_t // valid range: [1, +inf)
 };
@@ -286,7 +286,7 @@ class DeclineOrderResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2249557832;
+    const MESSAGE_ID = 2492539961;
 };
 
 // Message
@@ -297,7 +297,7 @@ class MarkDeliveredOrderRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3753873058;
+    const MESSAGE_ID = 3659215545;
 
     public $order_id            ; // type: uint32_t // valid range: [1, +inf)
 };
@@ -310,7 +310,7 @@ class MarkDeliveredOrderResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 1727492075;
+    const MESSAGE_ID = 3969319611;
 };
 
 // Message
@@ -321,7 +321,7 @@ class RateShopperRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2294103134;
+    const MESSAGE_ID = 3246489651;
 
     public $order_id            ; // type: uint32_t // valid range: [1, +inf)
     public $stars               ; // type: uint32_t // valid range: [0, 5]
@@ -335,10 +335,10 @@ class RateShopperResponse extends \generic_protocol\BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3534476142;
+    const MESSAGE_ID = 3789681207;
 };
 
-# namespace_end shopndrop_protocol
+// namespace_end shopndrop_protocol
 
 
 ?>

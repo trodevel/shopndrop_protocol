@@ -1,5 +1,5 @@
-#ifndef APG_SHOPNDROP__VALIDATOR_H
-#define APG_SHOPNDROP__VALIDATOR_H
+#ifndef APG_SHOPNDROP_PROTOCOL__VALIDATOR_H
+#define APG_SHOPNDROP_PROTOCOL__VALIDATOR_H
 
 // includes
 #include "protocol.h"
@@ -53,4 +53,4 @@ bool validate( const RateShopperResponse & r );
 
 } // namespace shopndrop_protocol
 
-#endif // APG_SHOPNDROP__VALIDATOR_H
+#endif // APG_SHOPNDROP_PROTOCOL__VALIDATOR_H

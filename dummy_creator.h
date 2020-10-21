@@ -1,5 +1,5 @@
-#ifndef APG_SHOPNDROP__DUMMY_CREATOR_H
-#define APG_SHOPNDROP__DUMMY_CREATOR_H
+#ifndef APG_SHOPNDROP_PROTOCOL__DUMMY_CREATOR_H
+#define APG_SHOPNDROP_PROTOCOL__DUMMY_CREATOR_H
 
 // includes
 #include "protocol.h"
@@ -53,4 +53,4 @@ RateShopperResponse * create__RateShopperResponse();
 
 } // namespace shopndrop_protocol
 
-#endif // APG_SHOPNDROP__DUMMY_CREATOR_H
+#endif // APG_SHOPNDROP_PROTOCOL__DUMMY_CREATOR_H

@@ -1,5 +1,5 @@
-#ifndef APG_SHOPNDROP__ENUMS_H
-#define APG_SHOPNDROP__ENUMS_H
+#ifndef APG_SHOPNDROP_PROTOCOL__ENUMS_H
+#define APG_SHOPNDROP_PROTOCOL__ENUMS_H
 
 namespace shopndrop_protocol
 {
@@ -29,4 +29,4 @@ enum class request_type_e
 
 } // namespace shopndrop_protocol
 
-#endif // APG_SHOPNDROP__ENUMS_H
+#endif // APG_SHOPNDROP_PROTOCOL__ENUMS_H

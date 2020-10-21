@@ -1,5 +1,5 @@
-#ifndef APG_SHOPNDROP__OBJECT_INITIALIZER_H
-#define APG_SHOPNDROP__OBJECT_INITIALIZER_H
+#ifndef APG_SHOPNDROP_PROTOCOL__OBJECT_INITIALIZER_H
+#define APG_SHOPNDROP_PROTOCOL__OBJECT_INITIALIZER_H
 
 // includes
 #include "protocol.h"
@@ -190,4 +190,4 @@ RateShopperResponse * create_RateShopperResponse(
 
 } // namespace shopndrop_protocol
 
-#endif // APG_SHOPNDROP__OBJECT_INITIALIZER_H
+#endif // APG_SHOPNDROP_PROTOCOL__OBJECT_INITIALIZER_H

@@ -3,9 +3,10 @@
 namespace shopndrop_protocol;
 
 
-// includes
-require_once 'protocol.php';
+// base include
 require_once __DIR__.'/../generic_protocol/object_initializer.php';
+// own includes
+require_once __DIR__.'/../shopndrop_protocol/protocol.php';
 
 // objects
 
@@ -623,7 +624,7 @@ function create__RateShopperResponse(
     return $res;
 }
 
-# namespace_end shopndrop_protocol
+// namespace_end shopndrop_protocol
 
 
 ?>

@@ -142,7 +142,7 @@ std::ostream & write( std::ostream & os, const Request & r )
 
 std::ostream & write( std::ostream & os, const AddRideRequest & r )
 {
-    write( os, std::string( "shopndrop/AddRideRequest" ) );
+    write( os, std::string( "shopndrop_protocol/AddRideRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -154,7 +154,7 @@ std::ostream & write( std::ostream & os, const AddRideRequest & r )
 
 std::ostream & write( std::ostream & os, const AddRideResponse & r )
 {
-    write( os, std::string( "shopndrop/AddRideResponse" ) );
+    write( os, std::string( "shopndrop_protocol/AddRideResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );
@@ -166,7 +166,7 @@ std::ostream & write( std::ostream & os, const AddRideResponse & r )
 
 std::ostream & write( std::ostream & os, const CancelRideRequest & r )
 {
-    write( os, std::string( "shopndrop/CancelRideRequest" ) );
+    write( os, std::string( "shopndrop_protocol/CancelRideRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -178,7 +178,7 @@ std::ostream & write( std::ostream & os, const CancelRideRequest & r )
 
 std::ostream & write( std::ostream & os, const CancelRideResponse & r )
 {
-    write( os, std::string( "shopndrop/CancelRideResponse" ) );
+    write( os, std::string( "shopndrop_protocol/CancelRideResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );
@@ -189,7 +189,7 @@ std::ostream & write( std::ostream & os, const CancelRideResponse & r )
 
 std::ostream & write( std::ostream & os, const GetRideRequest & r )
 {
-    write( os, std::string( "shopndrop/GetRideRequest" ) );
+    write( os, std::string( "shopndrop_protocol/GetRideRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -201,7 +201,7 @@ std::ostream & write( std::ostream & os, const GetRideRequest & r )
 
 std::ostream & write( std::ostream & os, const GetRideResponse & r )
 {
-    write( os, std::string( "shopndrop/GetRideResponse" ) );
+    write( os, std::string( "shopndrop_protocol/GetRideResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );
@@ -213,7 +213,7 @@ std::ostream & write( std::ostream & os, const GetRideResponse & r )
 
 std::ostream & write( std::ostream & os, const AddOrderRequest & r )
 {
-    write( os, std::string( "shopndrop/AddOrderRequest" ) );
+    write( os, std::string( "shopndrop_protocol/AddOrderRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -227,7 +227,7 @@ std::ostream & write( std::ostream & os, const AddOrderRequest & r )
 
 std::ostream & write( std::ostream & os, const AddOrderResponse & r )
 {
-    write( os, std::string( "shopndrop/AddOrderResponse" ) );
+    write( os, std::string( "shopndrop_protocol/AddOrderResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );
@@ -239,7 +239,7 @@ std::ostream & write( std::ostream & os, const AddOrderResponse & r )
 
 std::ostream & write( std::ostream & os, const CancelOrderRequest & r )
 {
-    write( os, std::string( "shopndrop/CancelOrderRequest" ) );
+    write( os, std::string( "shopndrop_protocol/CancelOrderRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -251,7 +251,7 @@ std::ostream & write( std::ostream & os, const CancelOrderRequest & r )
 
 std::ostream & write( std::ostream & os, const CancelOrderResponse & r )
 {
-    write( os, std::string( "shopndrop/CancelOrderResponse" ) );
+    write( os, std::string( "shopndrop_protocol/CancelOrderResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );
@@ -262,7 +262,7 @@ std::ostream & write( std::ostream & os, const CancelOrderResponse & r )
 
 std::ostream & write( std::ostream & os, const AcceptOrderRequest & r )
 {
-    write( os, std::string( "shopndrop/AcceptOrderRequest" ) );
+    write( os, std::string( "shopndrop_protocol/AcceptOrderRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -274,7 +274,7 @@ std::ostream & write( std::ostream & os, const AcceptOrderRequest & r )
 
 std::ostream & write( std::ostream & os, const AcceptOrderResponse & r )
 {
-    write( os, std::string( "shopndrop/AcceptOrderResponse" ) );
+    write( os, std::string( "shopndrop_protocol/AcceptOrderResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );
@@ -285,7 +285,7 @@ std::ostream & write( std::ostream & os, const AcceptOrderResponse & r )
 
 std::ostream & write( std::ostream & os, const DeclineOrderRequest & r )
 {
-    write( os, std::string( "shopndrop/DeclineOrderRequest" ) );
+    write( os, std::string( "shopndrop_protocol/DeclineOrderRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -297,7 +297,7 @@ std::ostream & write( std::ostream & os, const DeclineOrderRequest & r )
 
 std::ostream & write( std::ostream & os, const DeclineOrderResponse & r )
 {
-    write( os, std::string( "shopndrop/DeclineOrderResponse" ) );
+    write( os, std::string( "shopndrop_protocol/DeclineOrderResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );
@@ -308,7 +308,7 @@ std::ostream & write( std::ostream & os, const DeclineOrderResponse & r )
 
 std::ostream & write( std::ostream & os, const MarkDeliveredOrderRequest & r )
 {
-    write( os, std::string( "shopndrop/MarkDeliveredOrderRequest" ) );
+    write( os, std::string( "shopndrop_protocol/MarkDeliveredOrderRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -320,7 +320,7 @@ std::ostream & write( std::ostream & os, const MarkDeliveredOrderRequest & r )
 
 std::ostream & write( std::ostream & os, const MarkDeliveredOrderResponse & r )
 {
-    write( os, std::string( "shopndrop/MarkDeliveredOrderResponse" ) );
+    write( os, std::string( "shopndrop_protocol/MarkDeliveredOrderResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );
@@ -331,7 +331,7 @@ std::ostream & write( std::ostream & os, const MarkDeliveredOrderResponse & r )
 
 std::ostream & write( std::ostream & os, const RateShopperRequest & r )
 {
-    write( os, std::string( "shopndrop/RateShopperRequest" ) );
+    write( os, std::string( "shopndrop_protocol/RateShopperRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -344,7 +344,7 @@ std::ostream & write( std::ostream & os, const RateShopperRequest & r )
 
 std::ostream & write( std::ostream & os, const RateShopperResponse & r )
 {
-    write( os, std::string( "shopndrop/RateShopperResponse" ) );
+    write( os, std::string( "shopndrop_protocol/RateShopperResponse" ) );
 
     // base class
     ::generic_protocol::csv_helper::write( os, static_cast<const generic_protocol::BackwardMessage&>( r ) );

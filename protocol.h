@@ -1,5 +1,5 @@
-#ifndef APG_SHOPNDROP__PROTOCOL_H
-#define APG_SHOPNDROP__PROTOCOL_H
+#ifndef APG_SHOPNDROP_PROTOCOL__PROTOCOL_H
+#define APG_SHOPNDROP_PROTOCOL__PROTOCOL_H
 
 // system includes
 #include <vector>
@@ -131,7 +131,7 @@ struct AddRideRequest: public Request
 {
     enum
     {
-        message_id = 2431248626
+        message_id = 1336774100
     };
 
     RideSummary          ride      ;
@@ -142,7 +142,7 @@ struct AddRideResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 231958649
+        message_id = 3741428193
     };
 
     uint32_t             ride_id   ; // valid range: [1, +inf)
@@ -153,7 +153,7 @@ struct CancelRideRequest: public Request
 {
     enum
     {
-        message_id = 3468537354
+        message_id = 2605092588
     };
 
     uint32_t             ride_id   ; // valid range: [1, +inf)
@@ -164,7 +164,7 @@ struct CancelRideResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 3203089937
+        message_id = 4158126716
     };
 };
 
@@ -173,7 +173,7 @@ struct GetRideRequest: public Request
 {
     enum
     {
-        message_id = 3114637117
+        message_id = 1726083611
     };
 
     uint32_t             ride_id   ; // valid range: [1, +inf)
@@ -184,7 +184,7 @@ struct GetRideResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 102890279
+        message_id = 3572710079
     };
 
     Ride                 ride      ;
@@ -195,7 +195,7 @@ struct AddOrderRequest: public Request
 {
     enum
     {
-        message_id = 934252208
+        message_id = 3850194728
     };
 
     uint32_t             ride_id   ; // valid range: [1, +inf)
@@ -208,7 +208,7 @@ struct AddOrderResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 2510687907
+        message_id = 1805698836
     };
 
     uint32_t             order_id  ; // valid range: [1, +inf)
@@ -219,7 +219,7 @@ struct CancelOrderRequest: public Request
 {
     enum
     {
-        message_id = 2224529624
+        message_id = 3450543285
     };
 
     uint32_t             order_id  ; // valid range: [1, +inf)
@@ -230,7 +230,7 @@ struct CancelOrderResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 3598508007
+        message_id = 3845586622
     };
 };
 
@@ -239,7 +239,7 @@ struct AcceptOrderRequest: public Request
 {
     enum
     {
-        message_id = 1926949505
+        message_id = 1004951276
     };
 
     uint32_t             order_id  ; // valid range: [1, +inf)
@@ -250,7 +250,7 @@ struct AcceptOrderResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 3292363773
+        message_id = 4151794340
     };
 };
 
@@ -259,7 +259,7 @@ struct DeclineOrderRequest: public Request
 {
     enum
     {
-        message_id = 3904779176
+        message_id = 3690205937
     };
 
     uint32_t             order_id  ; // valid range: [1, +inf)
@@ -270,7 +270,7 @@ struct DeclineOrderResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 2249557832
+        message_id = 2492539961
     };
 };
 
@@ -279,7 +279,7 @@ struct MarkDeliveredOrderRequest: public Request
 {
     enum
     {
-        message_id = 3753873058
+        message_id = 3659215545
     };
 
     uint32_t             order_id  ; // valid range: [1, +inf)
@@ -290,7 +290,7 @@ struct MarkDeliveredOrderResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 1727492075
+        message_id = 3969319611
     };
 };
 
@@ -299,7 +299,7 @@ struct RateShopperRequest: public Request
 {
     enum
     {
-        message_id = 2294103134
+        message_id = 3246489651
     };
 
     uint32_t             order_id  ; // valid range: [1, +inf)
@@ -311,11 +311,11 @@ struct RateShopperResponse: public generic_protocol::BackwardMessage
 {
     enum
     {
-        message_id = 3534476142
+        message_id = 3789681207
     };
 };
 
 } // namespace shopndrop_protocol
 
-#endif // APG_SHOPNDROP__PROTOCOL_H
+#endif // APG_SHOPNDROP_PROTOCOL__PROTOCOL_H
 

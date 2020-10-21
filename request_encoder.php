@@ -3,8 +3,9 @@
 namespace shopndrop_protocol;
 
 
-// includes
+// base include
 require_once __DIR__.'/../generic_protocol/request_encoder.php';
+// includes
 require_once __DIR__.'/../basic_objects/request_encoder.php';
 require_once __DIR__.'/../basic_parser/request_encoder.php';
 
@@ -143,7 +144,7 @@ function to_generic_request__Request( & $r )
 function to_generic_request__AddRideRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/AddRideRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/AddRideRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -156,7 +157,7 @@ function to_generic_request__AddRideRequest( & $r )
 function to_generic_request__AddRideResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/AddRideResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/AddRideResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -169,7 +170,7 @@ function to_generic_request__AddRideResponse( & $r )
 function to_generic_request__CancelRideRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/CancelRideRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/CancelRideRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -182,7 +183,7 @@ function to_generic_request__CancelRideRequest( & $r )
 function to_generic_request__CancelRideResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/CancelRideResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/CancelRideResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -194,7 +195,7 @@ function to_generic_request__CancelRideResponse( & $r )
 function to_generic_request__GetRideRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/GetRideRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/GetRideRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -207,7 +208,7 @@ function to_generic_request__GetRideRequest( & $r )
 function to_generic_request__GetRideResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/GetRideResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/GetRideResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -220,7 +221,7 @@ function to_generic_request__GetRideResponse( & $r )
 function to_generic_request__AddOrderRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/AddOrderRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/AddOrderRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -235,7 +236,7 @@ function to_generic_request__AddOrderRequest( & $r )
 function to_generic_request__AddOrderResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/AddOrderResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/AddOrderResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -248,7 +249,7 @@ function to_generic_request__AddOrderResponse( & $r )
 function to_generic_request__CancelOrderRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/CancelOrderRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/CancelOrderRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -261,7 +262,7 @@ function to_generic_request__CancelOrderRequest( & $r )
 function to_generic_request__CancelOrderResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/CancelOrderResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/CancelOrderResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -273,7 +274,7 @@ function to_generic_request__CancelOrderResponse( & $r )
 function to_generic_request__AcceptOrderRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/AcceptOrderRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/AcceptOrderRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -286,7 +287,7 @@ function to_generic_request__AcceptOrderRequest( & $r )
 function to_generic_request__AcceptOrderResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/AcceptOrderResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/AcceptOrderResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -298,7 +299,7 @@ function to_generic_request__AcceptOrderResponse( & $r )
 function to_generic_request__DeclineOrderRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/DeclineOrderRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/DeclineOrderRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -311,7 +312,7 @@ function to_generic_request__DeclineOrderRequest( & $r )
 function to_generic_request__DeclineOrderResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/DeclineOrderResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/DeclineOrderResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -323,7 +324,7 @@ function to_generic_request__DeclineOrderResponse( & $r )
 function to_generic_request__MarkDeliveredOrderRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/MarkDeliveredOrderRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/MarkDeliveredOrderRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -336,7 +337,7 @@ function to_generic_request__MarkDeliveredOrderRequest( & $r )
 function to_generic_request__MarkDeliveredOrderResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/MarkDeliveredOrderResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/MarkDeliveredOrderResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -348,7 +349,7 @@ function to_generic_request__MarkDeliveredOrderResponse( & $r )
 function to_generic_request__RateShopperRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/RateShopperRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/RateShopperRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -362,7 +363,7 @@ function to_generic_request__RateShopperRequest( & $r )
 function to_generic_request__RateShopperResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop/RateShopperResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "shopndrop_protocol/RateShopperResponse" );
 
     // base class
     $res .= \generic_protocol\to_generic_request__BackwardMessage( $r );
@@ -408,7 +409,7 @@ function to_generic_request( $obj )
     return \generic_protocol\to_generic_request( $obj );
 }
 
-# namespace_end shopndrop_protocol
+// namespace_end shopndrop_protocol
 
 
 ?>

@@ -1,5 +1,5 @@
-#ifndef APG_SHOPNDROP__STR_HELPER_H
-#define APG_SHOPNDROP__STR_HELPER_H
+#ifndef APG_SHOPNDROP_PROTOCOL__STR_HELPER_H
+#define APG_SHOPNDROP_PROTOCOL__STR_HELPER_H
 
 // system includes
 #include <sstream>
@@ -66,4 +66,4 @@ std::string to_string( const T & l )
 
 } // namespace shopndrop_protocol
 
-#endif // APG_SHOPNDROP__STR_HELPER_H
+#endif // APG_SHOPNDROP_PROTOCOL__STR_HELPER_H

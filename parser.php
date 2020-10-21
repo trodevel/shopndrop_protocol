@@ -3,8 +3,9 @@
 namespace shopndrop_protocol;
 
 
-// includes
+// base include
 require_once __DIR__.'/../generic_protocol/parser.php';
+// includes
 require_once __DIR__.'/../basic_objects/parser.php';
 require_once __DIR__.'/../basic_parser/parser.php';
 
@@ -407,24 +408,24 @@ protected static function parse_csv_array( $csv_arr )
 
     $handler_map = array(
         // messages
-        'shopndrop/AddRideRequest'         => 'parse__AddRideRequest',
-        'shopndrop/AddRideResponse'         => 'parse__AddRideResponse',
-        'shopndrop/CancelRideRequest'         => 'parse__CancelRideRequest',
-        'shopndrop/CancelRideResponse'         => 'parse__CancelRideResponse',
-        'shopndrop/GetRideRequest'         => 'parse__GetRideRequest',
-        'shopndrop/GetRideResponse'         => 'parse__GetRideResponse',
-        'shopndrop/AddOrderRequest'         => 'parse__AddOrderRequest',
-        'shopndrop/AddOrderResponse'         => 'parse__AddOrderResponse',
-        'shopndrop/CancelOrderRequest'         => 'parse__CancelOrderRequest',
-        'shopndrop/CancelOrderResponse'         => 'parse__CancelOrderResponse',
-        'shopndrop/AcceptOrderRequest'         => 'parse__AcceptOrderRequest',
-        'shopndrop/AcceptOrderResponse'         => 'parse__AcceptOrderResponse',
-        'shopndrop/DeclineOrderRequest'         => 'parse__DeclineOrderRequest',
-        'shopndrop/DeclineOrderResponse'         => 'parse__DeclineOrderResponse',
-        'shopndrop/MarkDeliveredOrderRequest'         => 'parse__MarkDeliveredOrderRequest',
-        'shopndrop/MarkDeliveredOrderResponse'         => 'parse__MarkDeliveredOrderResponse',
-        'shopndrop/RateShopperRequest'         => 'parse__RateShopperRequest',
-        'shopndrop/RateShopperResponse'         => 'parse__RateShopperResponse',
+        'shopndrop_protocol/AddRideRequest'         => 'parse__AddRideRequest',
+        'shopndrop_protocol/AddRideResponse'         => 'parse__AddRideResponse',
+        'shopndrop_protocol/CancelRideRequest'         => 'parse__CancelRideRequest',
+        'shopndrop_protocol/CancelRideResponse'         => 'parse__CancelRideResponse',
+        'shopndrop_protocol/GetRideRequest'         => 'parse__GetRideRequest',
+        'shopndrop_protocol/GetRideResponse'         => 'parse__GetRideResponse',
+        'shopndrop_protocol/AddOrderRequest'         => 'parse__AddOrderRequest',
+        'shopndrop_protocol/AddOrderResponse'         => 'parse__AddOrderResponse',
+        'shopndrop_protocol/CancelOrderRequest'         => 'parse__CancelOrderRequest',
+        'shopndrop_protocol/CancelOrderResponse'         => 'parse__CancelOrderResponse',
+        'shopndrop_protocol/AcceptOrderRequest'         => 'parse__AcceptOrderRequest',
+        'shopndrop_protocol/AcceptOrderResponse'         => 'parse__AcceptOrderResponse',
+        'shopndrop_protocol/DeclineOrderRequest'         => 'parse__DeclineOrderRequest',
+        'shopndrop_protocol/DeclineOrderResponse'         => 'parse__DeclineOrderResponse',
+        'shopndrop_protocol/MarkDeliveredOrderRequest'         => 'parse__MarkDeliveredOrderRequest',
+        'shopndrop_protocol/MarkDeliveredOrderResponse'         => 'parse__MarkDeliveredOrderResponse',
+        'shopndrop_protocol/RateShopperRequest'         => 'parse__RateShopperRequest',
+        'shopndrop_protocol/RateShopperResponse'         => 'parse__RateShopperResponse',
     );
 
     $type = $csv_arr[0][0];
@@ -440,7 +441,7 @@ protected static function parse_csv_array( $csv_arr )
 
 }
 
-# namespace_end shopndrop_protocol
+// namespace_end shopndrop_protocol
 
 
 ?>

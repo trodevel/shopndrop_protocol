@@ -3,11 +3,14 @@
 namespace shopndrop_protocol;
 
 
-// includes
+// base include
 require_once __DIR__.'/../generic_protocol/dummy_creator.php';
+// includes
 require_once __DIR__.'/../basic_parser/dummy_creator.php';
 require_once __DIR__.'/../basic_objects/dummy_creator.php';
-require_once 'object_initializer.php';
+
+// own includes
+require_once __DIR__.'/../shopndrop_protocol/object_initializer.php';
 
 // enums
 
@@ -347,7 +350,7 @@ function create_dummy__RateShopperResponse()
     return $res;
 }
 
-# namespace_end shopndrop_protocol
+// namespace_end shopndrop_protocol
 
 
 ?>
