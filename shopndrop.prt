@@ -18,11 +18,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# $Revision: 13559 $ $Date:: 2020-08-25 #$ $Author: serge $
+# $Revision: 13991 $ $Date:: 2020-10-21 #$ $Author: serge $
 
 ############################################################
 
-protocol shopndrop
+protocol shopndrop_protocol
 
 ############################################################
 
